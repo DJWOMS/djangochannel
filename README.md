@@ -6,6 +6,8 @@
 
 <h2 align="center">Django Channel</h2>
 
+[![Join the chat at https://gitter.im/djangochannel/community](https://badges.gitter.im/djangochannel/community.svg)](https://gitter.im/djangochannel/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [Сайт](https://djangochannel.com)
 
 ### Описание проекта:
