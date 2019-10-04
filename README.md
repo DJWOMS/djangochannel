@@ -9,6 +9,9 @@
 [Сайт](https://djangochannel.com)
 
 ### Описание проекта:
+
+[![Join the chat at https://gitter.im/djangochannel/community](https://badges.gitter.im/djangochannel/community.svg)](https://gitter.im/djangochannel/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Проект призван помочь людям в обучении программированию, веб разработке и английскому языку.
 В обучении и понимании материала поможет сообщество и личный преподаватель.
 Вы можете найти себе товарища или группу людей для совместного обучения и выполнения задач.
