@@ -1,0 +1,14 @@
+{% extends 'profile/base.html' %}
+{% load staticfiles count_not_read_mess courses_tags %}
+
+{% block content %}
+    <div class="personal-record-block">
+        <div class="profile-block-content profile-block">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-success" type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

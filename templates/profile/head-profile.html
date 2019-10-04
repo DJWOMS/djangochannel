@@ -1,0 +1,96 @@
+{% load staticfiles count_not_read_mess courses_tags friend_requests_tags %}
+<div class="cover">
+    {% if profile.cover %}
+        <img class="img-cover" src="{{ profile.cover.url }}">
+    {% else %}
+        <img class="img-cover" src="{% static 'img/cover.jpg' %}">
+    {% endif %}
+</div>
+
+<div class="block-avatar">
+    <div class="">
+        {% if user.profile.image %}
+            <a href="{% url 'edit-avatar' %}">
+                <img class="img-avatar" src="{{ user.profile.image.url }}">
+            </a>
+        {% else %}
+            <a href="{% url 'edit-avatar' %}">
+                <img class="img-avatar" src="{% static 'img/uicon.jpg' %}">
+            </a>
+        {% endif %}
+    </div>
+    <div>
+        <p class="p-username">{{ user.username }}</p>
+    </div>
+</div>
+<input id="menu-toggle-input" type="checkbox"/>
+<label class="menu-toggle profile-menu-tog" for="menu-toggle-input">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</label>
+<nav class="profile-nav profile-menu">
+    <ol>
+        <li class="menu-item">
+            <a href="{% url 'my_courses' %}" class="btn status-master btn-menu-profile">Курсы</a>
+            <span class="counter">{% my_course user %}</span>
+        </li>
+        <li class="menu-item">
+            <a href="{% url 'messages' %}" class="btn status-master btn-menu-profile">Сообщения</a>
+            <span class="counter">{% not_read_mess_all user %}</span>
+        </li>
+        <li class="menu-item">
+            <a href="{% url 'personal_records' pk=user.id %}" class="btn status-master btn-menu-profile">Личный
+                дневник</a>
+        </li>
+        <li class="menu-item">
+            <a href="{% url 'all_profiles' %}" class="btn status-master btn-menu-profile">Профили</a>
+        </li>
+        <li class="menu-item">
+            <a href="{% url 'all_friends' %}" class="btn status-master btn-menu-profile">Друзья</a>
+        </li>
+        <li class="menu-item">
+            <a href="{% url 'all_followers' %}" class="btn status-master btn-menu-profile">Подписчики</a>
+        </li>
+        <li class="menu-item">
+            <a href="{% url 'password_edit' %}" class="btn status-master btn-menu-profile">Сменить пароль</a>
+        </li>
+    </ol>
+</nav>
+<diV class="status-master">
+    <a href="{% url 'my_courses' %}" class="btn status-master btn-menu-profile">Курсы</a>
+    <span class="counter">{% my_course user %}</span>
+    <a href="{% url 'messages' %}" class="btn status-master btn-menu-profile">Сообщения</a>
+    <span class="counter">{% not_read_mess_all user %}</span>
+    <a href="{% url 'personal_records' pk=user.id %}" class="btn status-master btn-menu-profile">Личный
+        дневник</a>
+    <a href="{% url 'public_records' %}" class="btn status-master btn-menu-profile">Все публичные
+        записи</a>
+    <a href="{% url 'all_profiles' %}" class="btn status-master btn-menu-profile">Профили</a>
+    <a href="{% url 'all_friends' %}" class="btn status-master btn-menu-profile">Друзья</a>
+    <span class="counter">{% friend_count user %}</span>
+    <a href="{% url 'all_followers' %}" class="btn status-master btn-menu-profile">Подписчики</a>
+    <span class="counter">{% followers_count user %}</span>
+    <a href="{% url 'request_friends' %}" class="btn status-master btn-menu-profile">Заявки в друзья</a>
+    <span class="counter">{% friend_request user %}</span>
+    <a href="{% url 'password_edit' %}" class="btn status-master btn-menu-profile">Сменить пароль</a>
+</diV>
+<div class="profile-search">
+    <form class="input-group" action="{% url 'search_user' %}" method="get"
+          accept-charset="utf-8">
+        <input type="text" placeholder="Поиск" class="input form-control" name="qus">
+        <span class="input-group-btn">
+                <button type="submit" class="form-control" class="btn btn-outline-white">
+                    <i class="fa fa-search"></i>
+                </button>
+             </span>
+    </form>
+</div>
+
+
+{#            <a href="{% url 'special' %}" class="btn status-master btn-menu-profile">Дерево</a>#}
+{#            <a href="{% url 'my_courses' %}" class="btn status-master btn-menu-profile">Специализация</a>#}
+{#            <a href="{% url 'messages' %}" class="btn status-master btn-menu-profile">Навыки</a>#}
+
+

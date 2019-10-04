@@ -1,0 +1,103 @@
+{% load staticfiles %}
+<div class="header">
+    <nav class="navbar navbar-expand-lg navbar-dark menu">
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="/">
+            <img style="width: 80px;" src="{% static 'img/logo.svg' %}" alt="django channel">
+        </a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Главная
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_courses' %}">Курсы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blog' %}">Статьи</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sections' %}">Форум</a>
+                </li>
+                <li class="nav-item">
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'list_review' %}">Отзывы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'all_groups' %}">Сообщества</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'donate-page' %}">Donate</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-nav mr-0">
+                {% if user.is_active %}
+                    <li class="nav-item my-0">
+                        <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                    </li>
+                    <li class="nav-item my-0">
+                        <a class="nav-link" href="/accounts/logout/">Выход</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item my-0">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">
+                            Вход
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+</div>
+{# Login modal #}
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-dialog-centered auth-modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Вход</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                {% include 'account/ajax_login.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+{# Signup modal #}
+<div class="modal fade" id="signupModal">
+    <div class="modal-dialog modal-dialog-centered auth-modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Регистрация</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                {% include 'account/ajax_signup.html' %}
+            </div>
+        </div>
+    </div>
+</div>

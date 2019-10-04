@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Спасибо Вам за поддержку!</h1>
+
+{#    {% if user.is_authenticated %}#}
+{#        <form class="form-inline" method="post" action="{% url 'pay-initialization' %}">#}
+{#            {% csrf_token %}#}
+{#            <input name="item" hidden value="2">#}
+{#            <button class="btn btn-success btn-course">#}
+{#                Пожертвовать 200 руб.#}
+{#            </button>#}
+{#        </form>#}
+{#    {% else %}#}
+{#        <p>Авторизуйтесь</p>#}
+{#    {% endif %}#}
+    <a class="btn btn-success btn-course" href="https://donatepay.ru/don/186076">Пожертвовать</a>
+{% endblock content %}

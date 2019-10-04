@@ -1,0 +1,27 @@
+{% extends 'profile/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    <div class="personal-record-block">
+        <div class="profile-block-content profile-block">
+            {% for mess in messages %}
+                {% if mess.user == request.user %}
+                    <div class="private-mess-creator">
+                {% else %}
+                    <div class="private-mess-recipient">
+                {% endif %}
+            {{ mess.user }}
+            <p>{{ mess.text }}</p>
+            <p>{{ mess.created }}</p>
+            </div>
+            {% endfor %}
+            <div class="">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button class="btn btn-success" type="submit">Отправить</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block home %}
+    <div class="grid-profile">
+        <div class="profile-header">
+            {% include 'profile/head-profile.html' %}
+        </div>
+        <div class="profile-body">
+                {% block content %}
+
+                {% endblock content %}
+        </div>
+    </div>
+{% endblock home %}

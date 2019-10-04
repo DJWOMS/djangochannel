@@ -1,0 +1,13 @@
+<div class="personal-record-block">
+    {% for rec in record_all %}
+        <div class="profile-block">
+            <a href="{% url 'detail_record' pk=rec.id %}">{{ rec }}</a>
+        </div>
+    {% endfor %}
+</div>
+{% if you_record or my_record %}
+    <a href="{% url 'update_records' pk=one_record.id %}"
+       class="btn status-master btn-menu-profile">Редактировать</a>
+    <a href="{% url 'delete_record' pk=one_record.id %}"
+       class="btn status-master btn-menu-profile">Удалить</a>
+{% endif %}

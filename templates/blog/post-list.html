@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles bootstrap4 meta_tag %}
+{% meta object_list %}
+
+{% block news %}
+    {% for new in object_list %}
+        <div class="block-news" id="triangle-{{ forloop.counter }}"
+             onmouseover="mouseImg('triangle-{{ forloop.counter }}')">
+            <div>
+                <div class="title-news">
+                    <h3 class="title-list-news">
+                        <a class="news" href="{{ new.get_absolute_url }}">{{ new.title }}</a>
+                    </h3>
+                </div>
+            </div>
+            <hr class="news-hr">
+            <div class="">
+                <div class="no-padding-col">{{ new.mini_text|safe }}</div>
+                <div class="date">{{ new.author }} | {{ new.published_date }}</div>
+            </div>
+            <hr class="news-hr">
+            <div class="">
+                <div class="">
+                    <img class="icon-16" src="{% static 'icon/view.svg' %}" alt="Kiwi standing on oval">{{ new.viewed }}
+                </div>
+                <div class="">
+                    {% for tag in new.tag.all %}
+                        <a href="{% url 'tag_post' tag=tag.slug %}">#{{ tag.name }} </a>
+                    {% endfor %}
+                </div>
+                <div class="">
+                    Категория -
+                    <a href="{% url 'category' category=new.category.slug %}">
+                        {{ new.category.name }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="">
+        <a href="{% url 'user_post' %}">Предложить статью</a>
+    </div>
+    {% bootstrap_pagination page_obj pages_to_show=4 %}
+{% endblock news %}

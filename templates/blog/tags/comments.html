@@ -1,0 +1,34 @@
+{#{% for comm in comments %}#}
+{% load mptt_tags %}
+
+{% recursetree comments %}
+    <div class="block-comment">
+        <div class="grid-two-col">
+            <div>
+                {{ node.user }}
+            </div>
+            <div class="btn-comment-self">
+                {% if context.user.is_authenticated and context.user.id != node.user.id %}
+                    <a href="{% url 'answer_comment' pk=node.id %}" class="new-comment"> Ответить</a>
+                {% endif %}
+                {% if context.user.id == node.user.id and context.user.is_authenticated %}
+                    <a class="new-comment" href="{% url 'comment_update' pk=node.id %}">Редактировать</a>
+                    <a class="new-comment" href="{% url 'delete_comment' pk=node.id %}">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div>{{ node.text|safe }}</div>
+        <hr>
+        <div class="date">
+            Добавлен - {{ node.date }} | Изменен - {{ node.update }}
+        </div>
+    </div>
+    {% if not node.is_leaf_node %}
+        <div style="padding-left: 15px;">
+            {{ children }}
+        </div>
+    {% endif %}
+
+{% endrecursetree %}
+{#{% endfor %}#}

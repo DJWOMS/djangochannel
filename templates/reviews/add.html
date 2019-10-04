@@ -1,0 +1,11 @@
+{% extends 'reviews/base.html' %}
+{% load bootstrap4 %}
+{% block reviews %}
+    <div class="subgrid_content">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-success small">Отправить</button>
+        </form>
+    </div>
+{% endblock reviews %}

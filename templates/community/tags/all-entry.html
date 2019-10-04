@@ -1,0 +1,26 @@
+{% for ent in entry %}
+    <h1 class="title-news">{{ ent.title }}</h1>
+    <div class="">
+        Автор - {{ ent.author }}
+    </div>
+    <hr>
+    <div class="row-message col-lg-6">
+        <a class="new-comment"
+           href="{% url 'edit_record' pk=ent.id %}">Редактировать запись</a>
+    </div>
+    <div class="row-message col-lg-6">
+        <a class="new-comment"
+           href="{% url 'delete_record' pk=ent.id %}">Удалить запись</a>
+    </div>
+    <div class="block-comment">
+        <div class="grid-two-col">
+            <div>{{ ent.text|safe }}</div>
+        </div>
+    </div>
+{% endfor %}
+
+{% for ref in links %}
+    <div class="block-loading-animation">
+        <a href="{{ ref.link }}">{{ ref }}</a>
+    </div>
+{% endfor %}

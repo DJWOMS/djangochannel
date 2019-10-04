@@ -1,0 +1,63 @@
+{% extends 'profile/base.html' %}
+{% load bootstrap4 %}
+{% load mptt_tags %}
+{% block content %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-5 profile-block-full">
+            {% recursetree object_list %}
+                <div class="row tweet">
+                    <div class="col-12">
+                        <p>
+                            <a href="{% url 'add_spec' pk=node.id %}">
+                                {{ node.title }} - <br>
+                                n_u - {{ user.skills }}<br>
+                            </a>
+                        </p>
+                        {% for skill in  user.skills_set.all %}
+                            {% if skill.skill.id  == node.id %}
+                                - взято <br>
+                                cat - {{ skill.skill }}
+                                {% if skill.skill.points_need <= skill.points %}
+                            {% endif %}
+
+                            {% if skill.skill.parent == node.id and skill.skill.points_need <= skill.points %}
+                                можно<br>
+                            {% else %}
+                                нельзя<br>
+                            {% endif %}
+                        {% endfor %}
+                        Мастерство - {{ node.mastery_need }} <br>
+                        Балы - {{ node.points_need }}<br>
+                    </div>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    {#                                    {% for ch in node.children.all %}#}
+                                    {#                                        <a href="">#}
+                                    {#                                            {% if user.skills.skill.id == ch.id %}#}
+                                    {#                                                <a href="{% url 'add_spec' pk=ch.id %}">#}
+                                    {#                                                    {{ ch.title }}#}
+                                    {#                                                </a>#}
+                                    {#                                            {% endif %}#}
+                                    {#                                            {% if user.skills.skill.id == ch.id %}#}
+                                    {#                                                - взято#}
+                                    {#                                            {% endif %}#}
+                                    {#                                        </a>#}
+                                    {#                                        <br>#}
+                                    {#                                        Мастерство - {{ ch.mastery_need }} <br>#}
+                                    {#                                        Балы - {{ ch.points_need }}<br>#}
+                                    {#                                    {% endfor %}#}
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endrecursetree %}
+        </div>
+    </div>
+{% endblock content %}

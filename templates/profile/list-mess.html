@@ -1,0 +1,23 @@
+{% extends 'profile/base.html' %}
+{% load count_not_read_mess %}
+{% block content %}
+    <div class="personal-record-menu">
+        <div class="personal-record-menu-btn">
+            <a class="btn btn-danger" href="{% url 'create_message' %}">Написать сообщение</a>
+        </div>
+    </div>
+    <div class="personal-record-block">
+        {% for mess in object_list %}
+            <div class="profile-block">
+                <div class="profile-block-title">
+                    <a href="{% url 'detail_message' pk=mess.id %}">
+                        {{ mess.creator }} => {{ mess.recipient }}
+                    </a>
+                </div>
+                <div class="profile-block-title">
+                    <h3 style="text-align: center;">{% not_read_mess_room mess.id user %}</h3>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'courses/base.html' %}
+{% block course-title %}
+{% endblock course-title %}
+
+{% block course-body %}
+    <div class="page-section">
+        <div class="container">
+            {% for course in object_list %}
+                <a class="course-item" href="{% url 'courses_detail' course.category.slug course.slug %}">
+                    <div class="course-info">
+                        <div class="tag-item">{{ course.category }}</div>
+                        <div class="course-title">{{ course.title }}</div>
+                    </div>
+                    <div class="course-extras">
+                        <div class="">
+                            Количество занятий {{ course.count_tasks }},
+                            количество мест {{ course.available }}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock course-body %}

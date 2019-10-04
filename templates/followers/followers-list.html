@@ -1,0 +1,32 @@
+{% extends 'profile/base.html' %}
+{% load staticfiles bootstrap4 %}
+
+{% block content %}
+    <div class="personal-record-menu">
+        <h3>Подписчики</h3>
+        <select onchange="location = this.value;">
+            <option value="/profile/sorted/?all=all">
+                Сортировать
+            </option>
+            <option value="/profile/sorted/?all=all">
+                Все
+            </option>
+        </select>
+    </div>
+
+    <div class="list-profile">
+        {% for follower in object_list %}
+            <div class="list-profile-block">
+                {% if follower.image %}
+                    <img class="avatar" src="{{ follower.image.url }}"/>
+                {% else %}
+                    <img class="avatar" src="{% static 'img/uicon.jpg' %}">
+                {% endif %}
+                {#                <a href="{% url 'public_profile' pk=user.id %}" class="list-profile-username">{{ user }}</a>#}
+                <a href="{% url 'public_profile' pk=follower.friends_id %}"
+                   class="list-profile-username">{{ follower.friends.username }}</a>
+            </div>
+        {% endfor %}
+    </div>
+    <br>
+{% endblock content %}

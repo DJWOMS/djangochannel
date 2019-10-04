@@ -1,0 +1,9 @@
+<div class="personal-record-menu">
+    {% for category in categories %}
+        <div class="page-nav-item">
+            <a class="page-nav-link" href="{% url 'courses_list' slug=category.slug %}">
+                {{ category.title }}
+            </a>
+        </div>
+    {% endfor %}
+</div>

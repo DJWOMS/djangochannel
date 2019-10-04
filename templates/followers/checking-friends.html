@@ -1,0 +1,15 @@
+{% if is_friend %}
+    <a href="{% url 'delete_friends' pk=pk %}" class="btn status-master btn-menu-profile">
+        Убрать из друзей
+    </a>
+{% elif is_follow %}
+    <p class="btn status-master btn-menu-profile">Подписан на Вас</p>
+{% elif petition %}
+    <a href="{% url 'cancel_petition' pk=pk %}"
+       class="btn status-master btn-menu-profile">Отменить заявку</a>
+{% elif cancel_petition %}
+    <a href="{% url 'accept_friendship_in_prof' pk=follower.id %}"
+       class="btn status-master btn-menu-profile">Принять</a>
+{% else %}
+    <a href="{% url 'add_friends' pk=pk %}" class="btn status-master btn-menu-profile">Добавить в друзья</a>
+{% endif %}

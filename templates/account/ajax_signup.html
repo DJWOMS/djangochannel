@@ -1,0 +1,39 @@
+<form id="signup_form" method="post" action="/accounts/signup/" class="need_auth">
+    {% csrf_token %}
+    <p class="error-user" style="color: red;"></p>
+    <p><input type="text"
+              name="username"
+              placeholder="Имя пользователя"
+              autofocus="autofocus"
+              minlength="4"
+              maxlength="150"
+              required=""
+              id="id_username"
+              class="form-control">
+    </p>
+    <p class="error-email" style="color: red;"></p>
+    <p><input type="email"
+              name="email"
+              placeholder="E-mail адрес"
+              id="id_email"
+              class="form-control">
+    </p>
+    <p class="error-password1" style="color: red;"></p>
+    <p><input type="password"
+              name="password1"
+              placeholder="Пароль"
+              required="" id="id_password1"
+              aria-autocomplete="list"
+              class="form-control">
+    </p>
+    <p class="error-password2" style="color: red;"></p>
+    <p><input type="password"
+              name="password2"
+              placeholder="Пароль (еще раз)"
+              required=""
+              id="id_password2"
+              class="form-control">
+    </p>
+
+    <button class="btn btn-primary" type="submit">Регистрация</button>
+</form>

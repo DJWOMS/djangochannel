@@ -1,0 +1,9 @@
+{% load staticfiles %}
+<div class="info-user">
+    <p class="user-name">{{ user.username }}</p>
+    {% if user.profile.image %}
+        <img class="user-info-avatar" src="{{ user.profile.image.url }}"/>
+    {% else %}
+        <img class="user-info-avatar" src="{% static 'img/uicon.jpg' %}">
+    {% endif %}
+</div>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="personal-record-menu">
+{#        <h5>Создание группы</h5>#}
+    </div>
+    <div class="col-12">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" type="submit">Сохранить</button>
+        </form>
+    </div>
+{% endblock content %}

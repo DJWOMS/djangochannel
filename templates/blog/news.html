@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    {% for new in object_list %}
+        <div class="row block-news">
+            <div class="col-sm-12 md-12 lg-12 xl-12">
+                <div class="row">
+                    <div class="col-12 title-news">
+                        <h3 class="title-list-news">
+                            <a class="news"
+                               href="{% url 'single_post' pk=new.id %}">{{ new.title }}</a>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row date">{{ new.created_date }}</div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">{{ new.mini_text|safe }}</div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+{#                        {% for tag in new.tag.all %}#}
+{#                            <a href="#">#{{ tag.tag }} </a>#}
+{#                        {% endfor %}#}
+                    </div>
+                    <div class="col-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% bootstrap_pagination  page_obj pages_to_show=4 %}
+{% endblock content %}

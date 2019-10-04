@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load staticfiles entry_group_tags %}
+
+{#{% block title %}{{ group.title }}{% endblock title %}#}
+{% block content %}
+    <div class="container-single">
+            <h1 class="title-news">{{ group.title }}</h1>
+            <div class="cover">
+                {% if group.image %}
+                    <img class="img-cover" src="{{ group.image.url }}">
+                {% else %}
+                    <img class="img-cover" src="{% static 'img/cover.jpg' %}">
+                {% endif %}
+            </div>
+            <hr>
+            <div class="article">{{ group.desc|safe }} </div>
+        <hr>
+        <div class="row-message col-lg-12">
+            <div></div>
+            <div class="row-message col-lg-6">
+                {% if user.is_authenticated %}
+                    <a class="new-comment"
+                       href="{% url 'add_news' pk=group.id %}">Добавить новость</a>
+                {% endif %}
+            </div>
+            <div class="row-message col-lg-6">
+                {% if user.is_authenticated %}
+                    <a class="new-comment"
+                       href="{% url 'add_link' pk=group.id %}">Добавить ссылку</a>
+                {% endif %}
+            </div>
+            <div class="row-message col-lg-6">
+                {% if user.is_authenticated %}
+                    <a class="new-comment"
+                       href="{% url 'enter_group' pk=group.id %}">Вступить в группу</a>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+        <div>
+            {% all_entry group.id %}
+        </div>
+        <div>{% all_link group.id %}</div>
+    </div>
+    <div class="row-message col-lg-6">
+        {% if user.is_authenticated and group.founder_id == user.id %}
+            <a class="new-comment"
+               href="{% url 'delete_group' pk=group.id %}">Удалить группу</a>
+        {% endif %}
+    </div>
+    <div class="row-message col-lg-6">
+        {% if user.is_authenticated and group.founder_id == user.id %}
+            <a class="new-comment"
+               href="{% url 'edit_group' pk=group.id %}">Редактировать группу</a>
+        {% endif %}
+    </div>
+{% endblock content %}

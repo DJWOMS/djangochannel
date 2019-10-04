@@ -1,0 +1,35 @@
+{% extends 'profile/base.html' %}
+
+{% block content %}
+    {% if user.id == user.id %}
+        <div class="personal-record-menu">
+            <select onchange="location = this.value;">
+                <option value="/profile/sorted/?all=all">
+                    Сортировать
+                </option>
+                <option value="/profile/sorted/?all=all">
+                    Все
+                </option>
+                <option value="/profile/sorted/?update={% now "Y-m-d" %}">
+                    Редактированные
+                </option>
+                <option value="/profile/sorted/?pbl=False">
+                    Личные
+                </option>
+                <option value="/profile/sorted/?public=True">
+                    Публичные
+                </option>
+            </select>
+        </div>
+        <div class="personal-record-menu-btn">
+            <a href="{% url 'add_record' pk=user.id %}" class="btn status-master btn-menu-profile">Добавить запись</a>
+        </div>
+        <div class="personal-record-block">
+            {% for record in object_list %}
+                <div class="profile-block">
+                    <a href="{% url 'detail_record' pk=record.id %}">{{ record }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock content %}

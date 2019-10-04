@@ -1,0 +1,37 @@
+{% extends 'profile/base.html' %}
+{% load staticfiles all_profiles_tags %}
+{% block content %}
+    <div class="personal-record-block">
+        <div class="profile-block-content profile-block">
+            <br>
+            <h1 class="title-news">{{ diary.title }}</h1>
+            <hr>
+            <div class="col-6">
+                <div>
+                    <small>Автор -
+                        {{ diary.user.username }}
+                    </small>
+                </div>
+                <div class="col-6">
+                    <small>Добавлена -
+                        {{ diary.date }}
+                    </small>
+                </div>
+                {% if diary.update is not None %}
+                    <div class="col-6">
+                        <small>Редактирована -
+                            {{ diary.update }}
+                        </small>
+                    </div>
+                {% endif %}
+                <hr>
+                <br>
+                <div class="col-12">
+                    <div class="">{{ diary.note|safe }} </div>
+                </div>
+                <br>
+                <div>{% public_record diary.id user %}</div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

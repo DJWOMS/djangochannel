@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles all_profiles_tags friend_requests_tags %}
+{% block home %}
+    <div class="grid-profile">
+        <div class="profile-header">
+            <div class="cover">
+                {% if profile.cover %}
+                    <img class="img-cover" src="{{ profile.cover.url }}">
+                {% else %}
+                    <img class="img-cover" src="{% static 'img/cover.jpg' %}">
+                {% endif %}
+            </div>
+            <div class="block-avatar">
+                <div class="">
+                    {% if profile.image %}
+                        <a href="{% url 'edit-avatar' %}">
+                            <img class="img-avatar" src="{{ profile.image.url }}">
+                        </a>
+                    {% else %}
+                        <a href="{% url 'edit-avatar' %}">
+                            <img class="img-avatar" src="{% static 'img/uicon.jpg' %}">
+                        </a>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="p-username">{{ profile.name }}</p>
+                </div>
+            </div>
+            <input id="menu-toggle-input" type="checkbox">
+            <label class="menu-toggle profile-menu-tog" for="menu-toggle-input">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <nav class="profile-nav profile-menu">
+                <ol>
+                    {% friends_of_follower profile.id user %}
+                </ol>
+            </nav>
+            <div class="status-master">
+                {% friends_of_follower profile.id user %}
+                <div class="profile-body">
+                    {% block content %}
+                        {% public_record_all profile.user.id %}
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock home %}

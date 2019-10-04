@@ -1,0 +1,51 @@
+{% extends 'courses/my-course-detail.html' %}
+{% load bootstrap4 %}
+{% block course-task %}
+    <div class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    <button class="close" data-dismiss="alert">
+                        <small><sup>x</sup></small>
+                    </button>
+                    <p class="reviews">{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5 style="text-align: center;">{{ task.title }}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="">
+            {{ task.description|safe }}
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div>
+            {% for mess in answer %}
+                {% if mess.user == request.user %}
+                    <div class="private-mess-creator">
+                {% else %}
+                    <div class="private-mess-recipient">
+                {% endif %}
+            {{ mess.user }}
+            <p>{{ mess.answer|safe }}</p>
+            <p>{{ mess.created }}</p>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button class="btn btn-success" type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+    </div>
+{% endblock course-task %}

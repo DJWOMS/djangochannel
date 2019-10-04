@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form class="form-inline" method="POST" action="{% url 'pay-redirect' %}">
+        {% csrf_token %}
+        <input name="item" hidden value="{{ course.id }}">
+        <button type="submit" class="btn  btn-default">Buy</button>
+    </form>
+{% endblock content %}

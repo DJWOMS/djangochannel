@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load categories_tags %}
+{% block title %}Блог - Django Channel{% endblock title %}
+{% block description %}Блог - Django Channel{% endblock description %}
+{% block content %}
+    <div class="container-news-grid">
+        {% menu_categories %}
+        <div class="news-grid">
+            {% block news %} {% endblock news %}
+        </div>
+    </div>
+{% endblock content %}

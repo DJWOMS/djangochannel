@@ -1,0 +1,19 @@
+{% extends 'profile/base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+    <h5>Друзья</h5>
+    <div class="field-name col-3">
+        {% for table_entry in object_list %}
+            <br>
+            {% if table_entry.subscribed == user %}
+                <a href="{% url 'public_profile' pk=table_entry.friends_id %}"
+                   class="btn status-master btn-menu-profile">{{ table_entry.friends.username }}</a>
+            {% endif %}
+            {% if table_entry.friends == user %}
+                <a href="{% url 'public_profile' pk=table_entry.subscribed_id %}"
+                   class="btn status-master btn-menu-profile">{{ table_entry.subscribed.username }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

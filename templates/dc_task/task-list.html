@@ -1,0 +1,8 @@
+{% extends 'dc_task/base.html' %}
+{% block content %}
+    <h1>В разработке</h1>
+    {% for task in tasks %}
+        <a href="{% url 'dc_task_detail' task.category.slug task.slug %}">{{ task.title }}</a><br>
+        {{ task.description }}<hr>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,7 @@
+{% extends 'blog/base.html' %}
+{% block news %}
+<form method="post">{% csrf_token %}
+    <p>Хотите удалить "{{ comment }}"?</p>
+    <input type="submit" value="Удалить">
+</form>
+{% endblock news %}

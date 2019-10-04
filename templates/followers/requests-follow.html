@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block content %}
+    <h3>Заявки</h3>
+    <div class="field-name col-3">
+        {% for follower in object_list %}
+            <br>
+            <a href="{% url 'public_profile' pk=follower.friends.profile.user.id %}"
+            >{{ follower.friends.username }}</a> - Предлагает дружбу
+            <br>
+            <a href="{% url 'accept_friendship' pk=follower.id %}"
+               class="btn status-master btn-menu-profile">Добавить в друзья</a>
+            <a href="{% url 'not_create' pk=follower.id %}"
+               class="btn status-master btn-menu-profile">Оставить в подписчиках</a>
+        {% endfor %}
+    </div>
+{% endblock content %}

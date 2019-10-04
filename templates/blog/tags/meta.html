@@ -1,0 +1,10 @@
+{% block title %}
+    {% if object.category %}
+        {{ object.category.name }}
+    {% endif %}
+{% endblock title %}
+{% block description %}
+    {% if object.category %}
+        {{ object.get_category_description }}
+    {% endif %}
+{% endblock description %}

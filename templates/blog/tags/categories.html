@@ -1,0 +1,70 @@
+{% load mptt_tags %}
+<div class="side-bar">
+    <div>
+        <form class="input-group" action="{% url 'search' %}" method="get"
+              accept-charset="utf-8">
+            <input type="text" placeholder="Поиск" class="input form-control" name="q">
+            <span class="input-group-btn">
+                <button type="submit" class="form-control" class="btn btn-outline-white">
+                    <i class="fa fa-search"></i>
+                </button>
+             </span>
+        </form>
+    </div>
+    <div class="list-group search-group">
+        <h5 class="sidebar-title">Категории</h5>
+        <ul class="accordion-menu mptt-ul">
+            {% recursetree categories %}
+                <li class="mptt-li">
+                    <div class="dropdownlink">
+                        <a class="mptt-a" href="{% url 'category' category=node.slug %}">{{ node.name }}</a>
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                    <ul class="submenuItems-2 mptt-ul">
+                            {{ children }}
+
+                    </ul>
+                </li>
+            {% endrecursetree %}
+        </ul>
+    </div>
+    <div class="list-group search-group">
+        <h5 class="search-year-title">Фильтр</h5>
+        <ul>
+            <li>
+                <a class="search-year-title" href="/blog/published/?d={% now "Y-m-d" %}">За день</a>
+            </li>
+            <li>
+                <a class="search-year-title" href="/blog/published/?w={% now "W" %}">За неделю</a>
+            </li>
+        </ul>
+    </div>
+    <div class="list-group search-group search-year">
+        <form action="{% url 'sorted' %}" method="get">
+            <h5 class="search-year-title">Год</h5>
+            <p><input name="y" type="radio" value="2018"> 2018</p>
+            <p><input checked name="y" type="radio" value="2019"> 2019</p>
+            <h5 class="search-year-title">Месяц</h5>
+            <p>
+                <select class="table search-m-title" name="m">
+                    <option selected name="m" value="01">Январь</option>
+                    <option name="m" value="02">Февраль</option>
+                    <option name="m" value="03">Март</option>
+                    <option name="m" value="04">Апрель</option>
+                    <option name="m" value="05">Май</option>
+                    <option name="m" value="06">Июнь</option>
+                    <option name="m" value="07">Июль</option>
+                    <option name="m" value="08">Август</option>
+                    <option name="m" value="09">Сентябрь</option>
+                    <option name="m" value="10">Октябрь</option>
+                    <option name="m" value="11">Ноябрь</option>
+                    <option name="m" value="12">Декабрь</option>
+                </select>
+            </p>
+            <p>
+                <button class="btn btn-green" type="submit">Выбрать</button>
+            </p>
+        </form>
+    </div>
+</div>
+

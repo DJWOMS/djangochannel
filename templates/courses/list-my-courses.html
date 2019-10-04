@@ -1,0 +1,20 @@
+{% extends 'profile/base.html' %}
+
+{% block content %}
+    <div class="personal-record-block">
+        {% for course in object_list %}
+            <div class="profile-block">
+                <div class="profile-block-title">
+                    <a href="{% url 'my_course' course.id %}"><h6>{{ course.title }}</h6></a>
+                </div>
+                <div class="profile-block-title">
+{#                    {% if course.date_start and course.lessons_time %}#}
+                    {% if course.task.answers %}
+                        <p>Начало: {{ course.date_start }}</p>
+                        <p>Время: {{ course.lessons_time }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

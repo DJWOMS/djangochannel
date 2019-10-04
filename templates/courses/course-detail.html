@@ -1,0 +1,170 @@
+{% extends 'courses/base.html' %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block course-body %}
+    <div class="container">
+        <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        <button class="close" data-dismiss="alert">
+                            <small><sup>x</sup></small>
+                        </button>
+                        <p class="reviews">{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row">
+            <!--Описание курса-->
+            <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5">
+                {% if course.image %}
+                    <img class="img-whom-course" src="{{ course.image.url }}"/>
+                    {#            <img v-else src="@/assets/DJChannel.png"/>#}
+                {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7">
+                <div class="row">
+                    <h1>{{ course.title }}</h1>
+                </div>
+                <div class="row">
+                    <div class="col-1">
+                        <div class="line"></div>
+                    </div>
+                    <div class="col-11">{{ course.description|safe }}</div>
+                </div>
+
+                <div class="container block-enter-course">
+                    <div class="row row-course">
+                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="places">Осталось {{ course.count_seats }} мест</div>
+                            {#                                из {{ course.available }}#}
+                            {#                            <div class="places-text"> </div>#}
+                            {#                        <div class="background"></div>#}
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="places-time">
+                                {{ course.lessons_on_weak }} занятия в неделю
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-course">
+                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="places">Начало {{ course.date_start|date:"d E Y" }}</div>
+                            {#                            <div class="places-text"> </div>#}
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="places">{{ course.date_end|date:"d E Y" }} окончание</div>
+                            {#                            <div class="places-text"> окончание</div>#}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {#                        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">#}
+                        {#                            <div class="places">{{ course.lessons_on_weak }}</div>#}
+                        {#                            <div class="places-text">Раза в неделю</div>#}
+                        {#                        </div>#}
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                            <div class="price">{{ course.price }}</div>
+                            <div class="places-text"> руб. за курс</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row btn-enter-course">
+                    {% if user.is_authenticated %}
+                        {#                        <form class="form-inline" method="post" action="{% url 'pay-initialization' %}">#}
+                        {#                            {% csrf_token %}#}
+                        {#                            <input name="item" hidden value="{{ course.id }}">#}
+                        {#                            <button class="btn btn-success btn-course">#}
+                        {#                                Записаться на курс#}
+                        {#                            </button>#}
+                        {#                        </form>#}
+                        {% if course.course_complete or course.is_complete == True %}
+                           <div class="places-time">Запись завершена</div>
+                        {% elif check %}
+                            <a class="btn btn-success btn-course"
+                               href="#">
+                                Вы записаны на курс!
+                            </a>
+                        {% elif check == False %}
+                            <a class="btn btn-success btn-course"
+                               href="{% url 'buy_course' pk=course.id %}">
+                                Перейти к оплате
+                            </a>
+                        {% elif check == None and course.test_in_course.id %}
+                            <a class="btn btn-success btn-course"
+                               href="{% url 'dc-test-detail' pk=course.test_in_course.id %}">
+                                Записаться на курс
+                            </a>
+                        {% elif check == None %}
+                            <a class="btn btn-success btn-course"
+                               href="{% url 'buy_course' pk=course.id %}">
+                                Записаться на курс
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <span class="btn btn-success btn-course"
+                              data-toggle="modal"
+                              data-target="#signupModal"
+                              data-dismiss="modal">
+                        Зарегистриуйтесь чтобы записаться на курс
+                    </span>
+                    {% endif %}
+                </div>
+                * В поле "Ваше имя" укажите никнейм на сайте
+            </div>
+        </div>
+
+        <!--Прорамма курса-->
+        <div class="row programm">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="title-prog-course"><h3>Программа курса</h3></div>
+                <div class="background-prog-course"></div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="prog-ul">{{ course.program|safe }}</div>
+                {#                <div class="background-prog-ul"></div>#}
+            </div>
+        </div>
+
+        <div class="row programm">
+            <!--Для кого курс-->
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <!--<div class="background-whom-course"></div>-->
+                <div class="title-whom-course"><h3>Для кого курс</h3></div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="whom-ul">{{ course.target_audience|safe }}</div>
+                <div class="background-whom-ul"></div>
+            </div>
+        </div>
+        <!--Требования к абитуриентам -->
+        <div class="row programm">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <!--<div class="background-whom-course"></div>-->
+                <div class="title-req-course"><h3>Требования к абитуриентам</h3></div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="req-ul">{{ course.requirements|safe }}</div>
+                <div class="background-req-ul"></div>
+            </div>
+        </div>
+        <div class="row programm">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <h3>Если у Вас возникли вопросы, свяжитесь со мной.</h3>
+                <div class="">
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <button type="submit" class="btn btn-warning">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock course-body %}

@@ -1,0 +1,41 @@
+{% extends 'forum/base.html' %}
+{% block forum %}
+    {% for section in object_list %}
+        <div class="row forum-category">
+            <h6 class="forum">{{ section.title }}</h6>
+        </div>
+        <div class="row row-name-table">
+            <div class="col-sm-12 col-md-5 col-lg-6 col-xl-6">
+                <span>Темы</span>
+            </div>
+            <div class="table-title col-sm-12 col-md-2 col-lg-1 col-xl-1">
+                <span>Сообщений</span>
+            </div>
+            <div class="table-title col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                <span>Автор</span>
+            </div>
+            <div class="table-title col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                <span>Последнее сообщение</span>
+            </div>
+        </div>
+        {% for topic in section.topic.all %}
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <a href="{% url 'topic-detail' section.slug topic.id %}">
+                        <p class="p-section">{{ topic.title }}</p>
+                    </a>
+                </div>
+                <div class="table-title col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                    <p class="mess">{{ topic.count_messages }}</p>
+                </div>
+                <div class="table-title col-sm-3 col-md-2 col-lg-2 col-xl-2">
+                    <p class="mess">{{ topic.user }}</p>
+                </div>
+                <div class="table-title col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                    <p class="last-mess">{{ topic.last_mess.user }} -
+                    {{ topic.last_mess.created|date:"d M y, H:i"  }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock forum %}

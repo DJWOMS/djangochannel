@@ -1,0 +1,13 @@
+{% extends 'profile/base.html' %}
+
+{% block content %}
+    <div class="personal-record-menu">
+        <h5>Подтвердить</h5>
+    </div>
+    <div class="personal-record-block">
+        <form method="post">{% csrf_token %}
+            <p></p>
+            <input class="btn btn-success" type="submit" value="Удалить">
+        </form>
+    </div>
+{% endblock content %}

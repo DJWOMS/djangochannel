@@ -1,0 +1,214 @@
+{% extends 'dc_tests/base.html' %}
+{% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <h2>{{ test.title }}</h2>
+    <div id="app">
+        <div v-if="task.link" class="alert success">
+            <h3>Тест пройден <%task.right%>/<%task.total%></h3>
+        </div>
+        <div v-if="task.right < task.total" class="alert error">
+            <h3>Тест не пройден <%task.right%>/<%task.total%></h3>
+        </div>
+        <div v-if="task.message != true" class="alert error">
+            <h3><%task.message%></h3>
+        </div>
+        <div v-if="task.task.success === true" class="alert success">
+            <h3>Тест пройден <% task.right %>/<% task.total %></h3>
+        </div>
+        <div v-if="task.task.success === false" class="alert error">
+            <h3>Тест не пройден <% task.right %>/<% task.total %></h3>
+        </div>
+        <div v-if="!task.success" class="col-12">
+            <p><% test.text %></p>
+            <p class="code-test" v-html="test.desc"></p>
+        </div>
+        <div class="col-12">
+            <label v-if="!task.link" v-for="answer in test.answer" :key="answer.id"
+                   class="ch-container">
+                <% answer.text %>
+                <input type="checkbox" :id="answer.id"
+                       class="checkmark"
+                       :value="answer.id"
+                       v-model="answerQuestion">
+                <span class="checkmark"></span>
+            </label>
+            <button class="btn btn-info" v-if="sendAnswer" @click="complete">Завершить</button>
+            <button class="btn btn-elegant" v-if="nextQuestion" @click="idQuestion">
+                Слудующий вопрос
+            </button>
+            <button class="btn btn-warning"
+                    v-if="task.task.success === false || task.right < task.total || task.link == null"
+                    @click="resetTest">
+                Пройти еще раз
+            </button>
+            <button v-if="task.task.success === true" @click="nextTask">
+                Следующее задание
+            </button>
+            <button class="btn btn-success" v-if="task.link" @click="setUser">
+                Перейти к оплате
+            </button>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block script_vue %}
+    <script>
+        var app = new Vue({
+            el: '#app',
+            delimiters: ["<%", "%>"],
+            data() {
+                return {
+                    pk: {{ test.id }},
+                    // TODO: Исправить это говно
+                    {% for course in test.course_set.all  %}
+                        {% if course.test_in_course == test %}
+                            course_id: '{{ course.id }}',
+                        {% endif %}
+                    {% endfor %}
+                    test: {
+                        questions: '',
+                        text: '',
+                        desc: '',
+                        answer: '',
+                    },
+                    answerQuestion: [],
+                    sendAnswer: false,
+                    nextQuestion: true,
+                    q: -1,
+                    task: {
+                        link: false,
+                        message: true,
+                        task: {
+                            success: '',
+                        }
+                    },
+                    url: "https://djangochannel.com/" //"http://127.0.0.1:8000/"
+                }
+            },
+            created() {
+                this.loadTest()
+            },
+            methods: {
+                // Загрузка теста
+                loadTest() {
+                    $.ajax({
+                        url: this.url + "test/questions/",
+                        type: "GET",
+                        data: {
+                            pk: this.pk,
+                        },
+                        success: (response) => {
+                            this.test.questions = response
+                            this.idQuestion()
+                        },
+                        error: (response) => {
+                            if (response.status === 403) {
+                                // this.snackbar.mess = "Ошибка отправки"
+                                // this.snackbar.error = true
+                            }
+                        }
+                    })
+                },
+                // Получаю id вопроса
+                idQuestion() {
+                    this.q += 1
+                    for (let a in this.test.questions[this.q]) {
+                        this.test.text = this.test.questions[this.q]["text"]
+                        this.test.desc = this.test.questions[this.q]["desc"]
+                        this.idAnswer(this.test.questions[this.q]["id"])
+                    }
+                    if (this.q === this.test.questions.length) {
+                        this.sendAnswer = true
+                        this.nextQuestion = false
+                    }
+                },
+                // Получаю варианты ответов
+                idAnswer(id) {
+                    $.ajax({
+                        url: this.url + "test/answers/",
+                        type: "GET",
+                        data: {
+                            pk: id,
+                        },
+                        success: (response) => {
+                            this.test.answer = response
+                        },
+                        error: (response) => {
+                            if (response.status === 403) {
+                                // this.snackbar.mess = "Ошибка отправки"
+                                // this.snackbar.error = true
+                            }
+                        }
+                    })
+                },
+                // Отправляю ответ
+                complete() {
+                    $.ajax({
+                        url: this.url + "test/complete/",
+                        type: "POST",
+                        data: {
+                            course_pk: this.course_id,
+                            pks: this.answerQuestion,
+                        },
+                        success: (response) => {
+                            this.task = response
+                            this.sendAnswer = false
+                        },
+                        error: (response) => {
+                            if (response.status === 403) {
+                                // this.snackbar.mess = "Ошибка отправки"
+                                // this.snackbar.error = true
+                            }
+                            if (response.status === 400) {
+                                this.task.message = response.message
+                            }
+                        }
+                    })
+                },
+                // Пройти тест заного
+                resetTest() {
+                    this.q = -1
+                    this.answerQuestion = []
+                    this.task.task.success = null
+                    this.task.right = 0
+                    this.task.total = 0
+                    this.task.link = false
+                    this.task.message = true
+                    this.idQuestion()
+                    this.nextQuestion = true
+                },
+                nextTask() {
+                    this.$emit("nextTask", this.task.task.next)
+                    this.test = {
+                        questions: '',
+                        text: '',
+                        answer: '',
+                    }
+                    this.task = {task: {success: '',}}
+                },
+                // Запись в бд юзера для оплаты
+                setUser() {
+                    $.ajax({
+                        url: this.url + "course/buy-course/",
+                        type: "POST",
+                        data: {
+                            test_pk: this.pk,
+                        },
+                        success: (response) => {
+                            window.location = this.task.link
+                        },
+                        error: (response) => {
+                            if (response.status === 403) {
+
+                            }
+                            if (response.status === 400) {
+                                this.task.message = response.message
+                            }
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+{% endblock script_vue %}

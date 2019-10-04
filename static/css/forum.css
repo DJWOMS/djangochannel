@@ -1,0 +1,137 @@
+p.mess {
+    text-align: center;
+    font-weight: 600;
+    color: #465d81;
+    font-family: Roboto, sans-serif;
+    margin: 15px;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+p.last-mess {
+    font-weight: 600;
+    color: #465d81;
+    font-family: Roboto, sans-serif;
+    margin: 15px;
+    line-height: 1.5;
+    font-size: 13px;
+}
+span {
+    font-size: 14px;
+}
+.forumMain {
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.forumMenu {
+    background: #f4f5f7;
+}
+
+.btn-light {
+    background-color: #f4f5f7 !important;
+    box-shadow: none;
+}
+
+.btn-light:hover {
+    background: #3f475c !important;
+    color: #fff !important;
+}
+
+h6.forum {
+    text-align: left;
+    font-weight: 500 !important;
+    color: #fff !important;
+    margin: 10px 0;
+    line-height: 1;
+}
+
+.forum-category {
+    margin: 10px 0 0 0;
+    padding: 0 0 0 15px;
+    background: #3f475c;
+    color: #fff;
+}
+
+.p-section {
+    font-weight: 700;
+    font-family: Roboto, sans-serif;
+    margin: 10px 0 0 0;
+    line-height: 1.5;
+    color: #7383a4;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+}
+
+.p-section:hover {
+    opacity: 0.7;
+}
+
+.row-name-table {
+    /*padding: 5px 0 5px 15px;*/
+    border: 1px solid #3f475c;
+}
+
+.table-title {
+    text-align: center;
+}
+
+.row-message {
+    margin: 15px 0 0 0;
+    height: auto;
+}
+
+.topic-title {
+    padding: 0 0 0 15px;
+    background: #3f475c;
+    color: #fff;
+}
+
+.topic-message {
+    border: 1px solid #d3e8ed;
+    background: #f8fcff;
+}
+
+.row-text {
+    padding: 15px 15px 90px 0 !important;
+}
+
+.row-date {
+    padding: 10px 15px;
+    border-bottom: 1px solid #d3e8ed;
+}
+
+.btn-edit {
+    height: 25px !important;
+}
+
+.edits {
+    margin: 50px 0 0 0;
+    padding: 10px;
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    background: #fff;
+    -webkit-box-shadow: 0px 3px 20px 1px #8391a7;
+    box-shadow: 0px 3px 20px 1px #8391a7;
+}
+
+.row-message {
+    margin: 15px 0 0 0;
+}
+
+.topic-message {
+    border: 1px solid #d3e8ed;
+    background: #f8fcff;
+}
+
+.row-date {
+    padding: 10px 15px;
+    border-bottom: 1px solid #d3e8ed;
+}
+
+.btn-edit {
+    height: 25px !important;
+}

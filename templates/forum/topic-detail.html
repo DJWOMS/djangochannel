@@ -1,0 +1,109 @@
+{% extends 'forum/base.html' %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block forum %}
+    <div class="row topic-title">
+        <div class="col-12">
+            <h6 class="forum">{{ topic.title }}</h6>
+        </div>
+    </div>
+    <div class="row row-message">
+        <div class="col-sm-12 col-md-3">
+            <div class="info-user">
+                <p class="user-name">{{ topic.user.username }}</p>
+                {% if topic.user.profile.image %}
+                    <img class="user-info-avatar"
+                         src="{{ topic.user.profile.image.url }}"/>
+                {% else %}
+                    <img class="user-info-avatar" src="{% static 'img/uicon.jpg' %}">
+                {% endif %}
+            </div>
+        </div>
+        <div class="topic-message col-sm-12 col-md-9">
+            <!--Редактирование темы-->
+            {#            <div v-if="showEdit" class="edits">#}
+            {#                <EditTopic :edited="true"#}
+            {#                           :topic="topic"#}
+            {#                           @reloadTopic="reloadTopic">#}
+            {#                </EditTopic>#}
+            {#            </div>#}
+            <div class="row row-date">
+                <div class="col-10">Дата: {{ topic.created }}</div>
+                <div class="col-2">
+                    {% if topic.user.id == user.id %}
+                        <a class="new-comment"
+                           href="{% url 'topic_edit' topic.section.slug topic.id %}">Редактировать тему</a>
+                    {% endif %}
+                    {#                    <button class="btn-edit"#}
+                    {#                            @click="setShowEdit">#}
+                    {#                        Редактировать#}
+                    {#                    </button>#}
+                </div>
+            </div>
+            <div class="row row-text">
+                <div class="col-12">{{ topic.text|safe }}</div>
+            </div>
+            <div class="row row-date">
+                <div class="col-10">
+                    Редактировано: {{ topic.modified }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Комментарии пользователей-->
+    {% for message in  messages %}
+        <div class="row row-message">
+            <div class="col-sm-12 col-md-3">
+                <div class="info-user">
+                    <p class="user-name">{{ message.user.username }}</p>
+                    {% if message.user.profile.image %}
+                        <img class="user-info-avatar"
+                             src="{{ message.user.profile.image.url }}"/>
+                    {% else %}
+                        <img class="user-info-avatar" src="{% static 'img/uicon.jpg' %}">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="topic-message col-sm-12 col-md-9">
+                <!--Редактирование сообщения-->
+                {#                <Edit v-if="showEdit && message.id === id"#}
+                {#                      :oldText="message.text"#}
+                {#                      :id="id"#}
+                {#                      @reloadTopic="loadTopic">#}
+                {#                </Edit>#}
+
+                <div class="row row-date">
+                    <div class="col-10">Дата: {{ message.created }} </div>
+                    <div class="col-2">
+                        {% if message.user.id == user.id %}
+                            <a class="new-comment"
+                               href="{% url 'message_edit' section=topic.section.slug  pk=topic.id edit=message.id %}">Редактировать</a>
+                        {% endif %}
+                        {#                     action="{% url 'edit_messages' message.id %}"#}
+                        {#                                            <button class="btn btn-edit" flat#}
+                        {#                                                       v-if="get_user_info.id === message.user.profile.id"#}
+                        {#                                                       @click="setShowEdit(message.id)">Редактировать#}
+                    </div>
+                </div>
+                <div class="row row-text">
+                    {{ message.text|safe }}
+                </div>
+                <div class="row row-date">
+                    <div class="col-10">
+                        Редактировано: {{ message.modified }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="row">{% bootstrap_pagination page_obj pages_to_show=4 %}</div>
+    <!--Отправить новый комментарий-->
+    {% if user.is_authenticated %}
+        <form action="{% url 'message_create' topic.section.slug topic.id %}"
+              method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" type="submit">Отправить</button>
+        </form>
+    {% endif %}
+{% endblock forum %}

@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% load staticfiles comments_tags %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+{% block description %}{% if post.description  %}{{ post.description }}{% endif %}{% endblock description %}
+
+{% block news %}
+    <div class="container-single">
+        <div class="">
+            <h1 class="title-news">{{ post.title }}</h1>
+            <div class="article">{{ post.text|safe }} </div>
+        </div>
+        <div class="header-post-single">
+            <small>{{ post.published_date }}</small>
+            <small>Теги -
+                {% for tag in post.tag.all %}
+                    <a href="{% url 'tag_post' tag=tag.slug %}"># {{ tag.name }}</a>
+                {% endfor %}
+            </small>
+            <small>Категория -
+                <a href="{% url 'category' category=post.category.slug %}">
+                    {{ post.category.name }} </a>
+            </small>
+        <small>
+            <img class="icon-16" src="{% static 'icon/view.svg' %}" alt="Kiwi standing on oval">{{ post.viewed }}
+        </small>
+        </div>
+        <div class="row-message col-lg-6">
+            {% if user.is_authenticated %}
+                <a class="new-comment"
+                   href="{% url 'comments_create' pk=post.id %}">Комментировать</a>
+            {% endif %}
+        </div>
+        <div>
+            {% comments_show pk=post.id %}
+        </div>
+    </div>
+{% endblock news %}

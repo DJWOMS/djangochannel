@@ -1,0 +1,26 @@
+{% extends 'profile/base.html' %}
+
+{% block content %}
+    <div class="personal-record-menu profile-block">
+        <h5>Задания</h5>
+        {% for task in course.tasks_all %}
+            {% if task.active %}
+                <a href="{% url 'task_course' pk=task.id %}"><h6>{{ task.title }}</h6></a>
+                <small>Сдать до - {{ task.date_end }}</small>
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="personal-record-block">
+        <div class="profile-block-content profile-block">
+            {% block course-task %}
+                <div class="profile-block-title">
+                    <h6>{{ course.title }}</h6>
+                </div>
+                <div class="">
+                    <p>{{ course.desc_for_student|safe }}</p>
+                </div>
+            {% endblock course-task %}
+        </div>
+    </div>
+{% endblock content %}

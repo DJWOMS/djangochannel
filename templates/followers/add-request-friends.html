@@ -1,0 +1,14 @@
+{% extends 'profile/base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="personal-record-menu">
+        <h5>Подтвердить</h5>
+    </div>
+    <div class="personal-record-block">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" type="submit">Подтвердить</button>
+        </form>
+    </div>
+{% endblock content %}

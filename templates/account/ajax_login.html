@@ -1,0 +1,63 @@
+{% load i18n account %}
+{% load staticfiles %}
+{% load account socialaccount %}
+<form method="POST" action="/accounts/login/" class="need_auth">
+    {% csrf_token %}
+    <p class="error-li" style="color: red;"></p>
+    <p><input type="text"
+              name="login"
+              placeholder="Имя пользователя"
+              autofocus="autofocus"
+              maxlength="150"
+              required=""
+              id="id_login"
+              class="form-control">
+    </p>
+    {% if erorrs %}
+        <ul class="errorlist">
+            <li>Это поле обязательно.</li>
+        </ul>
+    {% endif %}
+    <p>
+        <input class="form-control" type="password" name="password"
+               placeholder="Пароль" required="" id="id_password">
+    </p>
+    <p><label for="id_remember">Запомнить меня:</label>
+        <input type="checkbox" name="remember" id="id_remember">
+    </p>
+    <div>
+        <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+        {#        <a href="{% url 'account_signup' %}" class="btn btn-default">{% trans "Sign Up" %}</a>#}
+        <a href="#"
+           class="btn btn-default"
+           data-toggle="modal"
+           data-target="#signupModal"
+           data-dismiss="modal">
+            {% trans "Sign Up" %}
+        </a>
+    </div>
+    <br>
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+        <p>{% blocktrans with site.name as site_name %}
+            Войти с помощью
+        {% endblocktrans %}</p>
+        <div class="socialaccount_ballot">
+{#            <ul class="socialaccount_providers">#}
+{#                {% include "socialaccount/snippets/provider_list.html" with process="login" %}#}
+{#            </ul>#}
+            <a href="{% provider_login_url "vk" %}">
+                <img class="soc-btn" src="{% static 'img/social/vk_social.svg' %}" alt="vk">
+            </a>
+{#            <div class="login-or">{% trans 'or' %}</div>#}
+        </div>
+        {% include "socialaccount/snippets/login_extra.html" %}
+    {% else %}
+        <p>{% blocktrans %}If you have not created an account yet, then please
+            <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+    {% endif %}
+    <hr>
+    <a href="{% url 'account_reset_password' %}">
+        {% trans "Forgot Password?" %}
+    </a>
+</form>

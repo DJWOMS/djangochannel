@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    <div class="grid-reviews">
+        <div class="subgrid_title">
+            <h1>Отзывы</h1>
+        </div>
+        <div class="subgrid_menu">
+            <div class="forumMenu">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'add_review' %}" class="btn btn-light">Оставить отзыв</a>
+                {% else %}
+                    <p class="reviews">Чтобы оставить отзыв авторизуйтесь.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% block reviews %}
+        {% endblock reviews %}
+    </div>
+{% endblock content %}

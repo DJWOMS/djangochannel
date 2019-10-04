@@ -1,0 +1,19 @@
+{% extends 'dc_tests/base.html' %}
+{% block content %}
+    <div class="page-section">
+        <div class="container">
+            <div class="row">
+                {% for test in object_list %}
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                        <a class="tests-item" href="{% url 'dc-test-detail' test.id %}">
+                            <div class="tests-info">
+                                <div class="tag-item">{{ test.category }}</div>
+                                <div class="course-title">{{ test.title }}</div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

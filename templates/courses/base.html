@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load courses_tags %}
+{% block home %}
+    {% block content %}
+        <div class="page-head">
+            <div class="container menu-course-list">
+                <div class="page-list-title">Курсы</div>
+                {% menu_courses %}
+            </div>
+        </div>
+        {% block course-title %}
+        {% endblock course-title %}
+
+        {% block course-body %}
+        {% endblock course-body %}
+    {% endblock content %}
+{% endblock home %}

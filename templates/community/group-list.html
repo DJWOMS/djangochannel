@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+    <div class="row-message col-lg-6">
+        {% if user.is_authenticated %}
+            <a class="new-comment"
+               href="{% url 'create_group'%}">Создать</a>
+        {% endif %}
+    </div>
+    {% for groups in object_list %}
+        <div class="block-news" id="triangle-{{ forloop.counter }}"
+             onmouseover="mouseImg('triangle-{{ forloop.counter }}')">
+            <div>
+                <div class="title-news">
+                    <h3 class="title-list-news">
+                        <a class="news" href="{{ groups.get_absolute_url }}">{{ groups.title }}</a>
+                    </h3>
+                </div>
+                <hr>
+            </div>
+            <div class="">
+                {% if groups.miniature %}
+                    <img class="icon-16" src="{{ groups.miniature.url }}">
+                {% else %}
+                    <img class="icon-16" src="{% static 'img/uicon.jpg' %}">
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

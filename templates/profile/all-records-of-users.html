@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles bootstrap4 %}
+
+{% block content %}
+    <div class="personal-record-block">
+        {% for record in object_list %}
+            <div class="profile-block">
+                <div class="profile-block-title">
+                    <small>Автор -
+                        {{ record.user.username }}
+                    </small>
+                    <hr>
+                    <a href="{% url 'detail_record' pk=record.id %}">{{ record }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

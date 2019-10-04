@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="personal-record-menu">
+        <h5>Удаление</h5>
+    </div>
+    <div class="personal-record-block">
+        <form method="post">{% csrf_token %}
+            <input class="btn btn-success" type="submit" value="Удалить">
+        </form>
+    </div>
+{% endblock content %}

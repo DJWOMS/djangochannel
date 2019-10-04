@@ -1,0 +1,7 @@
+{% extends 'profile/base.html' %}
+{% block content %}
+<form method="post">{% csrf_token %}
+    <p>Удалить - "{{ personalrecords.title }}"?</p>
+    <input type="submit" value="Удалить">
+</form>
+{% endblock content %}

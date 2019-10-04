@@ -1,0 +1,43 @@
+{% extends 'profile/base.html' %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+                <button class="close" data-dismiss="alert">
+                    <small><sup>x</sup></small>
+                </button>
+                <p class="reviews">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <p>
+                        {{ field.errors }}
+                        {% if field.value %}
+                            <br/><img src="{{ field.value.url }}" width="240"></br>
+                        {% endif %}
+                        {{ field }}
+                    </p>
+                {% endfor %}
+                <input type="submit" class="btn btn-primary" value="Изменить аватар">
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'profile' %}">
+                <button type="submit" class="btn btn-success btn-md" name="button">
+                    Назад
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock content %}

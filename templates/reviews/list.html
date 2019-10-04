@@ -1,0 +1,48 @@
+{% extends 'reviews/base.html' %}
+{% load staticfiles bootstrap4 if_filter %}
+
+{% block reviews %}
+    <div class="reviews_content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    <button class="close" data-dismiss="alert">
+                        <small><sup>x</sup></small>
+                    </button>
+                    <p class="reviews">{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% for review in object_list %}
+{#             review-box{{ forloop.counter }}#}
+            <div class="review-sub draw meet">
+                {#            {% if forloop.counter|if_int_entirely %} box2 {% else %} box1 {% endif %}#}
+                <div>
+                    {% if review.user.profile.image %}
+                        <img class="avatar"
+                             src="{{ review.user.profile.image.url }}"/>
+                    {% else %}
+                        <img class="avatar" src="{% static 'img/uicon.jpg' %}">
+                    {% endif %}
+                    <p class="font-weight-bold">{{ review.user.username }} {{ review.name }}</p>
+{#                    <p class="font-weight-bold"></p>#}
+                </div>
+                <div class="review-text">
+                    <p>{{ review.text|safe }}.</p>
+                    <a href="{{ review.social_link }}" rel="nofollow">
+                        В соц. сети
+                    </a>
+                    <a class="p-2 fa-lg dribbble-ic" href="{{ review.git_link }}"
+                       rel="nofollow">
+                        <i class="fa fa-github"> </i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if object_list %}
+        <div class="div-pagination">
+            {% bootstrap_pagination page_obj %}
+        </div>
+    {% endif %}
+{% endblock reviews %}
