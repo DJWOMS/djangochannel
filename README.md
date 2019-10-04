@@ -126,9 +126,9 @@
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT)
+[BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause)
 
-Copyright (c) 2013-present, DJWOMS - Omelchenko Michael
+Copyright (c) 2019-present, DJWOMS - Omelchenko Michael
 
 
 
