@@ -38,7 +38,7 @@ def send_mail_forum(instance):
         instance.title,
         instance.section)
     try:
-        send_mail(subject, message, 'robot@djangochannel.com', ["socanime@gmail.com", "hamell1987@gmail.com"])
+        send_mail(subject, message, 'robot@djangochannel.com', ["socanime@gmail.com"])
         return True
     except BadHeaderError:
         return False
@@ -89,7 +89,7 @@ def send_mail_user_post(instance):
         instance.category
         )
     try:
-        send_mail(subject, message, 'robot@djangochannel.com', ["socanime@gmail.com", "hamell1987@gmail.com"])
+        send_mail(subject, message, 'robot@djangochannel.com', ["socanime@gmail.com"])
         return True
     except BadHeaderError:
         return False
