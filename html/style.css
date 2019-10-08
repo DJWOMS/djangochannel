@@ -1,0 +1,72 @@
+/*@font-face {*/
+/*    font-family: Roboto;*/
+/*    font-style: normal;*/
+/*    font-display: swap;*/
+/*    font-weight: 100;*/
+/*    src: local("Roboto Thin "), local("Roboto-Thin"), url(../fonts/roboto-latin-100.987b8457.woff2) format("woff2"), url(../fonts/roboto-latin-100.e9dbbe8a.woff) format("woff")*/
+/*}*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F9F9F9;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+.main {
+    display: grid;
+    grid-template-areas:
+        "nav nav nav"
+        "page page page"
+        "footer footer footer";
+    grid-template-rows: 60px 1fr 70px;
+    grid-template-columns: 20% 1fr 15%;
+    grid-gap: 10px;
+    height: 100vh;
+    margin: 0;
+}
+/* Navigation */
+nav {
+    display: flex;
+    grid-area: nav;
+    background-color: #222437;
+}
+nav ul {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+nav ul li{
+    list-style: none;
+    padding: 0 0 0 20px;
+}
+nav ul .last{
+    margin: 0 35px 0 auto;
+}
+nav ul li a{
+    text-decoration: none;
+    color: #fff;
+}
+.logo {
+    width: 136px;
+    height: 42px;
+}
+/* Content */
+.page {
+    grid-area: page;
+    border: 1px solid #000;
+}
+.post {
+    max-width: 1050px;
+    border: 1px solid;
+}
+/* Footer */
+footer {
+    grid-area: footer;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #222437;
+    color: #fff;
+}
