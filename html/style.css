@@ -5,6 +5,10 @@
 /*    font-weight: 100;*/
 /*    src: local("Roboto Thin "), local("Roboto-Thin"), url(../fonts/roboto-latin-100.987b8457.woff2) format("woff2"), url(../fonts/roboto-latin-100.e9dbbe8a.woff) format("woff")*/
 /*}*/
+:root {
+    --nav-color: #222437;
+    --count: #3E4551;
+}
 
 body {
     margin: 0;
@@ -12,24 +16,24 @@ body {
     background-color: #F9F9F9;
     font-family: 'IBM Plex Sans', sans-serif;
 }
-.main {
+
+
+.wrapper {
     display: grid;
-    grid-template-areas:
-        "nav nav nav"
-        "page page page"
-        "footer footer footer";
-    grid-template-rows: 60px 1fr 70px;
-    grid-template-columns: 20% 1fr 15%;
-    grid-gap: 10px;
+    grid-template-areas: "nav nav nav" ". main ." "footer footer footer";
+    grid-template-rows: 60px 1fr 170px;
+    grid-template-columns: minmax(0, 240px) 1fr minmax(0, 240px);
     height: 100vh;
     margin: 0;
 }
+
 /* Navigation */
 nav {
     display: flex;
     grid-area: nav;
-    background-color: #222437;
+    background-color: var(--nav-color);
 }
+
 nav ul {
     display: flex;
     width: 100%;
@@ -37,36 +41,108 @@ nav ul {
     margin: 0;
     padding: 0;
 }
-nav ul li{
+
+nav ul li {
     list-style: none;
     padding: 0 0 0 20px;
 }
-nav ul .last{
+
+nav ul .last {
     margin: 0 35px 0 auto;
 }
-nav ul li a{
+
+nav ul li a {
     text-decoration: none;
     color: #fff;
+    padding: 18px 0;
+    position: relative;
+    transition: width 0.5s cubic-bezier(0.4, 0, 1, 1);
 }
+
+nav ul li a:hover {
+    border-bottom: 2px solid;
+}
+
+/*nav ul li a:after {*/
+/*    content: '';*/
+/*    position: absolute;*/
+/*    border-bottom: 2px solid;*/
+/*    left: -300px;*/
+/*    width: 100%;*/
+/*}*/
+/*nav ul li a:after:hover {*/
+/*    left: 0;*/
+/*}*/
+
 .logo {
     width: 136px;
     height: 42px;
 }
+
+.message {
+    width: 26px;
+    height: 18px;
+    position: relative;
+}
+
+.li-message {
+    position: relative;
+}
+
+.counter {
+    position: absolute;
+    color: #fff;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--count);
+    top: -10px;
+    right: -5px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+}
+
 /* Content */
-.page {
-    grid-area: page;
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-area: main;
+    max-width: 1050px;
     border: 1px solid #000;
 }
+
 .post {
-    max-width: 1050px;
+    width: 1050px;
+    height: 306px;
     border: 1px solid;
 }
+
 /* Footer */
 footer {
     grid-area: footer;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
-    justify-content: space-evenly;
-    background-color: #222437;
+    justify-items: center;
+    background-color: var(--nav-color);
     color: #fff;
+}
+
+.footer-logo {
+    opacity: 0.1;
+}
+
+.github, .vk {
+    color: #fff;
+    width: 21px;
+    height: 21px;
+}
+
+.youtube {
+    color: #fff;
+    width: 24px;
+    height: 21px;
+    margin: 0 25px 0 25px;
 }
