@@ -1,10 +1,10 @@
-/*@font-face {*/
-/*    font-family: Roboto;*/
-/*    font-style: normal;*/
-/*    font-display: swap;*/
-/*    font-weight: 100;*/
-/*    src: local("Roboto Thin "), local("Roboto-Thin"), url(../fonts/roboto-latin-100.987b8457.woff2) format("woff2"), url(../fonts/roboto-latin-100.e9dbbe8a.woff) format("woff")*/
-/*}*/
+@font-face {
+    font-family: IBM Plex Sans;
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100;
+    src: local("Roboto Thin "), local("Roboto-Thin"), url(../assets/fonts/IBMPlexSans-Regular.ttf) format("ttf");
+}
 :root {
     --nav-color: #222437;
     --count: #3E4551;

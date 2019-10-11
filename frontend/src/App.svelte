@@ -2,7 +2,7 @@
     <Nav></Nav>
     <main class="main">
         <svelte:component this={currentSelection} />
-		<button on:click="{enter}">login</button>
+        <button on:click="{enter}">login</button>
     </main>
     <Footer></Footer>
 </div>
@@ -11,28 +11,29 @@
 <script>
     import Nav from './components/Nav.svelte'
     import Footer from './components/Footer.svelte'
-	import Profile from './components/Profile.svelte'
-	import Login from './components/Login.svelte'
+    import Profile from './components/Profile.svelte'
+    import Login from './components/Login.svelte'
 
-	let currentSelection = Profile
+    let currentSelection = Profile
 
-	function enter() {
-    	currentSelection = Login
-	}
+    function enter() {
+        currentSelection = Login
+    }
 </script>
 
 
 <style>
+    @font-face {
+        font-family: IBM Plex Sans;
+        font-style: normal;
+        font-display: swap;
+        font-weight: 100;
+        src: local("IBM"), local("IBM"), url(./assets/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf) format("ttf");
+    }
+
     :root {
         --nav-color: #222437;
         --count: #3E4551;
-    }
-
-    body {
-        margin: 0;
-        padding: 0;
-        background-color: #F9F9F9;
-        font-family: 'IBM Plex Sans', sans-serif;
     }
 
     .wrapper {

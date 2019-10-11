@@ -1,6 +1,6 @@
 <nav>
     <ul>
-        <a href="#"><img class="logo" src="img/logo.svg"></a>
+        <a href="#"><img class="logo" src="../assets/img/logo.svg"></a>
         <li><a href="#">Главная</a></li>
         <li><a href="#">Курсы</a></li>
         <li><a href="#">Статьи</a></li>
@@ -11,7 +11,7 @@
         <li class="last">
             <ul>
                 <li class="li-message">
-                    <a href="#"><img class="message" src="./img/icons/message.svg"></a>
+                    <a href="#"><img class="message" src="../assets/img/icons/message.svg"></a>
                     <span class="counter">0</span>
                 </li>
                 <li><a href="#">Вход</a></li>

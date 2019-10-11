@@ -1,10 +1,10 @@
 <footer>
-    <a href="#"><img class="footer-logo" src="img/logo.svg"></a>
+    <a href="#"><img class="footer-logo" src="../assets/img/logo.svg"></a>
     <span>Django Channel © 2018-2019</span>
     <div>
-        <a href="#"><img class="github" src="./img/icons/github.svg"></a>
-        <a href="#"><img class="youtube" src="./img/icons/youtube.svg"></a>
-        <a href="#"><img class="vk" src="./img/icons/vk.svg"></a>
+        <a href="#"><img class="github" src="../assets/img/icons/github.svg"></a>
+        <a href="#"><img class="youtube" src="../assets/img/icons/youtube.svg"></a>
+        <a href="#"><img class="vk" src="../assets/img/icons/vk.svg"></a>
     </div>
 </footer>
 
