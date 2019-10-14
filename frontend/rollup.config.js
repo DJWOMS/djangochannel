@@ -3,7 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import {terser} from 'rollup-plugin-terser';
-import image from 'rollup-plugin-img';
+import copy from 'rollup-plugin-copy'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -25,11 +25,15 @@ export default {
                 css.write('public/bundle.css');
             }
         }),
-        image({
-            output: `public/images`, // default the root
-            extensions: /\.(png|jpg|jpeg|gif|svg)$/, // support png|jpg|jpeg|gif|svg, and it's alse the default value
-            limit: 8192,  // default 8192(8k)
-            exclude: 'node_modules/**'
+        copy({
+            targets: [
+                {src: 'src/index.html', dest: 'public'},
+                {
+                    src: ['assets/fonts/IBM_Plex_Sans'],
+                    dest: 'public/assets/fonts'
+                },
+                {src: 'assets/img/**/*', dest: 'public/assets/img'}
+            ]
         }),
         // If you have external dependencies installed from
         // npm, you'll most likely need these plugins. In
