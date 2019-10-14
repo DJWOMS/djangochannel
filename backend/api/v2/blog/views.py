@@ -1,6 +1,5 @@
-from rest_framework import generics, permissions
 import datetime
-
+from rest_framework import generics, permissions
 from rest_framework.pagination import PageNumberPagination
 
 from backend.blog.models import Post, BlogCategory
@@ -21,7 +20,11 @@ class PostList(generics.ListAPIView):
     pagination_class = PostPagination
 
     def get_queryset(self):
-        return Post.objects.filter(published_date__lte=datetime.datetime.now(), published=True)
+        count = self.request.GET.get("count", None)
+        posts = Post.objects.filter(published_date__lte=datetime.datetime.now(), published=True)
+        if count is not None:
+            posts = posts.order_by()[:int(count)]
+        return posts
 
 
 class PostDetail(generics.RetrieveAPIView):
