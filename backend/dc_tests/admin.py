@@ -56,7 +56,7 @@ class AdminTest(admin.ModelAdmin):
         сразу при создании теста
         """
         model = Question
-
+    list_display = all_fields(Test)
     inlines = [
         QuestionInline,
     ]
