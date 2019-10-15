@@ -1,8 +1,7 @@
 from django import template
 from django.db.models import Q
 
-from backend.profile.models import UserProfile, PersonalRecords
-# from backend.followers.models import Followers
+from backend.profile.models import PersonalRecords
 
 register = template.Library()
 
