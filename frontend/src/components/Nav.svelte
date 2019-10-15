@@ -11,16 +11,18 @@
         <li class="last">
             <ul>
                 <li class="li-message">
-                    <a href="#"><img class="message" src="../assets/img/icons/message.svg"></a>
+                    <a href="#"><img class="message" src="../../assets/img/icons/message.svg"></a>
                     <span class="counter">0</span>
                 </li>
-                <li><a href="#">Вход</a></li>
+                <li><a href="/login" use:link>Вход</a></li>
             </ul>
         </li>
     </ul>
 </nav>
 
 <script>
+    import {link} from 'svelte-spa-router'
+
 
 </script>
 

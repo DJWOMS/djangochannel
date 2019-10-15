@@ -1,24 +1,19 @@
 <div class="wrapper">
     <Nav></Nav>
     <main class="main">
-        <svelte:component this={currentSelection} />
-        <button on:click="{enter}">login</button>
+        <!--        <svelte:component this={currentSelection} />-->
+        <!--        <button on:click="{enter}">login</button>-->
+        <Router {routes}/>
     </main>
-    <Footer></Footer>
+    <Footer/>
 </div>
 
 
 <script>
+    import Router from 'svelte-spa-router'
+    import routes from './routes'
     import Nav from './components/Nav.svelte'
     import Footer from './components/Footer.svelte'
-    import Profile from './components/Profile.svelte'
-    import Login from './components/Login.svelte'
-
-    let currentSelection = Profile
-
-    function enter() {
-        currentSelection = Login
-    }
 </script>
 
 
@@ -28,7 +23,7 @@
         font-style: normal;
         font-display: swap;
         font-weight: 100;
-        src: local("IBM"), local("IBM"), url(./assets/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf) format("ttf");
+        src: local("IBM"), local("IBM"), url(../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf) format("ttf");
     }
 
     :root {
