@@ -23,8 +23,8 @@ sitemaps = {
 urlpatterns = [
     path('djadmin/', admin.site.urls),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
-    path('auth/', include('backend.djoser.urls')),
-    path('auth/', include('backend.djoser.urls.authtoken')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
     path('accounts/', include('allauth.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('blog/', include('backend.blog.urls')),
