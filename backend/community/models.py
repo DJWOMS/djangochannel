@@ -59,8 +59,9 @@ class Groups(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.image.name = get_path_upload_image(self.title, self.founder_id, self.image.name)
-        self.miniature.name = get_path_upload_image(self.title, self.founder_id, self.miniature.name)
+        if self.image:
+            self.image.name = get_path_upload_image(self.title, self.founder_id, self.image.name)
+            self.miniature.name = get_path_upload_image(self.title, self.founder_id, self.miniature.name)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -72,6 +73,7 @@ class EntryGroup(models.Model):
     title = models.CharField("Заголовок записи", max_length=50, default="")
     group = models.ForeignKey(
         Groups,
+        related_name='entry',
         verbose_name="Группа",
         on_delete=models.CASCADE
     )
@@ -81,7 +83,8 @@ class EntryGroup(models.Model):
         on_delete=models.CASCADE
     )
     text = models.TextField("Текст записи", max_length=5000)
-
+    created_date = models.DateTimeField("Дата добавления", auto_now_add=True, null=False)
+    
     class Meta:
         verbose_name = "Запись группы"
         verbose_name_plural = "Записи группы"
