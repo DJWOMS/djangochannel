@@ -20,8 +20,18 @@ class CreateGroupsSerializer(serializers.ModelSerializer):
 
 
 class EntryGroupSerializer(serializers.ModelSerializer):
-    """Записи в группе"""
+    """Редактирование записи в группе"""
+    author = serializers.ReadOnlyField(source='author.username')
+
     class Meta:
         model = EntryGroup
-        fields = ("title", "text")
+        fields = ("id", "created_date", "author", "group", "title", "text")
 
+
+class GroupSerializer(serializers.ModelSerializer):
+    """Группа и список записей в группе"""
+    entry = EntryGroupSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Groups
+        fields = ("id", "title", "desc", "group_variety", "image", "miniature", "entry")
