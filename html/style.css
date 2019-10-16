@@ -121,7 +121,22 @@ nav ul li a:hover {
     /*height: 306px;*/
     border: 1px solid;
 }
-
+/* Login */
+.page-login {
+    display: grid;
+    grid-template-areas: "login-form login-title" "login-form login-text";
+    grid-auto-rows: auto;
+}
+.login-form {
+    grid-area: login-form;
+}
+.login-title {
+    grid-area: login-title;
+    justify-content: center;
+}
+.login-text {
+    grid-area: login-text;
+}
 /* Footer */
 footer {
     grid-area: footer;
