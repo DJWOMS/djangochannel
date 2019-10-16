@@ -5,8 +5,6 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 
-from ckeditor.fields import RichTextField
-
 User = settings.AUTH_USER_MODEL
 
 
@@ -43,15 +41,13 @@ class Groups(models.Model):
         User,
         verbose_name="Основатель",
         related_name="creator",
-        blank=True,
-        null=True,
         on_delete=models.CASCADE)
     members = models.ManyToManyField(
         User,
         blank=True,
         related_name="partner",
         verbose_name="Участники")
-    desc = RichTextField("Описание", max_length=1000, config_name='special')
+    desc = models.TextField("Описание", max_length=1000)
     image = models.ImageField("Изображение", upload_to="groups/image/", blank=True)
     miniature = models.ImageField("Миниатюра", upload_to="groups/miniature/", blank=True)
 
@@ -77,18 +73,14 @@ class EntryGroup(models.Model):
     group = models.ForeignKey(
         Groups,
         verbose_name="Группа",
-        blank=True,
-        null=True,
         on_delete=models.CASCADE
     )
     author = models.ForeignKey(
         User,
         verbose_name="Автор",
-        blank=True,
-        null=True,
         on_delete=models.CASCADE
     )
-    text = RichTextField("Текст записи", max_length=5000, config_name='special')
+    text = models.TextField("Текст записи", max_length=5000)
 
     class Meta:
         verbose_name = "Запись группы"
@@ -107,8 +99,6 @@ class GroupLink(models.Model):
     group = models.ForeignKey(
         Groups,
         verbose_name="Группа",
-        blank=True,
-        null=True,
         on_delete=models.CASCADE
     )
     link = models.URLField("URL")

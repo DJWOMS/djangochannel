@@ -48,7 +48,7 @@ class TestsInCategory(BlankGetAPIView):
     filter_name = 'category_id'
 
 
-class QuestionsInTest(LoginRequiredMixin, View):
+class QuestionsInTest(View): #LoginRequiredMixin
     """Вывод вопросов в отдельном тесте,
     параметр: pk, значение: id теста, вопросы которого нужны
     """

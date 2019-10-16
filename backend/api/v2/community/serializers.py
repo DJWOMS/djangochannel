@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from backend.community.models import Groups
+from backend.community.models import Groups, EntryGroup
 
 
 class GroupsListSerializer(serializers.ModelSerializer):
@@ -19,5 +19,9 @@ class CreateGroupsSerializer(serializers.ModelSerializer):
         fields = ("title", "desc", "group_variety", "image")
 
 
-
+class EntryGroupSerializer(serializers.ModelSerializer):
+    """Записи в группе"""
+    class Meta:
+        model = EntryGroup
+        fields = ("title", "text")
 

@@ -3,5 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.GroupListView.as_view()),
-    path('create/', views.CreateGroupView.as_view())
+    path('create/', views.CreateGroupView.as_view()),
+    path('add-entry/', views.CreateEntryGroup.as_view()),
+    path('add-member/<int:pk>/', views.GroupAddMember.as_view()),
 ]
