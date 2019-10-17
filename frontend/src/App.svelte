@@ -43,8 +43,7 @@
     }
 
     .main {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
         justify-content: center;
         grid-area: main;
         /*max-width: 1050px;*/
