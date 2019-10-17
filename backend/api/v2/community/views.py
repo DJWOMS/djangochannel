@@ -29,12 +29,16 @@ class GroupAddMember(generics.GenericAPIView):
     """Вступление в группу"""
     permission_classes = [permissions.IsAuthenticated]
     queryset = Groups.objects.filter(group_variety="open")
-    # serializer_class =
 
     def post(self, request, **kwargs):
         group = self.get_object()
         group.members.add(request.user)
         return Response(status=201)
+
+    def delete(self, request, **kwargs):
+        group = self.get_object()
+        group.members.remove(request.user)
+        return Response(status=204)
 
 
 class GroupView(generics.RetrieveAPIView):
@@ -42,6 +46,16 @@ class GroupView(generics.RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Groups.objects.filter(group_variety="open")
     serializer_class = GroupSerializer
+
+
+class Check:
+
+    def check(self, request, *args, **kwargs):
+        group = Groups.objects.filter(id=int(request.data.get("group")))
+        if group.filter(members=request.user).exists() or group.filter(founder=request.user).exists():
+            return True
+        else:
+            return False
 
 
 class EntryGroupView(mixins.CreateModelMixin,
@@ -88,6 +102,12 @@ class EntryGroupView(mixins.CreateModelMixin,
             return Response(status=404)
 
 
+class CommentsEntryGroupView(mixins.CreateModelMixin,
+                             mixins.RetrieveModelMixin,
+                             mixins.UpdateModelMixin,
+                             mixins.DestroyModelMixin,
+                             generics.GenericAPIView):
+    """Редактирование записи в группе"""
 
 
 

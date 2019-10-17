@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Groups, EntryGroup, GroupLink
+from .models import Groups, EntryGroup, GroupLink, CommentEntryGroup
 
 
 @admin.register(Groups)
@@ -23,3 +23,9 @@ class GroupLinkAdmin(admin.ModelAdmin):
     list_display = ("title", "link", "id")
     search_fields = ("title",)
 
+
+@admin.register(CommentEntryGroup)
+class CommentEntryGroupAdmin(admin.ModelAdmin):
+    """Комментарии к записям в группе"""
+    list_display = ("user", "entry", "id")
+    search_fields = ("user", "entry")

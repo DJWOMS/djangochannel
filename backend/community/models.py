@@ -4,6 +4,10 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
+
+from backend.comments.models import AbstractComment
 
 User = settings.AUTH_USER_MODEL
 
@@ -94,6 +98,31 @@ class EntryGroup(models.Model):
 
     def get_absolute_url(self):
         return reverse("detail_groups", kwargs={"pk": self.group_id})
+
+
+class CommentEntryGroup(AbstractComment, MPTTModel):
+    """Коментарии к записям в группе"""
+    entry = models.ForeignKey(
+        EntryGroup,
+        related_name='comment',
+        verbose_name="Запись",
+        on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        User,
+        verbose_name="Автор",
+        on_delete=models.CASCADE
+    )
+    parent = TreeForeignKey(
+        "self",
+        verbose_name="Родительский комментарий",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='children')
+
+    def __str__(self):
+        return f"{self.user} - {self.entry}"
 
 
 class GroupLink(models.Model):
