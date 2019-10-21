@@ -1,6 +1,7 @@
-from rest_framework import generics, permissions, mixins
+from rest_framework import generics, permissions, mixins, decorators
 from rest_framework.response import Response
 
+from backend.api.v2.community.permissions import IsMemberGroup, IsAuthorEntry
 from backend.community.models import Groups, EntryGroup
 from backend.api.v2.community.serializers import (
     GroupsListSerializer, CreateGroupsSerializer, EntryGroupSerializer, GroupSerializer)
@@ -13,6 +14,13 @@ class GroupListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Groups.objects.exclude(group_variety="private")
+
+
+class GroupView(generics.RetrieveAPIView):
+    """Вывод группы"""
+    permission_classes = [permissions.AllowAny]
+    queryset = Groups.objects.filter(group_variety="open")
+    serializer_class = GroupSerializer
 
 
 class CreateGroupView(generics.CreateAPIView):
@@ -41,52 +49,20 @@ class GroupAddMember(generics.GenericAPIView):
         return Response(status=204)
 
 
-class GroupView(generics.RetrieveAPIView):
-    """Вывод группы"""
-    permission_classes = [permissions.AllowAny]
-    queryset = Groups.objects.filter(group_variety="open")
-    serializer_class = GroupSerializer
-
-
-class Check:
-
-    def check(self, request, *args, **kwargs):
-        group = Groups.objects.filter(id=int(request.data.get("group")))
-        if group.filter(members=request.user).exists() or group.filter(founder=request.user).exists():
-            return True
-        else:
-            return False
-
-
-class EntryGroupView(mixins.CreateModelMixin,
-                     mixins.RetrieveModelMixin,
+class EntryGroupView(generics.CreateAPIView,
+                     generics.RetrieveAPIView,
                      mixins.UpdateModelMixin,
                      mixins.DestroyModelMixin,
                      generics.GenericAPIView):
     """Редактирование записи в группе"""
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsMemberGroup]
     queryset = EntryGroup.objects.all()
     serializer_class = EntryGroupSerializer
-
-    def check(self, request, *args, **kwargs):
-        group = Groups.objects.filter(id=int(request.data.get("group")))
-        if group.filter(members=request.user).exists() or group.filter(founder=request.user).exists():
-            return True
-        else:
-            return False
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        if self.check(request, *args, **kwargs):
-            return super().create(request, *args, **kwargs)
-        else:
-            return Response(status=404)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
+    # @decorators.permission_classes(IsAuthorEntry)
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
         if instance.author == request.user or instance.group.founder == request.user:
@@ -98,8 +74,6 @@ class EntryGroupView(mixins.CreateModelMixin,
         instance = self.get_object()
         if instance.author == request.user or instance.group.founder == request.user:
             return super().destroy(request, *args, **kwargs)
-        else:
-            return Response(status=404)
 
 
 class CommentsEntryGroupView(mixins.CreateModelMixin,
@@ -108,7 +82,7 @@ class CommentsEntryGroupView(mixins.CreateModelMixin,
                              mixins.DestroyModelMixin,
                              generics.GenericAPIView):
     """Редактирование записи в группе"""
-
+    pass
 
 
 

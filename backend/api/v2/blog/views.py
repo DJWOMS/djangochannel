@@ -34,6 +34,7 @@ class PostDetail(generics.RetrieveAPIView):
     pagination_class = PostPagination
 
     def get_queryset(self):
+        # TODO переписать данный метод, на получение объекта и его изменение.
         queryset = Post.objects.filter(id=self.kwargs.get('pk'))
         post = Post.objects.get(id=self.kwargs.get('pk'))
         post.viewed += 1

@@ -99,6 +99,9 @@ class EntryGroup(models.Model):
     def get_absolute_url(self):
         return reverse("detail_groups", kwargs={"pk": self.group_id})
 
+    def comments_count(self):
+        return self.comment.count()
+
 
 class CommentEntryGroup(AbstractComment, MPTTModel):
     """Коментарии к записям в группе"""
