@@ -1,10 +1,13 @@
-from rest_framework import generics, permissions, mixins, decorators
+from rest_framework import generics, permissions, mixins, decorators, viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from backend.api.v2.viewsets.classes import CreateUpdateDestroyDS, CreateRetrieveUpdateDestroyDS
 from backend.api.v2.community.permissions import IsMemberGroup, IsAuthorEntry
-from backend.community.models import Groups, EntryGroup
+from backend.community.models import Groups, EntryGroup, CommentEntryGroup
 from backend.api.v2.community.serializers import (
-    GroupsListSerializer, CreateGroupsSerializer, EntryGroupSerializer, GroupSerializer)
+    GroupsListSerializer, CreateGroupsSerializer, EntryGroupSerializer, GroupSerializer,
+    CreateCommentEntryGroupSerializer)
 
 
 class GroupListView(generics.ListAPIView):
@@ -49,40 +52,29 @@ class GroupAddMember(generics.GenericAPIView):
         return Response(status=204)
 
 
-class EntryGroupView(generics.CreateAPIView,
-                     generics.RetrieveAPIView,
-                     mixins.UpdateModelMixin,
-                     mixins.DestroyModelMixin,
-                     generics.GenericAPIView):
+class EntryGroupView(CreateRetrieveUpdateDestroyDS):
     """Редактирование записи в группе"""
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsMemberGroup]
     queryset = EntryGroup.objects.all()
     serializer_class = EntryGroupSerializer
+    permission_classes_by_action = {'get': [permissions.AllowAny],
+                                    'update': [IsAuthorEntry],
+                                    'destroy': [IsAuthorEntry]}
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    # @decorators.permission_classes(IsAuthorEntry)
-    def put(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if instance.author == request.user or instance.group.founder == request.user:
-            return super().update(request, *args, **kwargs)
-        else:
-            return Response(status=404)
 
-    def delete(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if instance.author == request.user or instance.group.founder == request.user:
-            return super().destroy(request, *args, **kwargs)
+class CommentsEntryGroupView(CreateUpdateDestroyDS):
+    """Редактирование комментариев к запси"""
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsMemberGroup]
+    queryset = CommentEntryGroup.objects.all()
+    serializer_class = CreateCommentEntryGroupSerializer
+    permission_classes_by_action = {'update': [IsAuthorEntry],
+                                    'destroy': [IsAuthorEntry]}
 
-
-class CommentsEntryGroupView(mixins.CreateModelMixin,
-                             mixins.RetrieveModelMixin,
-                             mixins.UpdateModelMixin,
-                             mixins.DestroyModelMixin,
-                             generics.GenericAPIView):
-    """Редактирование записи в группе"""
-    pass
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 

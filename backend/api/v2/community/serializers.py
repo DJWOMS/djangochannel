@@ -6,6 +6,13 @@ from backend.community.models import Groups, EntryGroup, CommentEntryGroup
 
 class CreateCommentEntryGroupSerializer(serializers.ModelSerializer):
     """Добавление комментариев записей в группе"""
+    class Meta:
+        model = CommentEntryGroup
+        fields = ("entry", "text")
+
+
+class ListCommentEntryGroupSerializer(serializers.ModelSerializer):
+    """Список комментариев записей в группе"""
     children = serializers.ListField(source='get_children', read_only=True, child=RecursiveField())
 
     class Meta:
@@ -32,7 +39,7 @@ class CreateGroupsSerializer(serializers.ModelSerializer):
 class EntryGroupSerializer(serializers.ModelSerializer):
     """Вывод и редактирование записи в группе"""
     author = serializers.ReadOnlyField(source='author.username')
-    comment = CreateCommentEntryGroupSerializer(many=True, read_only=True)
+    comment = ListCommentEntryGroupSerializer(many=True, read_only=True)
 
     class Meta:
         model = EntryGroup

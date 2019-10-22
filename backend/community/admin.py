@@ -27,5 +27,5 @@ class GroupLinkAdmin(admin.ModelAdmin):
 @admin.register(CommentEntryGroup)
 class CommentEntryGroupAdmin(admin.ModelAdmin):
     """Комментарии к записям в группе"""
-    list_display = ("user", "entry", "id")
-    search_fields = ("user", "entry")
+    list_display = ("author", "entry", "id")
+    search_fields = ("author", "entry")

@@ -111,7 +111,7 @@ class CommentEntryGroup(AbstractComment, MPTTModel):
         verbose_name="Запись",
         on_delete=models.CASCADE
     )
-    user = models.ForeignKey(
+    author = models.ForeignKey(
         User,
         verbose_name="Автор",
         on_delete=models.CASCADE
@@ -125,7 +125,7 @@ class CommentEntryGroup(AbstractComment, MPTTModel):
         related_name='children')
 
     def __str__(self):
-        return f"{self.user} - {self.entry}"
+        return f"{self.author} - {self.entry}"
 
 
 class GroupLink(models.Model):
