@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from backend.api.v2.viewsets.classes import CreateUpdateDestroyDS, CreateRetrieveUpdateDestroyDS
-from backend.api.v2.community.permissions import IsMemberGroup, IsAuthorEntry
+from backend.api.v2.community.permissions import IsMemberGroup, IsAuthorEntry, IsAuthorCommentEntry
 from backend.community.models import Groups, EntryGroup, CommentEntryGroup
 from backend.api.v2.community.serializers import (
     GroupsListSerializer, CreateGroupsSerializer, EntryGroupSerializer, GroupSerializer,
@@ -70,8 +70,8 @@ class CommentsEntryGroupView(CreateUpdateDestroyDS):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsMemberGroup]
     queryset = CommentEntryGroup.objects.all()
     serializer_class = CreateCommentEntryGroupSerializer
-    permission_classes_by_action = {'update': [IsAuthorEntry],
-                                    'destroy': [IsAuthorEntry]}
+    permission_classes_by_action = {'update': [IsAuthorCommentEntry],
+                                    'destroy': [IsAuthorCommentEntry]}
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
