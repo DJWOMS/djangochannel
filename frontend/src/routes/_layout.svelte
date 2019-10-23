@@ -11,7 +11,7 @@
         font-style: normal;
         font-display: swap;
         font-weight: 100;
-        src: local("IBM"), local("IBM"), url(../../static/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf) format("ttf");
+        src: local("IBM"), local("IBM"), url(fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf) format("ttf");
     }
 
     :root {

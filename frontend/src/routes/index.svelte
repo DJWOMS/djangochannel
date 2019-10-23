@@ -1,30 +1,4 @@
 <style>
-    h1, figure, p {
-        text-align: center;
-        margin: 0 auto;
-    }
-
-    h1 {
-        font-size: 2.8em;
-        text-transform: uppercase;
-        font-weight: 700;
-        margin: 0 0 0.5em 0;
-    }
-
-    figure {
-        margin: 0 0 1em 0;
-    }
-
-    img {
-        width: 100%;
-        max-width: 400px;
-        margin: 0 0 1em 0;
-    }
-
-    p {
-        margin: 1em auto;
-    }
-
     @media (min-width: 480px) {
         h1 {
             font-size: 4em;
@@ -37,9 +11,10 @@
     <meta name="description" content="
     Бесплатные курсы django 2 на русском. Обучения программированию на python3. Помощь ментора.">
 </svelte:head>
+
 <div class="row preview">
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-        <img class="img-preview" src="../../static/img/photo.jpg"/>
+        <img class="img-preview" src="img/home/photo.jpg"/>
     </div>
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
         <div class="one">
@@ -115,12 +90,12 @@
     <div class="row justify-content-center">
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5">
             <div class="grid-cell paper">
-                <img class="course-img" src="../../static/icon/python-base.svg"
+                <img class="course-img" src="img/home/python-base.svg"
                      alt="django course">
                 <div class="two">
                     <h3 class="course-h3" onclick="app.home.click('#block-1')">
                         Python – базовый уровень
-                        <img class="icon-16" src="../../static/icon/down-arrow.svg"
+                        <img class="icon-16" src="img/home/down-arrow.svg"
                              alt="django course">
                     </h3>
                     <hr>
@@ -141,12 +116,12 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5">
             <div class="grid-cell paper">
-                <img class="course-img" src="../../static/icon/python-standart.svg"
+                <img class="course-img" src="img/home/python-standard.svg"
                      alt="django course">
                 <div class="two">
                     <h3 class="course-h3" onclick="app.home.click('#block-2')">
                         Python – средний уровень
-                        <img class="icon-16" src="../../static/icon/down-arrow.svg"
+                        <img class="icon-16" src="img/home/down-arrow.svg"
                              alt="django course">
                     </h3>
                     <hr>
@@ -166,12 +141,12 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5">
             <div class="grid-cell paper">
-                <img class="course-img" src="../../static/icon/django-base.svg"
+                <img class="course-img" src="img/home/django-base.svg"
                      alt="django course">
                 <div class="two">
                     <h3 class="course-h3" onclick="app.home.click('#block-3')">
                         Django – базовый уровень
-                        <img class="icon-16" src="../../static/icon/down-arrow.svg"
+                        <img class="icon-16" src="img/home/down-arrow.svg"
                              alt="django course">
                     </h3>
                     <hr>
@@ -194,12 +169,12 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-5">
             <div class="grid-cell paper">
-                <img class="course-img" src="../../static/icon/django-standart.svg"
+                <img class="course-img" src="img/home/django-standart.svg"
                      alt="Django – средний уровень">
                 <div class="two">
                     <h3 class="course-h3" onclick="app.home.click('#block-4')">
                         Django – средний уровень
-                        <img class="icon-16" src="../../static/icon/down-arrow.svg"
+                        <img class="icon-16" src="img/home/down-arrow.svg"
                              alt="django course">
                     </h3>
                     <hr>

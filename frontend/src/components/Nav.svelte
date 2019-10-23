@@ -3,7 +3,7 @@
 </script>
 
 <header>
-    <a class="a-logo" href="/"><img class="logo" src="../../static/img/logo.svg" alt=""></a>
+    <a class="a-logo" href="/"><img class="logo" src="img/logo.svg" alt=""></a>
     <nav>
         <ul>
             <li><a class='{segment === undefined ? "selected" : ""}' href='.'>Главная</a></li>
@@ -18,7 +18,7 @@
     <ul class="last">
         <li class="li-message">
             <a href="/"><img class="message"
-                             src="../../static/img/icons/message.svg" alt=""></a>
+                             src="img/icons/message.svg" alt=""></a>
             <span class="counter">0</span>
         </li>
         <li><a href="login">Вход</a></li>
