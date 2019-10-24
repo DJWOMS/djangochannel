@@ -18,12 +18,12 @@ def get_path_upload_image(group, user, file):
     in following format: (media)/profile_pics/user_1/myphoto_2018-12-2.png
     """
     time = timezone.now().strftime("%Y-%m-%d")
-    end_extention = file.split('.')[-1]
-    head = file.split('.')[0]
+    end_extention = file.split(".")[-1]
+    head = file.split(".")[0]
     if len(head) > 10:
         head = head[:10]
-    file_name = head + '_' + time + '.' + end_extention
-    return os.path.join('{0}/', 'user_{1}_{2}').format(group, user, file_name)
+    file_name = head + "_" + time + "." + end_extention
+    return os.path.join("{0}/", "user_{1}_{2}").format(group, user, file_name)
 
 
 class Groups(models.Model):
@@ -37,23 +37,23 @@ class Groups(models.Model):
     )
 
     title = models.CharField("Название", max_length=50)
-    group_variety = models.CharField("Вид группы",
-                                     max_length=10,
-                                     choices=group_variety_choices,
-                                     default="open")
+    group_variety = models.CharField(
+        "Вид группы", max_length=10, choices=group_variety_choices, default="open"
+    )
     founder = models.ForeignKey(
         User,
         verbose_name="Основатель",
         related_name="creator",
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+    )
     members = models.ManyToManyField(
-        User,
-        blank=True,
-        related_name="partner",
-        verbose_name="Участники")
+        User, blank=True, related_name="partner", verbose_name="Участники"
+    )
     desc = models.TextField("Описание", max_length=1000)
     image = models.ImageField("Изображение", upload_to="groups/image/", blank=True)
-    miniature = models.ImageField("Миниатюра", upload_to="groups/miniature/", blank=True)
+    miniature = models.ImageField(
+        "Миниатюра", upload_to="groups/miniature/", blank=True
+    )
 
     class Meta:
         verbose_name = "Группа и команда"
@@ -64,8 +64,12 @@ class Groups(models.Model):
 
     def save(self, *args, **kwargs):
         if self.image:
-            self.image.name = get_path_upload_image(self.title, self.founder_id, self.image.name)
-            self.miniature.name = get_path_upload_image(self.title, self.founder_id, self.miniature.name)
+            self.image.name = get_path_upload_image(
+                self.title, self.founder_id, self.image.name
+            )
+            self.miniature.name = get_path_upload_image(
+                self.title, self.founder_id, self.miniature.name
+            )
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
@@ -74,21 +78,17 @@ class Groups(models.Model):
 
 class EntryGroup(models.Model):
     """Записи в группе"""
+
     title = models.CharField("Заголовок записи", max_length=50, default="")
     group = models.ForeignKey(
-        Groups,
-        related_name='entry',
-        verbose_name="Группа",
-        on_delete=models.CASCADE
+        Groups, related_name="entry", verbose_name="Группа", on_delete=models.CASCADE
     )
-    author = models.ForeignKey(
-        User,
-        verbose_name="Автор",
-        on_delete=models.CASCADE
-    )
+    author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE)
     text = models.TextField("Текст записи", max_length=5000)
-    created_date = models.DateTimeField("Дата добавления", auto_now_add=True, null=False)
-    
+    created_date = models.DateTimeField(
+        "Дата добавления", auto_now_add=True, null=False
+    )
+
     class Meta:
         verbose_name = "Запись группы"
         verbose_name_plural = "Записи группы"
@@ -105,24 +105,22 @@ class EntryGroup(models.Model):
 
 class CommentEntryGroup(AbstractComment, MPTTModel):
     """Коментарии к записям в группе"""
+
     entry = models.ForeignKey(
         EntryGroup,
-        related_name='comment',
+        related_name="comment",
         verbose_name="Запись",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
-    author = models.ForeignKey(
-        User,
-        verbose_name="Автор",
-        on_delete=models.CASCADE
-    )
+    author = models.ForeignKey(User, verbose_name="Автор", on_delete=models.CASCADE)
     parent = TreeForeignKey(
         "self",
         verbose_name="Родительский комментарий",
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='children')
+        related_name="children",
+    )
 
     def __str__(self):
         return f"{self.author} - {self.entry}"
@@ -130,12 +128,9 @@ class CommentEntryGroup(AbstractComment, MPTTModel):
 
 class GroupLink(models.Model):
     """Ссылки группы"""
+
     title = models.CharField("Заголовок", max_length=250, blank=True)
-    group = models.ForeignKey(
-        Groups,
-        verbose_name="Группа",
-        on_delete=models.CASCADE
-    )
+    group = models.ForeignKey(Groups, verbose_name="Группа", on_delete=models.CASCADE)
     link = models.URLField("URL")
 
     class Meta:

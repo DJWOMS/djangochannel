@@ -14,9 +14,6 @@ class Room(models.Model):
         on_delete=models.CASCADE,
         related_name="user_recipient")
 
-    # def get_absolute_url(self):
-    #     return reverse("detail_message", kwargs={"pk": self.pk})
-
     def mess_no_read_count(self):
         return PrivatMessages.objects.filter(read=False).exclude(user=self.request.user).count()
 
@@ -31,7 +28,9 @@ class Room(models.Model):
 
 class PrivatMessages(models.Model):
     """Модель личных сообщений"""
-    user = models.ForeignKey(User, verbose_name="Отправитель", on_delete=models.CASCADE, related_name="private_mess_user")
+    user = models.ForeignKey(
+        User, verbose_name="Отправитель", on_delete=models.CASCADE, related_name="private_mess_user"
+    )
     room = models.ForeignKey(Room, verbose_name="Чат", on_delete=models.CASCADE)
     text = models.TextField("Сообщение", max_length=20000)
     created = models.DateTimeField("Дата", auto_now_add=True)

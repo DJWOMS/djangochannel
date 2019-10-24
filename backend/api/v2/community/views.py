@@ -1,5 +1,4 @@
-from rest_framework import generics, permissions, mixins, decorators, viewsets
-from rest_framework.decorators import action
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 
 from backend.api.v2.viewsets.classes import CreateUpdateDestroyDS, CreateRetrieveUpdateDestroyDS
@@ -75,16 +74,3 @@ class CommentsEntryGroupView(CreateUpdateDestroyDS):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
-
-
-
-
-
-
-
-
-
-
-
-
-
