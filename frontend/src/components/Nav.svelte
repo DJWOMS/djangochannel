@@ -10,7 +10,7 @@
             <li><a href="/">Курсы</a></li>
             <li><a rel=prefetch class='{segment === "blog" ? "selected" : ""}' href='blog'>Статьи</a></li>
             <li><a href="/">Форум</a></li>
-            <li><a href="/">Сообщества</a></li>
+            <li><a rel=prefetch href="community">Сообщества</a></li>
             <li><a href="/">Задания</a></li>
             <li><a href="/">Тесты</a></li>
         </ul>
