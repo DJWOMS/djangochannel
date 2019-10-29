@@ -21,7 +21,8 @@
 
     .wrapper {
         display: grid;
-        grid-template-areas: "nav nav nav" ". main ." "footer footer footer";
+        /*grid-template-areas: "nav nav nav" ". main ." "footer footer footer";*/
+        grid-template-areas: "nav nav nav" "main main main" "footer footer footer";
         grid-template-rows: 60px 1fr 170px;
         grid-template-columns: minmax(0, 240px) repeat(auto-fill, minmax(320px, 1fr)) minmax(0, 240px);
         /*grid-template-columns: auto minmax(320px, 1050px) auto;*/
@@ -29,20 +30,10 @@
         width: 100%;
         margin: 0;
     }
-
-    .main {
-        display: grid;
-        justify-content: center;
-        grid-area: main;
-        /*max-width: 1050px;*/
-        /*border: 1px solid #000;*/
-    }
 </style>
 
 <div class="wrapper">
     <Nav {segment}/>
-    <main class="main">
-        <slot></slot>
-    </main>
+    <slot></slot>
     <Footer/>
 </div>

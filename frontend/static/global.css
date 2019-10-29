@@ -5,31 +5,76 @@ body {
     font-family: 'IBM Plex Sans', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	margin: 0 0 0.5em 0;
-	font-weight: 400;
-	line-height: 1.2;
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-/*h1 {*/
-/*	font-size: 2em;*/
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+/* Убираем внешние отступы */
+h1, h2, h3, h4, p, ul[class], ol[class], li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class], ol[class] {
+    list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+/*img {*/
+/*  max-width: 100%;*/
+/*  display: block;*/
 /*}*/
 
-/*a {*/
-/*	color: inherit;*/
-/*}*/
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+    margin-top: 1em;
+}
 
-/*code {*/
-/*	font-family: menlo, inconsolata, monospace;*/
-/*	font-size: calc(1em - 2px);*/
-/*	color: #555;*/
-/*	background-color: #f0f0f0;*/
-/*	padding: 0.2em 0.4em;*/
-/*	border-radius: 2px;*/
-/*}*/
+/* Наследуем шрифты для инпутов и кнопок */
+input, button, textarea, select {
+    font: inherit;
+}
 
-@media (min-width: 400px) {
-	body {
-		font-size: 16px;
-	}
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.main-full {
+    display: grid;
+    grid-area: main;
+
+}
+.main {
+    display: grid;
+    /*grid-template-columns: minmax(0, 240px) repeat(auto-fill, minmax(320px, 1fr)) minmax(0, 240px);*/
+    grid-template-columns: minmax(0, 240px) 3fr minmax(0, 240px);
+    grid-area: main;
 }
