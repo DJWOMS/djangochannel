@@ -1,5 +1,7 @@
 import os
+from django.core.exceptions import ValidationError as DjangoValidationError
 
+from PIL import Image
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
@@ -28,6 +30,24 @@ def get_path_upload_image(group, user, file):
 
 class Groups(models.Model):
     """Модель сообществ и групп"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.image_min_h = kwargs.get('min_height', 1152)
+        self.image_min_w = kwargs.get('min_width', 2048)
+        self.image_max_h = kwargs.get('max_height', 1440)
+        self.image_max_w = kwargs.get('max_width', 2560)
+
+        self.thumb_min_h = kwargs.get('min_height', 50)
+        self.thumb_min_w = kwargs.get('min_width', 50)
+        self.thumb_max_h = kwargs.get('max_height', 150)
+        self.thumb_max_w = kwargs.get('max_width', 150)
+
+    image_height = models.IntegerField(editable=False, null=True)
+    image_width = models.IntegerField(editable=False, null=True)
+
+    thumb_height = models.IntegerField(editable=False, null=True)
+    thumb_width = models.IntegerField(editable=False, null=True)
 
     group_variety_choices = (
         ("open", "Открытая"),
@@ -50,9 +70,19 @@ class Groups(models.Model):
         User, blank=True, related_name="partner", verbose_name="Участники"
     )
     desc = models.TextField("Описание", max_length=1000)
-    image = models.ImageField("Изображение", upload_to="groups/image/", blank=True)
+    image = models.ImageField(
+        "Изображение",
+        upload_to="groups/image/",
+        blank=True,
+        height_field='image_height',
+        width_field='image_width',
+    )
     miniature = models.ImageField(
-        "Миниатюра", upload_to="groups/miniature/", blank=True
+        "Миниатюра",
+        upload_to="groups/miniature/",
+        blank=True,
+        height_field='thumb_height',
+        width_field='thumb_width',
     )
 
     class Meta:
@@ -67,13 +97,51 @@ class Groups(models.Model):
             self.image.name = get_path_upload_image(
                 self.title, self.founder_id, self.image.name
             )
+
+        if self.miniature:
             self.miniature.name = get_path_upload_image(
                 self.title, self.founder_id, self.miniature.name
             )
-        super().save(*args, **kwargs)
+        if self.check_size():
+            super().save(*args, **kwargs)
+            self.work_image()
 
     def get_absolute_url(self):
         return reverse("detail_groups", kwargs={"pk": self.id})
+
+    def work_image(self):
+        if self.image:
+            im = Image.open(self.image.path)
+            im.save(self.image.path, 'JPEG', optimize=True, quality=60)
+        if self.miniature:
+            size = 100, 100
+            im = Image.open(self.miniature.path)
+            im.thumbnail(size)
+            im.save(self.miniature.path, "JPEG")
+
+    def check_size(self):
+        """Проверка размера изображения"""
+        # return True
+        # return False if self.miniature and (
+        #         self.miniature_height < self.min_height or self.miniature_width < self.min_width
+        # ) else True
+        if self.miniature and self.thumb_height >= self.thumb_min_h and self.thumb_width >= self.thumb_min_w \
+                and self.thumb_height <= self.thumb_max_h and self.thumb_width <= self.thumb_max_w:
+            return True
+        else:
+            return False
+
+    def full_clean(self, *args, **kwargs):
+        """
+        Добавлена логика проверки размеров
+        изображения при добавлении через админку
+        """
+        super().full_clean(*args, **kwargs)
+
+        if not self.check_size():
+            raise DjangoValidationError(
+                'Размер изображения должен быть не менее {}x{} пикселей')#.format(self.min_height, self.min_width)
+            #)
 
 
 class EntryGroup(models.Model):
