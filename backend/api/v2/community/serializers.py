@@ -33,7 +33,7 @@ class CreateGroupsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Groups
-        fields = ("title", "desc", "group_variety", "image")
+        fields = ("title", "desc", "group_variety", "image", "miniature")
 
 
 class EntryGroupSerializer(serializers.ModelSerializer):
