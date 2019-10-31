@@ -73,14 +73,12 @@ class Groups(models.Model):
     image = models.ImageField(
         "Изображение",
         upload_to="groups/image/",
-        blank=True,
         height_field='image_height',
         width_field='image_width',
     )
     miniature = models.ImageField(
         "Миниатюра",
         upload_to="groups/miniature/",
-        blank=True,
         height_field='thumb_height',
         width_field='thumb_width',
     )
@@ -93,23 +91,24 @@ class Groups(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if self.image:
+        if self.check_size_thumb() and self.check_size_image():
             self.image.name = get_path_upload_image(
                 self.title, self.founder_id, self.image.name
             )
 
-        if self.miniature:
             self.miniature.name = get_path_upload_image(
                 self.title, self.founder_id, self.miniature.name
             )
-        if self.check_size():
             super().save(*args, **kwargs)
             self.work_image()
+        else:
+            super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("detail_groups", kwargs={"pk": self.id})
 
     def work_image(self):
+        """Сжатие изображения и создание миниатюры"""
         if self.image:
             im = Image.open(self.image.path)
             im.save(self.image.path, 'JPEG', optimize=True, quality=60)
@@ -119,29 +118,34 @@ class Groups(models.Model):
             im.thumbnail(size)
             im.save(self.miniature.path, "JPEG")
 
-    def check_size(self):
-        """Проверка размера изображения"""
-        # return True
-        # return False if self.miniature and (
-        #         self.miniature_height < self.min_height or self.miniature_width < self.min_width
-        # ) else True
+    def check_size_thumb(self):
+        """Проверка размера миниатюр"""
         if self.miniature and self.thumb_height >= self.thumb_min_h and self.thumb_width >= self.thumb_min_w \
                 and self.thumb_height <= self.thumb_max_h and self.thumb_width <= self.thumb_max_w:
             return True
         else:
             return False
 
+    def check_size_image(self):
+        """Проверка размера изображения"""
+        if self.image and self.image_height >= self.image_min_h and self.image_width >= self.image_min_w \
+                and self.image_height <= self.image_max_h and self.image_width <= self.image_max_w:
+            return True
+        else:
+            return False
+
     def full_clean(self, *args, **kwargs):
-        """
-        Добавлена логика проверки размеров
+        """ Добавлена логика проверки размеров
         изображения при добавлении через админку
         """
         super().full_clean(*args, **kwargs)
 
-        if not self.check_size():
-            raise DjangoValidationError(
-                'Размер изображения должен быть не менее {}x{} пикселей')#.format(self.min_height, self.min_width)
-            #)
+        if not self.check_size_image():
+            raise DjangoValidationError(f'Размер изображения должен быть не менее {self.image_min_h}'
+                                        f'x{self.image_min_w} пикселей')
+        if not self.check_size_thumb():
+            raise DjangoValidationError(f'Размер миниатюры должен быть не менее {self.thumb_min_h}'
+                                        f'x{self.thumb_min_w} пикселей')
 
 
 class EntryGroup(models.Model):
