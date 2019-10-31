@@ -37,8 +37,13 @@ ul[class], ol[class] {
 }
 
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
-a:not([class]) {
-    text-decoration-skip-ink: auto;
+/*a:not([class]) {*/
+/*    text-decoration: none;*/
+/*    color: #465d81;*/
+/*}*/
+a {
+    text-decoration: none;
+    color: #465d81;
 }
 
 /* Упрощаем работу с изображениями */
@@ -72,6 +77,7 @@ input, button, textarea, select {
     grid-area: main;
 
 }
+
 .main {
     display: grid;
     /*grid-template-columns: minmax(0, 240px) repeat(auto-fill, minmax(320px, 1fr)) minmax(0, 240px);*/
