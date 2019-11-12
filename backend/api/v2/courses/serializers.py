@@ -26,8 +26,9 @@ class DetailCourseSerializer(serializers.ModelSerializer):
 
     def get_is_student(self, obj):
         """Проверка является ли юзер студентом курса"""
-        if self.context['request'].user in self.instance.students.all():
-            return True
+        if self.context.get("request", None):
+            if self.context['request'].user in self.instance.students.all():
+                return True
 
     class Meta:
         model = Course
