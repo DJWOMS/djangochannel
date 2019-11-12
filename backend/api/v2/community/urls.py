@@ -9,9 +9,9 @@ router.register('comments', views.CommentsEntryGroupView)
 
 
 urlpatterns = [
-    path('', views.GroupListView.as_view()),
+    path('', views.GroupListView.as_view(), name="list_groups"),
     path('', include(router.urls)),
-    path('create/', views.CreateGroupView.as_view()),
-    path('member/<int:pk>/', views.GroupAddMember.as_view()),
-    path('<int:pk>/', views.GroupView.as_view()),
+    path('create/', views.CreateGroupView.as_view(), name="create_group"),
+    path('member/<int:pk>/', views.GroupAddMember.as_view(), name="enter_group"),
+    path('<int:pk>/', views.GroupView.as_view(), name="detail_group"),
 ]
