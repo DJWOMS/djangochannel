@@ -4,7 +4,7 @@ python:
 env:
   - DJANGO=2.2.7 DB=sqlite3
 before_install:
-  - export DJANGO_SETTINGS_MODULE=DS.test_settings
+  - export DJANGO_SETTINGS_MODULE=DS.settings
 install:
   - pip install -r req.txt
   - pip install coverage
