@@ -1,4 +1,8 @@
-SECRET_KEY = 'b55kji!o_#F$^#@@!D54585@ana6l2$n=!o1ejm@'
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SECRET_KEY = 'lj#%$^Y%Ygh66%eb235#%gr3f*svtwh_0r2pe)8&lc*hl'
 
 DEBUG = True
 
