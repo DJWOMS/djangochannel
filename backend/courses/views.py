@@ -12,7 +12,7 @@ from backend.contact.forms import ContactForm
 
 from .models import (Course, Task, RealizationTask, MessagesTask, CheckPAyUser)
 from .forms import AnswerTaskForm
-from .tasks import check_api #CheckPay
+#from .tasks import check_api #CheckPay
 
 
 logging.basicConfig(
@@ -141,7 +141,6 @@ class TaskCourse(View):
         else:
             messages.add_message(self.request, settings.TASK_MESS, 'Ошибка сохранения')
         return HttpResponseRedirect(request.path)
-
 
     @staticmethod
     def check_user(request, task_id):

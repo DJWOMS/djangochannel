@@ -1,5 +1,3 @@
-from .base_settings import *
-
 SECRET_KEY = 'b55kji!o_#F$^#@@!D54585@ana6l2$n=!o1ejm@'
 
 DEBUG = True
@@ -14,5 +12,5 @@ DATABASES = {
 }
 
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
