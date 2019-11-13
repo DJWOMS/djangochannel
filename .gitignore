@@ -34,7 +34,7 @@ __pycache__/
 
 media/*
 !*media
-
+!*media/photo.jpg
 
 log/pay.log
 log/debug_new.log
