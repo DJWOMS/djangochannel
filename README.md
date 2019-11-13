@@ -7,6 +7,8 @@
 <h2 align="center">Django Channel</h2>
 
 [![Join the chat at https://gitter.im/djangochannel/community](https://badges.gitter.im/djangochannel/community.svg)](https://gitter.im/djangochannel/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/DJWOMS/djangochannel.svg?branch=master)](https://travis-ci.org/DJWOMS/djangochannel)
+[![Coverage Status](https://coveralls.io/repos/github/DJWOMS/djangochannel/badge.svg?branch=master)](https://coveralls.io/github/DJWOMS/djangochannel?branch=master)
 
 [Сайт](https://djangochannel.com)
 
