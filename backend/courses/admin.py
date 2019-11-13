@@ -1,9 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from backend.profile.models import UserProfile
-
-
 from .models import (Category,
                      Course,
                      Task,
@@ -21,7 +18,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class CourseAdmin(admin.ModelAdmin):
     """Админка курсов"""
-    list_display = ("id", "title", "category", "price", "date_start", "available", "is_active", "is_complete")
+    list_display = (
+        "id", "title", "category", "price", "date_start", "available", "is_active", "is_complete"
+    )
+    list_filter = ("title", "category", "is_active", "is_complete")
     # list_display.append('term')
     # list_display.append('count_seats')
     readonly_fields = ('count_tasks',)

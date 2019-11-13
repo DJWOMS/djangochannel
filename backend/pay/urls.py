@@ -1,12 +1,19 @@
 from django.urls import path
-from . import views
+from backend.pay.views import (
+    Payment,
+    Initialization,
+    pending,
+    success,
+    fail,
+    DonateView
+)
 
 urlpatterns = [
-    path('result/', views.Payment.as_view(), name='pay-payment'),
-    path('redirect/', views.Initialization.as_view(), name='pay-initialization'),
-    path('pending/', views.pending, name='pay-pending'),
-    path('success/', views.success, name='pay-success'),
-    path('fail/', views.fail, name='pay-fail'),
-    path('', views.Payment.as_view(), name='index'),
-    path('donate/', views.DonateView.as_view(), name="donate-page"),
+    path('result/', Payment.as_view(), name='pay-payment'),
+    path('redirect/', Initialization.as_view(), name='pay-initialization'),
+    path('pending/', pending, name='pay-pending'),
+    path('success/', success, name='pay-success'),
+    path('fail/', fail, name='pay-fail'),
+    path('', Payment.as_view(), name='index'),
+    path('donate/', DonateView.as_view(), name="donate-page"),
 ]

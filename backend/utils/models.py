@@ -2,7 +2,6 @@ from django.db import models
 from django.core.exceptions import ValidationError as DjangoValidationError
 
 from backend.utils.transliteration import transliteration_rus_eng_image as translite
-from rest_framework.exceptions import ValidationError
 
 
 def create_path(instance, filename):

@@ -1,7 +1,7 @@
 import os
-import datetime
 
 from .ckeditor import *
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,8 +32,9 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework.authtoken',
     # Auth
+    'djoser',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -122,13 +123,14 @@ REST_FRAMEWORK = {
     ),
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework_json_api.pagination.PageNumberPagination',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 
@@ -176,7 +178,7 @@ SITE_ID = 1
 
 INTERNAL_IPS = '127.0.0.1'
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 MY_INFO = 80
@@ -186,8 +188,14 @@ MESSAGE_LEVEL = MY_PRIVAT_MESS
 TASK_MESS = 82
 MESSAGE_LEVEL = TASK_MESS
 
-
+# TODO Реализовать среду окружения
 try:
     from .local_settings import *
 except ImportError:
-    from .prod_settings import *
+    try:
+        from .prod_settings import *
+    except ImportError:
+        try:
+            from .test_settings import *
+        except ImportError:
+            pass

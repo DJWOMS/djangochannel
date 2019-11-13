@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib import messages
-from .models import Post, Tag, SpySearch, BlogCategory, Comment
+from backend.blog.models import Post, Tag, SpySearch, BlogCategory, Comment
 from mptt.admin import MPTTModelAdmin
 
 

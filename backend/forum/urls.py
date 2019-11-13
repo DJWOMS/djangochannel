@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.urls import path
 # from backend.forum import api_views
 from backend.forum import views
