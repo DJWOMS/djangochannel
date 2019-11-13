@@ -1,4 +1,3 @@
-amqp==2.5.2
 asn1crypto==1.0.0
 astroid==2.3.2
 attrs==19.3.0
@@ -40,7 +39,6 @@ inflection==0.3.1
 isort==4.3.21
 itypes==1.1.0
 Jinja2==2.10.1
-kombu==4.6.5
 lazy-object-proxy==1.4.2
 MarkupSafe==1.1.1
 mccabe==0.6.1
@@ -72,7 +70,6 @@ simplejson==3.16.0
 six==1.12.0
 soupsieve==1.9.4
 sqlparse==0.3.0
-Transcrypt==3.7.16
 typed-ast==1.4.0
 typing-extensions==3.7.4
 uritemplate==3.0.0

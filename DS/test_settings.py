@@ -1,6 +1,6 @@
 from .settings import *
 
-SECRET_KEY = 'b0!c@b!o_#F$^#@@!D@bv%#yhxs=qm@ana6l2$n=!p1ejm@'
+SECRET_KEY = 'b55kji!o_#F$^#@@!D54585@ana6l2$n=!o1ejm@'
 
 DEBUG = True
 
@@ -16,3 +16,8 @@ DATABASES = {
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
