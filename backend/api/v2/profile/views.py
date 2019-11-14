@@ -4,7 +4,7 @@ from backend.api.v2.profile.serializers import UserProfileSerializer, UserProfil
 
 
 class ProfileView(generics.ListAPIView):
-    """Вывод профиля"""
+    """Вывод личного профиля"""
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserProfileSerializer
 
@@ -12,11 +12,9 @@ class ProfileView(generics.ListAPIView):
         return UserProfile.objects.filter(user=self.request.user)
 
 
-class ProfilePublicView(generics.RetrieveAPIView):
+class PublicProfileView(generics.RetrieveAPIView):
     """Вывод публичныого профиля"""
     permission_classes = [permissions.IsAuthenticated]
+    queryset = UserProfile.objects.filter(public=True)
     serializer_class = UserProfilePublicSerializer
-
-    def get_queryset(self):
-        return UserProfile.objects.filter(public=True)
 
