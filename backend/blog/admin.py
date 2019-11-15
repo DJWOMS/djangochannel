@@ -78,7 +78,7 @@ class PostAdmin(admin.ModelAdmin, ActionPublish):
 
 class CommentAdmin(admin.ModelAdmin, ActionPublish):
     """Коментарии к статьям"""
-    list_display = ("user", "post", "date", "update", "published")
+    list_display = ("user", "post", "created_date", "update_date", "published")
     actions = ['unpublish', 'publish']
 
 
