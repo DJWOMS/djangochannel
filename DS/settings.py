@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'bootstrap4',
     'mptt',
-
+    # docs
     'drf_yasg',
     # Editor
     'ckeditor',
@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
     # Auth
     'djoser',
     'allauth',
@@ -131,6 +132,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework_json_api.pagination.PageNumberPagination',
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 
@@ -166,14 +168,14 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 LANGUAGE_CODE = 'ru-ru'
 
-# TIME_ZONE = 'UTC'
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = 'UTC'
+# TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 SITE_ID = 1
 

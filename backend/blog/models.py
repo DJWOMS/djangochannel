@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.timezone import get_current_timezone
 from mptt.models import MPTTModel, TreeForeignKey
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -57,7 +58,12 @@ class Post(models.Model):
     mini_text = models.TextField("Краткое содержание", max_length=5000)
     text = models.TextField("Полное содержание", max_length=10000000)
     created_date = models.DateTimeField("Дата создания", auto_now_add=True)
-    published_date = models.DateTimeField("Дата публикации", blank=True, null=True)
+    published_date = models.DateTimeField(
+        "Дата публикации",
+        default=timezone.now,
+        blank=True,
+        null=True
+    )
     image = models.ImageField("Изображение", upload_to="blog/", blank=True)
     tag = models.ManyToManyField(Tag, verbose_name="Тег", blank=True)
     category = models.ForeignKey(
@@ -76,10 +82,6 @@ class Post(models.Model):
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
         ordering = ["-created_date"]
-
-    def publish(self):
-        self.published_date = timezone.now
-        self.save()
 
     def get_category_description(self):
         return self.category.description
