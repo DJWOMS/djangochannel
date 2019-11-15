@@ -1,23 +1,29 @@
 import datetime
+
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
 from rest_framework.pagination import PageNumberPagination
 
 from backend.blog.models import Post, BlogCategory
-from backend.api.v2.blog.serializers import PostSerializer, PostDetailSerializer, BlogCategorySerializer
+from backend.api.v2.blog.serializers import (
+    ListPostSerializer, PostDetailSerializer, BlogCategorySerializer
+)
 
 
 class PostPagination(PageNumberPagination):
     """Количество записей для пагинации"""
-    page_size = 100
+    page_size = 10
     page_size_query_param = 'page_size'
-    max_page_size = 1000
+    max_page_size = 100
 
 
-class PostList(generics.ListAPIView):
+class PostListView(generics.ListAPIView):
     """Список всех постов"""
     permission_classes = [permissions.AllowAny]
-    serializer_class = PostSerializer
+    serializer_class = ListPostSerializer
     pagination_class = PostPagination
+    filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['category', 'tag']
 
     def get_queryset(self):
         count = self.request.GET.get("count", None)
@@ -27,25 +33,23 @@ class PostList(generics.ListAPIView):
         return posts
 
 
-class PostDetail(generics.RetrieveAPIView):
+class PostDetailView(generics.RetrieveAPIView):
     """Вывод полной статьи"""
     permission_classes = [permissions.AllowAny]
+    queryset = Post.objects.filter(published_date__lte=datetime.datetime.now(), published=True)
     serializer_class = PostDetailSerializer
-    pagination_class = PostPagination
+    lookup_field = "slug"
 
-    def get_queryset(self):
-        # TODO переписать данный метод, на получение объекта и его изменение.
-        queryset = Post.objects.filter(id=self.kwargs.get('pk'))
-        post = Post.objects.get(id=self.kwargs.get('pk'))
-        post.viewed += 1
-        post.save()
-        return queryset
+    def get_object(self):
+        obj = super().get_object()
+        obj.viewed += 1
+        obj.save()
+        return obj
 
 
-class SortCategory(generics.ListAPIView):
+class CategoriesView(generics.ListAPIView):
     """Вывод категоий"""
     permission_classes = [permissions.AllowAny]
     queryset = BlogCategory.objects.all()
     serializer_class = BlogCategorySerializer
-    pagination_class = PostPagination
 

@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.timezone import get_current_timezone
 from mptt.models import MPTTModel, TreeForeignKey
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -71,12 +70,13 @@ class Post(models.Model):
         verbose_name="Категория",
         blank=True,
         null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL
+    )
     published = models.BooleanField("Опубликовать?", default=True)
     viewed = models.IntegerField("Просмотрено", default=0)
-    slug = models.SlugField(max_length=500, blank=True, null=True, unique=True)
+    slug = models.SlugField(max_length=500, unique=True)
 
-    description = models.TextField("Description", max_length=300, default="", null=True)
+    description = models.TextField("Description", max_length=300)
 
     class Meta:
         verbose_name = "Новость"
@@ -90,11 +90,11 @@ class Post(models.Model):
         return f"{self.comment_set.all().count()}"
 
     def get_absolute_url(self):
-        return reverse("single_post", kwargs={"category": self.category.slug, "slug": self.slug})
+        return reverse("detail_post", kwargs={"category": self.category.slug, "slug": self.slug})
 
-    def save(self, *args, **kwargs):
-        self.slug = transliteration_rus_eng(self.title) + '-' + str(self.id)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = transliteration_rus_eng(self.title) + '-' + str(self.id)
+    #     super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
