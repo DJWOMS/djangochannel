@@ -1,10 +1,8 @@
 import io
-import json
-
 import mock
 from PIL import Image
-from django.core.files.uploadedfile import SimpleUploadedFile
 
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.files import File

@@ -1,23 +1,21 @@
 import os
+from PIL import Image
 
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
-from ckeditor.fields import RichTextField
-
-from PIL import Image
+from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
+
+from ckeditor.fields import RichTextField
 
 from backend.courses.models import Course
 from backend.moderation.models import ModeratorRights
 from backend.utils.models import AbstractImageModel
 
 # from backend.utils.send_mail import send_mail_edit_password
-
-User = settings.AUTH_USER_MODEL
 
 
 def get_path_upload_avatar(instance, file):

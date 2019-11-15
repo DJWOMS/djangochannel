@@ -140,6 +140,7 @@ REST_FRAMEWORK = {
 #     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7)  # default
 # }
 #
+
 # DJOSER = {
 #     'SEND_ACTIVATION_EMAIL': True,
 #     # 'SEND_CONFIRMATION_EMAIL': True,

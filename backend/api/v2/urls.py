@@ -6,11 +6,11 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Course DRF API",
-        default_version='v1',
+        title="Djangochannel API",
+        default_version='v2',
         description="Test description",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
+        contact=openapi.Contact(email="socanime@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
@@ -26,7 +26,8 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     path('blog/', include('backend.api.v2.blog.urls')),
-    # path('profile/', include('backend.api.v2.profile.urls')),
+    path('profile/', include('backend.api.v2.profile.urls')),
     path('course/', include('backend.api.v2.courses.urls')),
     path('groups/', include('backend.api.v2.community.urls')),
+    path('reviews/', include('backend.api.v2.reviews.urls')),
 ]
