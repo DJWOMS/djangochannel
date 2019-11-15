@@ -238,8 +238,8 @@ class CheckPAyUser(models.Model):
         return "{} - {}".format(self.user, self.course)
 
     class Meta:
-        verbose_name = "Ожитание оплаты"
-        verbose_name_plural = "Ожитание оплаты"
+        verbose_name = "Ожидание оплаты"
+        verbose_name_plural = "Ожидание оплаты"
 
 
 @receiver(post_save, sender=MessageForStudent)
