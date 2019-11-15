@@ -84,6 +84,9 @@ class Post(models.Model):
     def get_category_description(self):
         return self.category.description
 
+    def get_count_comments(self):
+        return f"{self.comment_set.all().count()}"
+
     def get_absolute_url(self):
         return reverse("single_post", kwargs={"category": self.category.slug, "slug": self.slug})
 
@@ -105,7 +108,8 @@ class Comment(AbstractComment, MPTTModel):
         on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='children')
+        related_name='children'
+    )
 
     class Meta:
         verbose_name = "Комментарий"
