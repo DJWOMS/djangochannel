@@ -1,12 +1,19 @@
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from backend.blog.models import Post, Tag, SpySearch, BlogCategory, Comment
 from mptt.admin import MPTTModelAdmin
 
 
-class TagAdmin(admin.ModelAdmin):
-    """Тэги"""
-    prepopulated_fields = {"slug": ("name",)}
+class PostAdminForm(forms.ModelForm):
+    """Виджет редактора ckeditor"""
+    mini_text = forms.CharField(label="Превью статьи", widget=CKEditorUploadingWidget())
+    text = forms.CharField(label="Полная статья", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Post
+        fields = '__all__'
 
 
 class ActionPublish:
@@ -37,6 +44,12 @@ class ActionPublish:
     publish.allowed_permissions = ('change',)
 
 
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    """Тэги"""
+    prepopulated_fields = {"slug": ("name",)}
+
+
 class BlogCategoryAdmin(MPTTModelAdmin, ActionPublish):
     """Категории"""
     list_display = ("name", "parent", "slug", "published", "id")
@@ -65,6 +78,7 @@ class PostAdmin(admin.ModelAdmin, ActionPublish):
     search_fields = ("title", "category")
     prepopulated_fields = {"slug": ("title",)}
     actions = ['unpublish', 'publish']
+    form = PostAdminForm
 
     # def new_category(self, request, queryset):
     #     """Переопределение категорий постов"""
@@ -76,10 +90,11 @@ class PostAdmin(admin.ModelAdmin, ActionPublish):
     # new_category.short_description = "Переопределить"
 
 
-class CommentAdmin(admin.ModelAdmin, ActionPublish):
+class CommentAdmin(MPTTModelAdmin, ActionPublish):
     """Коментарии к статьям"""
     list_display = ("user", "post", "created_date", "update_date", "published")
     actions = ['unpublish', 'publish']
+    mptt_level_indent = 15
 
 
 class SpySearchAdmin(admin.ModelAdmin):
@@ -92,6 +107,5 @@ class SpySearchAdmin(admin.ModelAdmin):
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(Tag, TagAdmin)
 admin.site.register(SpySearch, SpySearchAdmin)
 admin.site.register(BlogCategory, BlogCategoryAdmin)

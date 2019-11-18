@@ -87,7 +87,10 @@ class Post(models.Model):
         return self.category.description
 
     def get_count_comments(self):
-        return f"{self.comment_set.all().count()}"
+        return f"{self.comments.all().count()}"
+
+    def get_comments(self):
+        return self.comments.filter(parent=None)
 
     def get_absolute_url(self):
         return reverse("detail_post", kwargs={"category": self.category.slug, "slug": self.slug})
@@ -103,7 +106,9 @@ class Post(models.Model):
 class Comment(AbstractComment, MPTTModel):
     """Модель коментариев к новостям"""
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, verbose_name="Новость", on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, verbose_name="Новость", related_name="comments", on_delete=models.CASCADE
+    )
     parent = TreeForeignKey(
         "self",
         verbose_name="Родительский комментарий",

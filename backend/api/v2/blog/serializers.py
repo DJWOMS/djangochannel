@@ -20,7 +20,7 @@ class BlogCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlogCategory
-        fields = ("name", "slug")
+        fields = ("name",)
 
 
 class SortPostCategorySerializer(serializers.ModelSerializer):
@@ -28,7 +28,7 @@ class SortPostCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BlogCategory
-        fields = ("id", "name", "slug")
+        fields = ("name", "slug", "description")
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -41,10 +41,11 @@ class TagSerializer(serializers.ModelSerializer):
 class ListPostSerializer(serializers.ModelSerializer):
     """Сериализация списка статей"""
     author = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    category = BlogCategorySerializer(read_only=True)
+    category = serializers.SlugRelatedField(read_only=True, slug_field='name')
     tag = TagSerializer(many=True)
     comments_count = serializers.IntegerField(source="get_count_comments", read_only=True)
     link = serializers.URLField(source="get_absolute_url", read_only=True)
+    created_date = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S")
 
     class Meta:
         model = Post
@@ -52,6 +53,7 @@ class ListPostSerializer(serializers.ModelSerializer):
             "id",
             "author",
             "title",
+            "image",
             "mini_text",
             "created_date",
             "category",
@@ -62,34 +64,48 @@ class ListPostSerializer(serializers.ModelSerializer):
         )
 
 
+class FilterCommentListSerializer(serializers.ListSerializer):
+    """Фильтр комментариев, только perents"""
+    def to_representation(self, data):
+        data = data.filter(parent=None)
+        return super().to_representation(data)
+
+
+class RecursiveCommentSerializer(serializers.Serializer):
+    """Вывод children в коментариях"""
+    def to_representation(self, value):
+        serializer = self.parent.parent.__class__(value, context=self.context)
+        return serializer.data
+
+
 class CommentsSerializer(serializers.ModelSerializer):
     """Сериализация комментариев"""
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    created_date = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S")
+    update_date = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S")
+    children = RecursiveCommentSerializer(many=True)
 
     class Meta:
+        list_serializer_class = FilterCommentListSerializer
         model = Comment
-        fields = ("user", "text", "created_date", "update_date")
+        fields = ("user", "text", "created_date", "update_date", "children")
 
 
-class PostDetailSerializer(serializers.ModelSerializer):
+class PostDetailSerializer(ListPostSerializer):
     """Сериализация полной статьи"""
-    author = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    category = BlogCategorySerializer()
-    tag = TagSerializer(many=True)
-    comments = CommentsSerializer(read_only=True)
-    comments_count = serializers.IntegerField(source="get_count_comments", read_only=True)
-    created_date = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S")
+    comments = CommentsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
         fields = (
             "author",
             "title",
-            "text",
             "image",
+            "text",
             "created_date",
             "category",
             "tag",
+            "description",
             "viewed",
             "comments",
             "comments_count",
