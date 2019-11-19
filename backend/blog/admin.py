@@ -92,7 +92,7 @@ class PostAdmin(admin.ModelAdmin, ActionPublish):
 
 class CommentAdmin(MPTTModelAdmin, ActionPublish):
     """Коментарии к статьям"""
-    list_display = ("user", "post", "created_date", "update_date", "published")
+    list_display = ("user", "post", "created_date", "update_date", "published", "id")
     actions = ['unpublish', 'publish']
     mptt_level_indent = 15
 

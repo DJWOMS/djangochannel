@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -25,6 +27,9 @@ class BlogCategory(MPTTModel):
     slug = models.SlugField(max_length=100, blank=True, null=True, unique=True)
 
     description = models.TextField("Description", max_length=300, default="")
+
+    def get_absolute_url(self):
+        return reverse("list_category", kwargs={"category": self.slug})
 
     class Meta:
         verbose_name = "Категория"
@@ -95,9 +100,12 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("detail_post", kwargs={"category": self.category.slug, "slug": self.slug})
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = transliteration_rus_eng(self.title) + '-' + str(self.id)
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = transliteration_rus_eng(self.title) + '-' + datetime.strftime(
+                timezone.now(), "%d_%m_%y_%H_%M_%S_%s"
+            )
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -112,7 +120,7 @@ class Comment(AbstractComment, MPTTModel):
     parent = TreeForeignKey(
         "self",
         verbose_name="Родительский комментарий",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name='children'
