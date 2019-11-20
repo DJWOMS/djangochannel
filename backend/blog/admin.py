@@ -73,7 +73,7 @@ class BlogCategoryAdmin(MPTTModelAdmin, ActionPublish):
 
 class PostAdmin(admin.ModelAdmin, ActionPublish):
     """Статьи"""
-    list_display = ('title', 'slug', 'created_date', "category", "published", "id")
+    list_display = ('title', 'slug', 'created_date', "published_date", "category", "published", "id")
     list_filter = ("created_date", "category__name", "published")
     search_fields = ("title", "category")
     prepopulated_fields = {"slug": ("title",)}

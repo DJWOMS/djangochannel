@@ -27,14 +27,6 @@ class ListBlogCategoriesSerializer(serializers.ModelSerializer):
         fields = ("name", "slug", "link", "children")
 
 
-# class SortPostCategorySerializer(serializers.ModelSerializer):
-#     """Сериализация категории сортировки постов"""
-#
-#     class Meta:
-#         model = BlogCategory
-#         fields = ("name", "slug", "description")
-
-
 class TagSerializer(serializers.ModelSerializer):
     """Сериализация тегов"""
     class Meta:

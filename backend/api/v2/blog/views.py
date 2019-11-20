@@ -1,6 +1,7 @@
 import datetime
 
-from django_filters import rest_framework as filters, ModelChoiceFilter
+from django_filters import rest_framework as rest_filters, NumberFilter, CharFilter
+from rest_framework import filters
 from rest_framework import generics, permissions
 from rest_framework.pagination import PageNumberPagination
 
@@ -19,14 +20,16 @@ class PostPagination(PageNumberPagination):
     max_page_size = 100
 
 
-# class ProductFilter(filters.FilterSet):
-#     category = ModelChoiceFilter(queryset=BlogCategory.objects.all())
-#
-#     class Meta:
-#         model = Post
-#         fields = ["category__slug"]
-#             #'tag': ['tag__slug'],
-#             # 'category': ['slug'],"published_date__lte",
+class PostFilter(rest_filters.FilterSet):
+    """Фильтр статей"""
+    category = CharFilter(field_name='category__name', lookup_expr='icontains')
+    tag = CharFilter(field_name='tag__name', lookup_expr='icontains')
+    year = NumberFilter(field_name='published_date', lookup_expr='year')
+    month = NumberFilter(field_name='published_date', lookup_expr='month')
+
+    class Meta:
+        model = Post
+        fields = ['tag', 'category', 'published_date']
 
 
 class PostListView(generics.ListAPIView):
@@ -35,15 +38,14 @@ class PostListView(generics.ListAPIView):
     queryset = Post.objects.filter(published_date__lte=datetime.datetime.now(), published=True)
     serializer_class = ListPostSerializer
     pagination_class = PostPagination
-    # filter_backends = (filters.DjangoFilterBackend,)
-    # filterset_class = ProductFilter
+    filter_backends = (rest_filters.DjangoFilterBackend, filters.SearchFilter)
+    filterset_class = PostFilter
+    search_fields = ['title', 'category__name', 'tag__name']
 
     def get_queryset(self):
         queryset = super().get_queryset()
         if self.kwargs.get("category"):
             queryset = queryset.filter(category__slug=self.kwargs.get("category"))
-        # elif self.kwargs.get('tag') is not None:
-        #     queryset = self.queryset.filter(tag__slug=self.kwargs.get('tag'))
         return queryset
 
 
