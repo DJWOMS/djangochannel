@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from django_filters import rest_framework as rest_filters, NumberFilter, CharFilter
 from rest_framework import filters
@@ -35,24 +35,18 @@ class PostFilter(rest_filters.FilterSet):
 class PostListView(generics.ListAPIView):
     """Список всех постов"""
     permission_classes = [permissions.AllowAny]
-    queryset = Post.objects.filter(published_date__lte=datetime.datetime.now(), published=True)
+    queryset = Post.objects.filter(published_date__lte=datetime.now(), published=True)
     serializer_class = ListPostSerializer
     pagination_class = PostPagination
     filter_backends = (rest_filters.DjangoFilterBackend, filters.SearchFilter)
     filterset_class = PostFilter
     search_fields = ['title', 'category__name', 'tag__name']
 
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        if self.kwargs.get("category"):
-            queryset = queryset.filter(category__slug=self.kwargs.get("category"))
-        return queryset
-
 
 class PostDetailView(generics.RetrieveAPIView):
     """Вывод полной статьи"""
     permission_classes = [permissions.AllowAny]
-    queryset = Post.objects.filter(published_date__lte=datetime.datetime.now(), published=True)
+    queryset = Post.objects.filter(published_date__lte=datetime.now(), published=True)
     serializer_class = PostDetailSerializer
     lookup_field = "slug"
 
