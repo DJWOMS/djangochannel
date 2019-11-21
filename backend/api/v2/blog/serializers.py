@@ -1,20 +1,7 @@
 from rest_framework import serializers
 
+from backend.api.v2.viewsets.serializers import FilterCommentListSerializer, RecursiveSerializer
 from backend.blog.models import BlogCategory, Tag, Post, Comment
-
-
-class FilterCommentListSerializer(serializers.ListSerializer):
-    """Фильтр комментариев, только parents"""
-    def to_representation(self, data):
-        data = data.filter(parent=None)
-        return super().to_representation(data)
-
-
-class RecursiveSerializer(serializers.Serializer):
-    """Вывод рекурсивно children"""
-    def to_representation(self, value):
-        serializer = self.parent.parent.__class__(value, context=self.context)
-        return serializer.data
 
 
 class ListBlogCategoriesSerializer(serializers.ModelSerializer):
