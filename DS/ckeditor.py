@@ -8,9 +8,9 @@ CKEDITOR_CONFIGS = {
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            # {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'document', 'items': ['Source', '-', 'Templates']},
             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', ]},#'SelectAll'
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', ]},
             # {'name': 'forms',
             #  'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
             #            'HiddenField']},
@@ -22,7 +22,7 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
             # 'Outdent', 'Indent', 'CreateDiv',  'BidiLtr', 'BidiRtl', 'Language'
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
-            {'name': 'insert', 'items': ['Image', 'Youtube', 'Table',  'Smiley']},
+            {'name': 'insert', 'items': ['Image', 'Youtube', 'Table', 'Smiley']},
             #'HorizontalRule', 'SpecialChar', 'PageBreak'
             #'/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
@@ -87,7 +87,7 @@ CKEDITOR_CONFIGS = {
                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-']},
             # 'Outdent', 'Indent', 'CreateDiv',  'BidiLtr', 'BidiRtl', 'Language'
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
-            {'name': 'insert', 'items': ['Image', 'Youtube', 'Table',  'Smiley']},
+            {'name': 'insert', 'items': ['Image', 'Youtube', 'Table', 'Smiley']},
             #'HorizontalRule', 'SpecialChar', 'PageBreak'
             #'/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},

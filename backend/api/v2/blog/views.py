@@ -1,5 +1,5 @@
-from datetime import datetime
-
+# from datetime import datetime
+from django.utils import timezone
 from django_filters import rest_framework as rest_filters, NumberFilter, CharFilter
 from rest_framework import filters
 from rest_framework import generics, permissions
@@ -35,7 +35,7 @@ class PostFilter(rest_filters.FilterSet):
 class PostListView(generics.ListAPIView):
     """Список всех постов"""
     permission_classes = [permissions.AllowAny]
-    queryset = Post.objects.filter(published_date__lte=datetime.now(), published=True)
+    queryset = Post.objects.filter(published_date__lte=timezone.now(), published=True)
     serializer_class = ListPostSerializer
     pagination_class = PostPagination
     filter_backends = (rest_filters.DjangoFilterBackend, filters.SearchFilter)
@@ -46,7 +46,7 @@ class PostListView(generics.ListAPIView):
 class PostDetailView(generics.RetrieveAPIView):
     """Вывод полной статьи"""
     permission_classes = [permissions.AllowAny]
-    queryset = Post.objects.filter(published_date__lte=datetime.now(), published=True)
+    queryset = Post.objects.filter(published_date__lte=timezone.now(), published=True)
     serializer_class = PostDetailSerializer
     lookup_field = "slug"
 

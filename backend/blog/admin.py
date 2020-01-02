@@ -58,18 +58,6 @@ class BlogCategoryAdmin(MPTTModelAdmin, ActionPublish):
     list_filter = ("published",)
     actions = ['unpublish', 'publish']
 
-    # def cat(self, request, queryset):
-    #     """Определение категорий """
-    #     with open('update_category/mp_cat.py', 'a') as file:
-    #         l = []
-    #         for cat in queryset:
-    #             mp_name = cat.name
-    #             mp_id = cat.id
-    #             d = {mp_name: mp_id}
-    #             l.append(d)
-    #         file.write('mp_category_dict = {}\n'.format(l))
-    # cat.short_description = "Определить"
-
 
 class PostAdmin(admin.ModelAdmin, ActionPublish):
     """Статьи"""
@@ -79,15 +67,8 @@ class PostAdmin(admin.ModelAdmin, ActionPublish):
     prepopulated_fields = {"slug": ("title",)}
     actions = ['unpublish', 'publish']
     form = PostAdminForm
-
-    # def new_category(self, request, queryset):
-    #     """Переопределение категорий постов"""
-    #     for post in queryset:
-    #         post_id = post.id
-    #     for key, value in redefine_categories().items():
-    #             if post_id == key:
-    #                 queryset.update(category_id=value)
-    # new_category.short_description = "Переопределить"
+    save_on_top = True
+    save_as = True
 
 
 class CommentAdmin(MPTTModelAdmin, ActionPublish):
