@@ -32,8 +32,7 @@
 - Python >= 3.7
 - Django >= 2
 - PostgreSQL
-- Svelte 3
-- Sapper
+- Angular
 
 **Как работаем:**
 - Все предложения и найденные ошибки добавляются в виде Issues на GitHub всеми желающими

@@ -31,14 +31,14 @@ class TagSerializer(serializers.ModelSerializer):
 class ListPostSerializer(serializers.ModelSerializer):
     """Сериализация списка статей"""
     author = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    link = serializers.URLField(source="get_absolute_url", read_only=True)
+    # link = serializers.URLField(source="get_absolute_url", read_only=True)
     category = BlogCategoriesSerializer(read_only=True)
     tag = TagSerializer(many=True)
     comments_count = serializers.IntegerField(source="get_count_comments", read_only=True)
 
     class Meta:
         model = Post
-        exclude = ("text", "created_date", "published", "slug")
+        exclude = ("text", "created_date", "published") #, "slug")
 
 
 class CommentsSerializer(serializers.ModelSerializer):

@@ -6,16 +6,6 @@ from backend.blog.models import Post, Tag, SpySearch, BlogCategory, Comment
 from mptt.admin import MPTTModelAdmin
 
 
-class PostAdminForm(forms.ModelForm):
-    """Виджет редактора ckeditor"""
-    mini_text = forms.CharField(label="Превью статьи", widget=CKEditorUploadingWidget())
-    text = forms.CharField(label="Полная статья", widget=CKEditorUploadingWidget())
-
-    class Meta:
-        model = Post
-        fields = '__all__'
-
-
 class ActionPublish:
     """Action для публикации и снятия с публикации"""
 
@@ -50,6 +40,7 @@ class TagAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
+@admin.register(BlogCategory)
 class BlogCategoryAdmin(MPTTModelAdmin, ActionPublish):
     """Категории"""
     list_display = ("name", "parent", "slug", "published", "id")
@@ -59,6 +50,17 @@ class BlogCategoryAdmin(MPTTModelAdmin, ActionPublish):
     actions = ['unpublish', 'publish']
 
 
+class PostAdminForm(forms.ModelForm):
+    """Виджет редактора ckeditor"""
+    mini_text = forms.CharField(label="Превью статьи", widget=CKEditorUploadingWidget())
+    text = forms.CharField(label="Полная статья", widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin, ActionPublish):
     """Статьи"""
     list_display = ('title', 'slug', 'created_date', "published_date", "category", "published", "id")
@@ -71,6 +73,7 @@ class PostAdmin(admin.ModelAdmin, ActionPublish):
     save_as = True
 
 
+@admin.register(Comment)
 class CommentAdmin(MPTTModelAdmin, ActionPublish):
     """Коментарии к статьям"""
     list_display = ("user", "post", "created_date", "update_date", "published", "id")
@@ -78,6 +81,7 @@ class CommentAdmin(MPTTModelAdmin, ActionPublish):
     mptt_level_indent = 15
 
 
+@admin.register(SpySearch)
 class SpySearchAdmin(admin.ModelAdmin):
     """Счетчик поиска"""
     list_display = ("record", "counter")
@@ -85,8 +89,3 @@ class SpySearchAdmin(admin.ModelAdmin):
 
 # admin.site.add_action(PostAdmin.publish)
 # admin.site.add_action(PostAdmin.unpublish)
-
-admin.site.register(Post, PostAdmin)
-admin.site.register(Comment, CommentAdmin)
-admin.site.register(SpySearch, SpySearchAdmin)
-admin.site.register(BlogCategory, BlogCategoryAdmin)

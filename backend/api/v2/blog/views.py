@@ -48,7 +48,7 @@ class PostDetailView(generics.RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = Post.objects.filter(published_date__lte=timezone.now(), published=True)
     serializer_class = PostDetailSerializer
-    lookup_field = "slug"
+    lookup_field = "pk"
 
     def get_object(self):
         obj = super().get_object()
