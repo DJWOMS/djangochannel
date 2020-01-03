@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class CommunityConfig(AppConfig):
-    name = "community"
+    name = 'backend.community'
+    verbose_name = "Сообщества"

@@ -1,80 +1,82 @@
 from rest_framework import serializers
-from rest_framework_recursive.fields import RecursiveField
 
-from backend.blog.models import BlogCategory, Tag, Post
+from backend.api.v2.viewsets.serializers import FilterCommentListSerializer, RecursiveSerializer
+from backend.blog.models import BlogCategory, Tag, Post, Comment
 
 
-class BlogCategorySerializer(serializers.ModelSerializer):
+class ListBlogCategoriesSerializer(serializers.ModelSerializer):
+    """Сериализация модели категорий и children"""
+    children = RecursiveSerializer(many=True)
+    link = serializers.URLField(source="get_absolute_url", read_only=True)
+
+    class Meta:
+        model = BlogCategory
+        fields = ("name", "slug", "link", "children")
+
+
+class BlogCategoriesSerializer(serializers.ModelSerializer):
     """Сериализация модели категорий"""
-    children = serializers.ListField(source='get_children', read_only=True,
-                                     child=RecursiveField(), )
-
     class Meta:
         model = BlogCategory
-        fields = ("id", "name", "children", "slug")
-
-
-class SortPostCategorySerializer(serializers.ModelSerializer):
-    """Сериализация категории сортировки постов"""
-
-    class Meta:
-        model = BlogCategory
-        fields = ("id", "name", "slug")
+        fields = ("name", "description")
 
 
 class TagSerializer(serializers.ModelSerializer):
     """Сериализация тегов"""
     class Meta:
         model = Tag
-        fields = ("id", "name")
+        fields = ("name", "slug")
 
 
-class PostSerializer(serializers.ModelSerializer):
+class ListPostSerializer(serializers.ModelSerializer):
     """Сериализация списка статей"""
-    category = BlogCategorySerializer()
+    author = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    link = serializers.URLField(source="get_absolute_url", read_only=True)
+    category = BlogCategoriesSerializer(read_only=True)
     tag = TagSerializer(many=True)
+    comments_count = serializers.IntegerField(source="get_count_comments", read_only=True)
 
     class Meta:
         model = Post
-        fields = ("id",
-                  "title",
-                  "mini_text",
-                  "created_date",
-                  "category",
-                  "tag",
-                  "viewed")
+        exclude = ("text", "created_date", "published", "slug")
 
 
-class SortPostSerializer(serializers.ModelSerializer):
-    """Сериализация постов по категории"""
-    category = SortPostCategorySerializer()
-    tag = TagSerializer(many=True)
+class CommentsSerializer(serializers.ModelSerializer):
+    """Сериализация комментариев"""
+    user = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    text = serializers.SerializerMethodField()
+    children = RecursiveSerializer(many=True)
+
+    def get_text(self, obj):
+        if obj.deleted:
+            return None
+        return obj.text
 
     class Meta:
-        model = Post
-        fields = ("id",
-                  "title",
-                  "mini_text",
-                  "created_date",
-                  "category",
-                  "tag",
-                  "viewed")
+        list_serializer_class = FilterCommentListSerializer
+        model = Comment
+        fields = ("id", "user", "text", "created_date", "update_date", "deleted", "children")
 
 
-class PostDetailSerializer(serializers.ModelSerializer):
+class PostDetailSerializer(ListPostSerializer):
     """Сериализация полной статьи"""
-    category = BlogCategorySerializer()
-    tag = TagSerializer(many=True)
+    category = serializers.SlugRelatedField(read_only=True, slug_field='name')
+    comments = CommentsSerializer(many=True, read_only=True)
 
     class Meta:
         model = Post
-        fields = ("id",
-                  "author",
-                  "title",
-                  "text",
-                  "image",
-                  "created_date",
-                  "category",
-                  "tag",
-                  "viewed")
+        exclude = ("mini_text", "created_date", "published", "slug")
 
+
+class AddPostSerializer(serializers.ModelSerializer):
+    """Сериализация добавления статьи"""
+    class Meta:
+        model = Post
+        fields = ("title", "image", "mini_text", "text", "category", "tag", "description")
+
+
+class CreateCommentsSerializer(serializers.ModelSerializer):
+    """CRUD comments"""
+    class Meta:
+        model = Comment
+        fields = ("post", "text", "parent")

@@ -1,13 +1,14 @@
-from ckeditor_uploader.fields import RichTextUploadingField
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils import timezone
-from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+from backend.comments.models import AbstractComment
 from backend.utils.transliteration import transliteration_rus_eng
 from backend.utils.send_mail import send_mail_user_post
 
@@ -24,7 +25,11 @@ class BlogCategory(MPTTModel):
         blank=True,
         related_name='children')
     slug = models.SlugField(max_length=100, blank=True, null=True, unique=True)
+
     description = models.TextField("Description", max_length=300, default="")
+
+    def get_absolute_url(self):
+        return reverse("list_category", kwargs={"category": self.slug})
 
     class Meta:
         verbose_name = "Категория"
@@ -54,10 +59,15 @@ class Post(models.Model):
         verbose_name="Автор",
         on_delete=models.CASCADE)
     title = models.CharField("Тема", max_length=500)
-    mini_text = RichTextUploadingField("Краткое содержание", max_length=5000)
-    text = RichTextUploadingField("Полное содержание", max_length=10000000)
+    mini_text = models.TextField("Краткое содержание", max_length=5000)
+    text = models.TextField("Полное содержание", max_length=10000000)
     created_date = models.DateTimeField("Дата создания", auto_now_add=True)
-    published_date = models.DateTimeField("Дата публикации", blank=True, null=True)
+    published_date = models.DateTimeField(
+        "Дата публикации",
+        default=timezone.now,
+        blank=True,
+        null=True
+    )
     image = models.ImageField("Изображение", upload_to="blog/", blank=True)
     tag = models.ManyToManyField(Tag, verbose_name="Тег", blank=True)
     category = models.ForeignKey(
@@ -65,50 +75,56 @@ class Post(models.Model):
         verbose_name="Категория",
         blank=True,
         null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL
+    )
     published = models.BooleanField("Опубликовать?", default=True)
     viewed = models.IntegerField("Просмотрено", default=0)
-    slug = models.SlugField(max_length=500, blank=True, null=True, unique=True)
-    description = models.TextField("Description", max_length=300, default="", null=True)
+    slug = models.SlugField(max_length=500, unique=True)
+
+    description = models.TextField("Description", max_length=300)
 
     class Meta:
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
         ordering = ["-created_date"]
 
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
     def get_category_description(self):
         return self.category.description
 
+    def get_count_comments(self):
+        return f"{self.comments.all().count()}"
+
+    def get_comments(self):
+        return self.comments.filter(parent=None)
+
     def get_absolute_url(self):
-        return reverse("single_post", kwargs={"category": self.category.slug, "slug": self.slug})
+        return reverse("detail_post", kwargs={"category": self.category.slug, "slug": self.slug})
 
     def save(self, *args, **kwargs):
-        self.slug = transliteration_rus_eng(self.title) + '-' + str(self.id)
+        if not self.slug:
+            self.slug = transliteration_rus_eng(self.title) + '-' + datetime.strftime(
+                timezone.now(), "%d_%m_%y_%H_%M_%S_%s"
+            )
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
 
-class Comment(MPTTModel):
+class Comment(AbstractComment, MPTTModel):
     """Модель коментариев к новостям"""
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, verbose_name="Новость", on_delete=models.CASCADE)
-    text = RichTextField("Сообщение", max_length=2000, config_name='special')
-    date = models.DateTimeField("Дата", auto_now_add=True)
-    update = models.DateTimeField("Изменен", auto_now=True)
+    post = models.ForeignKey(
+        Post, verbose_name="Новость", related_name="comments", on_delete=models.CASCADE
+    )
     parent = TreeForeignKey(
         "self",
         verbose_name="Родительский комментарий",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='children')
-    published = models.BooleanField("Опубликовать?", default=True)
+        related_name='children'
+    )
 
     class Meta:
         verbose_name = "Комментарий"
@@ -131,8 +147,8 @@ class SpySearch(models.Model):
         return "{}".format(self.record)
 
 
-@receiver(post_save, sender=Post)
-def create_user_post(sender, instance, created, **kwargs):
-    """Отправка сообщения о предложенной статье на email"""
-    if created:
-        send_mail_user_post(instance)
+# @receiver(post_save, sender=Post)
+# def create_user_post(sender, instance, created, **kwargs):
+#     """Отправка сообщения о предложенной статье на email"""
+#     if created:
+#         send_mail_user_post(instance)

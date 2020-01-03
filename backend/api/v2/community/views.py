@@ -2,7 +2,7 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 
 from backend.api.v2.viewsets.classes import CreateUpdateDestroyDS, CreateRetrieveUpdateDestroyDS
-from backend.api.v2.community.permissions import IsMemberGroup, IsAuthorEntry, IsAuthorCommentEntry
+from backend.api.v2.viewsets.permissions import IsMemberGroup, IsAuthorEntry, IsAuthorCommentEntry
 from backend.community.models import Groups, EntryGroup, CommentEntryGroup
 from backend.api.v2.community.serializers import (
     GroupsListSerializer, CreateGroupsSerializer, EntryGroupSerializer, GroupSerializer,
@@ -74,3 +74,7 @@ class CommentsEntryGroupView(CreateUpdateDestroyDS):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+    def perform_destroy(self, instance):
+        instance.deleted = True
+        instance.save()

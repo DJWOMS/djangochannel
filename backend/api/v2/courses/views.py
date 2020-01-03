@@ -28,7 +28,7 @@ class CourseView(generics.ListAPIView):
 
 
 class CourseDetailView(generics.RetrieveAPIView):
-    """Вывод оптсантия курса и добавление на курс"""
+    """Вывод описания курса и добавление на курс"""
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Course.objects.filter(is_active=True, is_complete=False)
     serializer_class = DetailCourseSerializer

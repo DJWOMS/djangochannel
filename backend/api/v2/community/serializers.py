@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from rest_framework_recursive.fields import RecursiveField
 
+from backend.api.v2.viewsets.serializers import RecursiveSerializer, FilterCommentListSerializer
 from backend.community.models import Groups, EntryGroup, CommentEntryGroup
 
 
@@ -8,16 +8,23 @@ class CreateCommentEntryGroupSerializer(serializers.ModelSerializer):
     """Добавление комментариев записей в группе"""
     class Meta:
         model = CommentEntryGroup
-        fields = ("entry", "text")
+        fields = ("entry", "text", "parent")
 
 
 class ListCommentEntryGroupSerializer(serializers.ModelSerializer):
     """Список комментариев записей в группе"""
-    children = serializers.ListField(source='get_children', read_only=True, child=RecursiveField())
+    text = serializers.SerializerMethodField()
+    children = RecursiveSerializer(many=True)
+
+    def get_text(self, obj):
+        if obj.deleted:
+            return None
+        return obj.text
 
     class Meta:
+        list_serializer_class = FilterCommentListSerializer
         model = CommentEntryGroup
-        fields = ("id", "entry", "text", "children")
+        fields = ("id", "entry", "text", "created_date", "update_date", "deleted", "children")
 
 
 class GroupsListSerializer(serializers.ModelSerializer):
