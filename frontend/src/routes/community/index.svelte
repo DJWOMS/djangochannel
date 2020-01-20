@@ -10,6 +10,30 @@
     export let groups;
 </script>
 
+
+<svelte:head>
+    <title>Сообщества</title>
+</svelte:head>
+
+<main class="main">
+    <h1>Группы</h1>
+    <div class="groups">
+        {#each groups.results as group}
+            <div class="block-group">
+                <img class="miniature" src="{group.miniature}" alt="{group.title}">
+                <h2><a rel='prefetch' href='community/{group.id}'>{group.title}</a></h2>
+                <div class="group-desc">{group.desc}</div>
+            </div>
+        {/each}
+    </div>
+    <div class="sidebar">
+        <form>
+            <input value="" placeholder="Поиск">
+        </form>
+    </div>
+</main>
+
+
 <style>
     .main {
         display: grid;
@@ -61,25 +85,3 @@
         grid-column: 3 / 4;
     }
 </style>
-
-<svelte:head>
-    <title>Сообщества</title>
-</svelte:head>
-
-<main class="main">
-    <h1>Группы</h1>
-    <div class="groups">
-        {#each groups.results as group}
-            <div class="block-group">
-                <img class="miniature" src="{group.miniature}" alt="{group.title}">
-                <h2><a rel='prefetch' href='community/{group.id}'>{group.title}</a></h2>
-                <div class="group-desc">{group.desc}</div>
-            </div>
-        {/each}
-    </div>
-    <div class="sidebar">
-        <form>
-            <input value="" placeholder="Поиск">
-        </form>
-    </div>
-</main>

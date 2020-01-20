@@ -1,0 +1,102 @@
+section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content;
+    grid-gap: 30px;
+}
+
+.blog-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-text {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.blog_text_inner {
+    background: #fff;
+    margin-top: -100px;
+    position: relative;
+    -webkit-box-shadow: 0 10px 20px 0 rgba(153, 153, 153, 0.1);
+    box-shadow: 0 10px 20px 0 rgba(153, 153, 153, 0.1);
+    padding: 40px;
+}
+
+.blog_text_inner .cat {
+    display: inline-block;
+    border: 1px solid #585b75;
+    line-height: 28px;
+    padding: 0 20px;
+    color: #777777;
+    border-radius: 15px;
+    font-size: 12px;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.blog_text_inner h4 {
+    font-size: 24px;
+    font-family: "Roboto", sans-serif;
+    line-height: 30px;
+    color: #222222;
+    padding-right: 20px;
+    margin-bottom: 17px;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+}
+
+.blog-p {
+    font-size: 14px;
+    line-height: 24px;
+    color: #777777;
+    margin-bottom: 22px;
+}
+
+.blog_text_inner .date a {
+    color: #777777;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: "Roboto", sans-serif;
+    margin-right: 25px;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+}
+@media screen and (max-width: 1024px) {
+    section {
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (max-width: 900px) {
+    .blog-text {
+        padding: 0 10px 0 10px;
+    }
+
+    .blog_text_inner {
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .blog-text {
+        padding: 0 5px 0 5px;
+    }
+}
