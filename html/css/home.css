@@ -1,0 +1,154 @@
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    font-weight: 700;
+    color: #465d81;
+    font-family: Roboto, sans-serif;
+}
+
+.wrapper-content {
+    grid-column: 1 / -1;
+}
+
+.index {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    margin: 25px;
+    justify-items: stretch;
+}
+
+.preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 100px 0 0 0;
+    background: #f1f1f1;
+}
+
+.paper {
+    -webkit-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+}
+
+.img-preview {
+    width: 100%;
+}
+
+.one {
+    margin: -27px 0 30px -158px;
+    padding: 35px 0 3px 42px;
+    border: 2px solid #c1d5e1;
+}
+
+.one-fone {
+    max-width: 794px;
+    max-height: 800px;
+    padding: 55px 100px 10px 35px;
+    background: #fff;
+}
+
+.one-block {
+    margin: 0 0 60px 0;
+}
+
+.one-h2 {
+    margin: 0 0 40px 0;
+}
+
+.one-h3 {
+    margin: -4px 0;
+    font-size: 34px;
+    position: relative;
+    z-index: 2;
+}
+
+.one-p-fone {
+    height: 41px;
+    background: #efe16b;
+    width: 150px;
+    margin: -15px 0 0 -45px;
+}
+
+.one-p-fone-two {
+    background: #c1d5e1;
+}
+
+.headline-3-text {
+    color: #465d81;
+    margin: -32px 0 20px 0;
+    font-size: 22px;
+    line-height: 24px;
+}
+
+.one-p-text {
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.two {
+    margin: 0 0 15px 0;
+    padding: 15px;
+}
+
+.h3-two {
+    font-size: 34px;
+    text-align: center;
+    padding: 20px 0 0 20px;
+}
+
+/*Блок с курсами*/
+.course-img {
+    width: 100%;
+}
+
+.course-h3 {
+    padding: 0 0 0 20px;
+    font-size: 28px;
+    color: #465d81;
+    cursor: pointer;
+}
+
+.icon-16 {
+    width: 16px;
+}
+
+.hide {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .index {
+        grid-template-columns: 1fr;
+    }
+
+    .preview {
+        grid-template-columns: 1fr;
+        padding: 25px 0 0 0;
+    }
+
+    .img-preview {
+        display: none;
+    }
+
+    .one {
+        margin: 0 0 25px 0;
+        padding: 35px 0 3px 42px;
+        border: 2px solid #c1d5e1;
+    }
+
+    .one-fone {
+        max-width: 794px;
+        max-height: 800px;
+        padding: 5px 10px 10px 15px;
+        background: #fff;
+    }
+}
+
+@media (min-width: 480px) {
+    h1 {
+        font-size: 4em;
+    }
+}

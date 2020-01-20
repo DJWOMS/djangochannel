@@ -15,9 +15,6 @@
 	export let group;
 </script>
 
-<style>
-
-</style>
 
 <svelte:head>
 	<title>{group.title}</title>
@@ -31,3 +28,8 @@
 <!--	{@html entry.html}-->
 	{/each}
 </div>
+
+
+<style>
+
+</style>
