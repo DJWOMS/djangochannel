@@ -10,6 +10,8 @@ section {
     height: 300px;
     overflow: hidden;
     text-align: center;
+    box-shadow: 20px -1px 20px 0px #0000;
+    border-radius: 7px
 }
 
 .blog-image img {
@@ -21,15 +23,17 @@ section {
 .blog-text {
     padding-left: 30px;
     padding-right: 30px;
+    box-shadow: 5px -2px 20px #7f7f7f42;
 }
 
 .blog_text_inner {
     background: #fff;
     margin-top: -100px;
     position: relative;
-    -webkit-box-shadow: 0 10px 20px 0 rgba(153, 153, 153, 0.1);
-    box-shadow: 0 10px 20px 0 rgba(153, 153, 153, 0.1);
+    -webkit-box-shadow: 4px 1px 20px 0px rgba(134, 133, 133, 0.48);
+    /*box-shadow: 0 10px 20px 0 rgba(153, 153, 153, 0.1);*/
     padding: 40px;
+    border-radius: 3px 3px 0 0;
 }
 
 .blog_text_inner .cat {
