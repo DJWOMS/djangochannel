@@ -3,57 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,700&display=swap&subset=cyrillic,cyrillic-ext"
-          rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-<div class="wrapper">
-    <nav>
-        <ul>
-            <a href="#"><img class="logo" src="img/logo.svg"></a>
-            <li><a href="#">Главная</a></li>
-            <li><a href="#">Курсы</a></li>
-            <li><a href="#">Статьи</a></li>
-            <li><a href="#">Форум</a></li>
-            <li><a href="#">Сообщества</a></li>
-            <li><a href="#">Задания</a></li>
-            <li><a href="#">Тесты</a></li>
-            <li class="last">
-                <ul>
-                    <li class="li-message">
-                        <a href="#"><img class="message" src="./img/icons/message.svg"></a>
-                        <span class="counter">0</span>
-                    </li>
-                    <li><a href="#">Вход</a></li>
-                </ul>
+<header>
+    <span class="btn-open-menu">Menu</span>
+    <div class="block-nav">
+        <a class="a-logo" href="/"><img class="logo" src="./assets/img/logo.svg" alt=""></a>
+        <nav>
+            <ul>
+                <li><a href='/'>Главная</a></li>
+                <li><a href="/">Курсы</a></li>
+                <li><a href='blog'>Статьи</a></li>
+                <li><a href="/">Форум</a></li>
+                <li><a href="community">Сообщества</a></li>
+                <li><a href="/">Задания</a></li>
+                <li><a href="/">Тесты</a></li>
+            </ul>
+        </nav>
+        <ul class="last">
+            <li class="li-message">
+                <a href="/"><img class="message"
+                                 src="./assets/img/icons/message.svg" alt=""></a>
+                <span class="counter">0</span>
             </li>
+            <li><a href="login">Вход</a></li>
         </ul>
-    </nav>
-    <main class="main">
-        <div class="page-login">
-            <form class="login-form">
-                <input type="text" value="" placeholder="Логин">
-                <input type="password" value="" placeholder="Пароль">
-            </form>
-            <h2 class="login-title">Войти</h2>
-            <p class="login-text">Проект призван помочь людям в обучении программированию,
-                веб разработке и английскому языку.
-                В обучении и понимании материала поможет сообщество и личный преподаватель.
-                Вы можете найти себе товарища или группу людей для совместного обучения и выполнения
-                задач.
-                Отслеживайте личный прогресс обучения и получайте награды за любую активность.</p>
-        </div>
-    </main>
-    <footer>
-        <a href="#"><img class="footer-logo" src="img/logo.svg"></a>
-        <span>Django Channel © 2018-2019</span>
-        <div>
-            <a href="#"><img class="github" src="./img/icons/github.svg"></a>
-            <a href="#"><img class="youtube" src="./img/icons/youtube.svg"></a>
-            <a href="#"><img class="vk" src="./img/icons/vk.svg"></a>
-        </div>
-    </footer>
-</div>
+    </div>
+</header>
+<main class="main">
+    <div class="page-login">
+        <form class="login-form">
+            <input type="text" value="" placeholder="Логин">
+            <input type="password" value="" placeholder="Пароль">
+        </form>
+        <h2 class="login-title">Войти</h2>
+        <p class="login-text">Проект призван помочь людям в обучении программированию,
+            веб разработке и английскому языку.
+            В обучении и понимании материала поможет сообщество и личный преподаватель.
+            Вы можете найти себе товарища или группу людей для совместного обучения и выполнения
+            задач.
+            Отслеживайте личный прогресс обучения и получайте награды за любую активность.</p>
+    </div>
+</main>
+<footer>
+    <a href="/"><img class="footer-logo" src="./assets/img/logo.svg" alt=""></a>
+    <span>Django Channel © 2018-2020</span>
+    <div>
+        <a href="/"><img class="github" src="./assets/img/icons/github.svg" alt=""></a>
+        <a href="/"><img class="youtube" src="./assets/img/icons/youtube.svg" alt=""></a>
+        <a href="/"><img class="vk" src="./assets/img/icons/vk.svg" alt=""></a>
+    </div>
+</footer>
 </body>
 </html>
