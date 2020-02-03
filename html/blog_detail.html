@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/blog_detail.css">
     <link rel="stylesheet" href="./css/blog.css">
+    <link rel="stylesheet" href="../static/rest_framework/css/font-awesome-4.0.3.css" type="text/css">
 </head>
 <body>
 <header>
@@ -42,8 +43,7 @@
                     поле, которое является ForeignKey. Рекомендуется: использовать TreeForeignKey.
                     Вы можете назвать это как-то иначе, если хотите</p></div>
                 <div class="date">02.01.2020 10:20:03
-                </div>
-                <div><a class="link" href="">Test2</a>
+                    <a class="link" href="">Test2</a>
                 </div>
             </div>
         </div>
@@ -55,8 +55,7 @@
                 <div class="text"><p>Вы должны определить родительское
                     поле, которое является ForeignKey. Рекомендуется: использовать TreeForeignKey.
                     Вы можете назвать это как-то иначе, если хотите</p></div>
-                <div class="date">02.01.2020 10:20:03</div>
-                <div><a class="link" href="">Test2</a>
+                <div class="date">02.01.2020 10:20:03 <a class="link" href="">Test2</a>
                 </div>
             </div>
         </div>
@@ -68,9 +67,7 @@
                 <div class="text"><p>Вы должны определить родительское
                     поле, которое является ForeignKey. Рекомендуется: использовать TreeForeignKey.
                     Вы можете назвать это как-то иначе, если хотите</p></div>
-                <div class="date">02.01.2020 10:20:03</div>
-                <div><a class="link" href="">Test2</a>
-                </div>
+                <div class="date">02.01.2020 10:20:03 <a class="link" href="">Test2</a></div>
             </div>
         </div>
     </div>
@@ -81,8 +78,8 @@
                 <div class="text"><p>Вы должны определить родительское
                     поле, которое является ForeignKey. Рекомендуется: использовать TreeForeignKey.
                     Вы можете назвать это как-то иначе, если хотите</p></div>
-                <div class="date">02.01.2020 10:20:03</div>
-                <div><a class="link" href="">Test2</a>
+                <div class="date">02.01.2020 10:20:03
+                    <a class="link" href="">Test2</a>
                 </div>
             </div>
         </div>
@@ -95,9 +92,9 @@
             </div>
 
             <ul class="social-icons">
-                <li><a href="#"><i class="ion-social-twitter-outline"></i>t</a></li>
-                <li><a href="#"><i class="ion-social-instagram-outline"></i>i</a></li>
-                <li><a href="#"><i class="ion-social-youtube-outline"></i>y</a></li>
+                <li><a href="#"><img class="github" src="./assets/icon/icon-twitter.svg" alt="DJWOMS"></a></li>
+                <li><a href="#"><img class="github" src="./assets/icon/icon-instagram.svg" alt="DJWOMS"></a></li>
+                <li><a href="#"><img class="github" src="./assets/icon/icon-youtube.svg" alt="DJWOMS"></a></li>
             </ul>
             <h4 class="author-name"><b class="light-color">DJWOMS</b></h4>
             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
@@ -106,13 +103,63 @@
         <div class="sidebar-section src-area">
             <form action="" method="get">
                 <input class="src-input" type="text" placeholder="Search">
-                <button class="src-btn" type="submit"><i class="fa fa-search"></i></button>
+                <a class="src-btn" type="submit"><i class="fa fa-search"></i></a>
             </form>
+        </div>
+        <div class="sidebar-section box-menu">
+            <div class="sidebar-menu-title">
+                <h1>Category</h1>
+            </div>
+            <ul id="sidebar-menu-accordion" class="sidebar-menu-accordion">
+                <li>
+                    <div class="link-menu"><i class="fa fa-desktop"></i>Web Design<i class="fa fa-chevron-down"></i>
+                    </div>
+                    <ul class="submenu">
+                        <li><a href="#">Photoshop</a></li>
+                        <li><a href="#">HTML</a></li>
+                        <li><a href="#">CSS</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="link-menu"><i class="fa fa-code"></i>Coding<i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                        <li><a href="#">Javascript</a></li>
+                        <li><a href="#">jQuery</a></li>
+                        <li><a href="#">Ruby</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="link-menu"><i class="fa fa-mobile"></i>Devices<i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                        <li><a href="#">Tablet</a></li>
+                        <li><a href="#">Mobile</a></li>
+                        <li><a href="#">Desktop</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="link-menu"><i class="fa fa-globe"></i>Global<i class="fa fa-chevron-down"></i></div>
+                    <ul class="submenu">
+                        <li><a href="#">Google</a></li>
+                        <li><a href="#">Bing</a></li>
+                        <li><a href="#">Yahoo</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="content">
         <section class="s-content">
-            <h1>Test title</h1>
+            <div class="single-title"><h1>Test title</h1></div>
+            <div class="blog_text_inner">
+                <div class="date"><a href="#"><i aria-hidden="true"
+                                                         class="fa fa-calendar"></i>
+                            02.01.2020 10:20:03 </a><a href="#"><i aria-hidden="true"
+                                                                   class="fa fa-eye"></i>
+                            0 </a><a href="#"><i aria-hidden="true"
+                                                 class="fa fa-comments-o"></i> 27 </a><a
+                                href="#"><i aria-hidden="true" class="fa fa-user"></i>
+                            DJWOMS </a></div>
+            </div>
             <div class="text">
                 <p>Но активно развивающиеся страны третьего мира могут быть рассмотрены
                     исключительно в разрезе маркетинговых и финансовых предпосылок. Следует отметить,
@@ -223,8 +270,75 @@
                     подходов.</p>
             </div>
         </section>
+        <div class="comments-content">
+            <div class="section-row">
+                <div class="section-title">
+                    <h3 class="title">3 Comments</h3>
+                </div>
+                <div class="post-comments">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="./assets/img/blog/my-ava2.jpg" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h4>John Doe</h4>
+                                <span class="time">5 min ago</span>
+                            </div>
+                            <p class="media-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                eiusmod
+                                tempor
+                                incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <a href="#" class="reply">Reply</a>
+                            <div class="media media-author">
+                                <div class="media-left">
+                                    <img class="media-object" src="./assets/img/blog/my-ava2.jpg" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div class="media-heading">
+                                        <h4>John Doe</h4>
+                                        <span class="time">5 min ago</span>
+                                    </div>
+                                    <p class="media-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                                        do
+                                        eiusmod tempor
+                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                                        nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <a href="#" class="reply">Reply</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="./assets/img/blog/my-ava2.jpg" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <h4>John Doe</h4>
+                                <span class="time">5 min ago</span>
+                            </div>
+                            <p class="media-p">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                                eiusmod
+                                tempor
+                                incididunt ut
+                                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                ullamco
+                                laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            <a href="#" class="reply">Reply</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
 <footer>
     <a href="/"><img class="footer-logo" src="./assets/img/logo.svg" alt=""></a>
     <span>Django Channel © 2018-2020</span>
