@@ -490,7 +490,6 @@ iframe {
         opacity: 1;
     }
 }
-
 .login100-social-item {
     font-size: 15px;
     color: #fff;
@@ -506,20 +505,16 @@ iframe {
     border-radius: 50%;
     margin: 5px;
 }
-
 .login100-social-item:hover {
     color: #fff;
     background-color: #333333;
 }
-
 .bg1 {
     background-color: #3b5998
 }
-
 .bg2 {
     background-color: #1da1f2
 }
-
 .bg3 {
     background-color: #ea4335
 }
