@@ -103,4 +103,3 @@ function resetTransform($img) {
     $img.removeClass('card-active');
     $img.css('transform', 'rotateY(0deg) rotateX(0deg) rotateZ(0deg) scale(1)');
 }
-
