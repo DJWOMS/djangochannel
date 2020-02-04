@@ -1,14 +1,182 @@
 .s-content {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9;
     padding: 15px;
+    box-shadow: 4px 0px 20px 7px #dfdfdf;
+    border-radius: 7px;
+    /*width: 900px;*/
 }
 
 h1 {
     font-size: 3rem;
     line-height: 4rem;
     color: #2d2d2dde;
+    text-align: center;
+    margin-bottom: 15px;
 }
 .text {
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-bottom: 70px;
+    line-height: 1.7;
+}
 
+.blog_text_inner {
+    margin-left: 35px;
+    padding-bottom: 25px;
+}
+.blog_text_inner .date a {
+    color: #4b4b4b;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Roboto", sans-serif;
+    margin-right: 20px;
+    -webkit-transition: all 300ms linear 0s;
+    -o-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+}
+
+.single-title h1{
+    text-align: left;
+    padding-left: 25px;
+}
+.section {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    line-height: 1.42857143;
+    font-family: muli, sans-serif;
+    font-size: 16px;
+    color: #505050;
+    font-weight: 400;
+    box-sizing: border-box;
+    padding-top: 30px;
+}
+.section-row {
+    margin-bottom: 30px;
+}
+.section-title {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: muli,sans-serif;
+    font-size: 16px;
+    color: #505050;
+    font-weight: 400;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 20px;
+}
+@media screen and (max-width: 768px) {
+    .section-title {
+        margin: 10px 10px 10px 20px;
+    }
+}
+.section-title .title {
+    position: relative;
+    display: inline-block;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-right: 10px;
+    z-index: 20;
+}
+.section-title:after {
+    content: "";
+    display: inline-block;
+    height: 2px;
+    background-color: #a5a5a5;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10px;
+    z-index: 10;
+}
+.post-comments{
+   -webkit-tap-highlight-color: rgba(0,0,0,0);
+    line-height: 1.42857143;
+    font-family: muli,sans-serif;
+    font-size: 16px;
+    color: #505050;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+.post-comments .media:nth-child(1) {
+    margin-top: 0;
+}
+.post-comments .media .media-left {
+    position: relative;
+    padding-right: 15px;
+}
+.post-comments .media .media-left .media-object {
+    width: 50px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 20;
+}
+@media screen and (max-width: 768px) {
+    .post-comments .media .media-left .media-object {
+        margin-left: 15px;
+    }
+}
+.post-comments .media .media-left:after{
+    content: '';
+    position: absolute;
+    left: calc(50% - 9px);
+    top: 80px;
+    bottom: 15px;
+    width: 1px;
+    background-color: #727272;
+}
+.media-body. {
+    display: table-cell;
+    vertical-align: top;
+}
+.media-body, .media-left, .media-right {
+    display: table-cell;
+    vertical-align: top;
+}
+.media-heading {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.media-heading h4 {
+    display: inline-block;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.post-comments .media.media-author .media-heading h4 {
+    color: #ee4266;
+}
+.media-p {
+    margin: 20px;
+}
+.post-comments .media .media-heading .time {
+    color: #97989b;
+    margin-left: 10px;
+    font-size: 12px;
+}
+.post-comments .media .reply {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 5px 13px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #323335;
+    border-radius: 2px;
+    -webkit-transition: .2s opacity;
+    transition: .2s opacity;
+    margin-bottom: 35px;
+}
+.post-comments .media .media-author .media-left:after {
+    background-color: #ee4266;
+}
+.comments-content{
+    grid-area: content;
+    margin-top: 50px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    box-shadow: 4px 0px 20px 7px #dfdfdf;
+    border-radius: 7px;
+    /*background: #fff;*/
 }
 
