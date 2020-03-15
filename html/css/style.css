@@ -154,7 +154,7 @@ ul li a {
     color: #fff;
     padding: 18px 0;
     position: relative;
-    transition: all 0.5s cubic-bezier(0.4, 0, 1, 1);
+    transition: 500ms cubic-bezier(.165, .84, .44, 1);
 }
 
 .last {

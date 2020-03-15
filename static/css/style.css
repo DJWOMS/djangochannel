@@ -791,7 +791,7 @@ p.link-in-reviews {
     margin: 45px 75px 0 0;
 }
 
-.page-nav-link {
+.page-nav-link ul li a {
     display: block;
     padding-bottom: 20px;
     font-weight: 700;
@@ -913,7 +913,7 @@ p.link-in-reviews {
     margin: 0 auto;
 }
 
-.places {
+.places-start {
     margin: 0 10px 0 0;
     color: #465d81;
     font-size: 18px;
