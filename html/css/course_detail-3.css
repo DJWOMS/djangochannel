@@ -1001,9 +1001,11 @@ hr {
     }
     .whom-ul {
         margin: 0 0 50px;
+        padding: 25px 15px 0 20px;
     }
     .req-ul {
         margin: 0;
+        padding: 25px 15px 0 20px;
     }
     .course-detail-title {
         font-size: 9px;
@@ -1023,7 +1025,8 @@ hr {
         padding: 25px 15px 0 0;
     }
     .btn-enter-course {
-        margin: 5px 0 0 35px;
+        margin: -30px 0 0 35px;
+        transform: translateY(45px);
     }
     .program-course {
         grid-column: 1/5;
@@ -1042,6 +1045,15 @@ hr {
         margin: 0;
     }
     .form-control{
+        width: 100%;
+    }
+    .price {
+        margin: 35px 10px 0 20px;
+    }
+    .places-text {
+        padding: 20px 0 0 10px;
+    }
+    .text-control {
         width: 100%;
     }
 }
