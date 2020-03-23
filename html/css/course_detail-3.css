@@ -957,8 +957,8 @@ hr {
         text-align: center;
     }
     .btn-enter-course {
-        margin: 5px 0 0 65px;
-        transform: translateY(57px);
+        margin: 5px 0 0 75px;
+        transform: translateY(45px);
     }
     .price {
         margin: 10px 10px 0 60px;
@@ -977,6 +977,9 @@ hr {
     }
     .programm h3 {
         font-size: 16px;
+    }
+    .text-control {
+        height: 150px;
     }
 }
 @media screen and (max-width: 320px){

@@ -1,0 +1,184 @@
+:root {
+    --nav-color: #222437;
+    --count: #3E4551;
+}
+
+.profile-section{
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-areas: "prof-sidebar prof-content";
+}
+.profile-sidebar{
+    grid-area: prof-sidebar;
+    background: #fff;
+    height: 90vh;
+}
+.avatar{
+    padding: 25px 35px 25px 35px;
+    justify-content: center;
+    display: flex;
+}
+.avatar-img{
+    grid-area: avatar;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 5px 5px 24px rgba(168, 175, 196, .5);
+    border: 2px solid #000000d1;
+}
+.name{
+    grid-area: user;
+    padding: 10px 75px;
+    margin: -25px 0 10px;
+    font-size: 20px;
+    color: #465d81;
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    border-bottom: 1px solid #b9b9b9;
+}
+.profile-menu{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.menu-link{
+    position: relative;
+    padding: 6px 0;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.menu-link a{
+    margin-left: 30px;
+    color: var(--nav-color);
+}
+.menu-link:hover, .menu-link a:hover{
+    background: #f3f2f2;
+    color: #3E4551;
+}
+.menu-link:active{
+    background: #818080;
+}
+.menu-link a:active{
+    color: rgba(255, 255, 255, 0.76);
+    background: #818080;
+}
+.profile-counter {
+    position: absolute;
+    color: #3e4551;
+    font-size: 13px;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 25px;
+    text-align: center;
+}
+.profile-content{
+    grid-area: prof-content;
+    background-color: #f3f2f2;
+    height: 90vh;
+}
+.min-menu-left{
+        display: none;
+    }
+.min-menu-bottom{
+    display: none;
+}
+@media screen and (max-width: 1024px){
+    .profile-section{
+        display: grid;
+        grid-template-columns: 65px 1fr;
+        grid-template-areas: "min-menu-left prof-content";
+    }
+    .profile-sidebar{
+        display: none;
+    }
+    .min-menu-left{
+        display: flex;
+        flex-direction: column;
+        grid-area: min-menu-left;
+        align-items: flex-end;
+        height: 90vh;
+        padding-top: 15px;
+        background: #fff;
+    }
+    .small-menu-left{
+        width: 30px;
+        padding: 15px 0 5px 0;
+        display: flex;
+        align-self: center;
+        flex-direction: column;
+        position: relative;
+    }
+    .small-menu-left:before{
+        content: "";
+        position: absolute;
+        width: 50px;
+        height: 1px;
+        background-color: #b0b3b8;
+        top: 57px;
+        right: -10px;
+    }
+    .menu-img{
+        border-radius: 50%;
+    }
+    .menu-img:hover{
+        background-color: #1759bc42;
+    }
+}
+@media screen and (max-width: 768px){
+    .profile-section{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas: "prof-content"
+                             "min-menu-bottom";
+    }
+    .profile-sidebar, .min-menu-left{
+        display: none;
+    }
+    .profile-content{
+        grid-area: prof-content;
+        background-color: #f3f2f2;
+        height: 83vh;
+}
+    .min-menu-bottom{
+        display: flex;
+        grid-area: min-menu-bottom;
+        justify-content: center;
+        align-items: center;
+        height: 65px;
+        background: #fff;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid;
+        box-shadow: -1px 4px 20px 20px rgba(193, 193, 193, 0.22);
+    }
+    .small-menu-bottom{
+        padding: 5px 30px 0 0;
+        margin-right: 10px;
+        width: 75px;
+        height: 55px;
+    }
+    .menu-img-bottom{
+        border-radius: 50%;
+    }
+}
+@media screen and (max-width: 440px) {
+    .min-menu-bottom{
+        display: flex;
+        grid-area: min-menu-bottom;
+        justify-content: center;
+        align-items: center;
+        padding-left: 15px;
+        height: 65px;
+        border-radius: 10px 10px 0 0;
+        border: 1px solid;
+        box-shadow: -1px 4px 20px 20px rgba(193, 193, 193, 0.22);
+    }
+    .small-menu-bottom{
+        padding: 9px 10px 0 0;
+        margin-right: 5px;
+        width: 45px;
+    }
+}
