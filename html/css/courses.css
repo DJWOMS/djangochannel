@@ -23,7 +23,7 @@
     grid-area: title;
     vertical-align: middle;
     margin-top: 50px;
-    padding-left: 150px;
+    padding-left: 160px;
     color: #000;
     font-size: 38px;
     font-weight: 700;
@@ -33,7 +33,7 @@
 
 .category-menu {
     grid-area: menu;
-    margin-left: 65px;
+    margin-left: 60px;
     padding: 30px 0 10px 100px;
     position: relative;
 }
