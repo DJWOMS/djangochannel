@@ -103,6 +103,17 @@
         padding-top: 15px;
         background: #fff;
     }
+    .avatar{
+        margin: 0 15px 15px;
+        padding: 0;
+    }
+    .avatar-img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        box-shadow: -2px 2px 8px 0 rgba(168, 175, 196, .5);
+        border: none;
+}
     .small-menu-left{
         width: 30px;
         padding: 15px 0 5px 0;

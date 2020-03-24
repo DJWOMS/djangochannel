@@ -23,7 +23,7 @@ hr {
 }
 .category-menu {
     grid-area: menu;
-    margin-left: 65px;
+    margin-left: 60px;
     padding: 30px 0 10px 100px;
     position: relative;
 }
@@ -31,7 +31,7 @@ hr {
     grid-area: title;
     vertical-align: middle;
     margin-top: 50px;
-    padding-left: 150px;
+    padding-left: 160px;
     color: #000;
     font-size: 38px;
     font-weight: 700;
@@ -553,6 +553,10 @@ hr {
     color: #465d81;
     padding: 20px;
 }
+.form-input-control{
+    display: flex;
+    justify-content: center;
+}
 .form-group{
     position: relative;
     padding: 10px 0 10px;
@@ -567,7 +571,7 @@ hr {
 }
 
 .form-control {
-    width: 70%;
+    width: 220px;
     margin: 10px 5px 10px;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -580,7 +584,8 @@ hr {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 .text-control {
-    width: 70%;
+    width: 450px;
+    height: 200px;
     margin: 10px 5px 10px;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -849,6 +854,57 @@ hr {
         font-size: 19px;
     }
 }
+@media screen and (max-width: 480px){
+    .page-list-title {
+        padding-left: 180px;
+    }
+    .course-desk {
+        margin-left: -10px;
+    }
+    .course-detail-title {
+        font-size: 12px;
+        padding: 0;
+    }
+    .description-box {
+        padding: 0 0 20px 40px;
+}
+    .prog-ul h3 {
+        font-size: 17px;
+        padding: 20px 20px 0 0;
+    }
+    .prog-ul {
+        padding: 25px 15px 0 0;
+    }
+    .block-enter-course {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .btn-enter-course {
+        margin: 5px 0 0 75px;
+        transform: translateY(45px);
+    }
+    .price {
+        margin: 10px 10px 0 60px;
+        color: #639f55;
+        font-size: 36px;
+        font-weight: bold;
+        display: flex;
+    }
+    .btn-course {
+        font-size: 14px;
+    }
+    .footnote {
+        font-size: 14px;
+        text-align: center;
+        margin: 0;
+    }
+    .programm h3 {
+        font-size: 16px;
+    }
+    .text-control {
+        height: 150px;
+    }
+}
 @media screen and (max-width: 468px) {
     .block-enter-course {
         padding: 20px 10px 20px 10px;
@@ -931,55 +987,90 @@ hr {
         font-size: 14px;
     }
 }
-@media screen and (max-width: 480px){
-    .page-list-title {
-        padding-left: 180px;
-    }
-    .course-desk {
-        margin-left: -10px;
-    }
+@media screen and (max-width: 414px){
     .course-detail-title {
         font-size: 12px;
         padding: 0;
     }
-    .description-box {
-        padding: 0 0 20px 40px;
-}
-    .prog-ul h3 {
-        font-size: 17px;
-        padding: 20px 20px 0 0;
-    }
-    .prog-ul {
-        padding: 25px 15px 0 0;
-    }
-    .block-enter-course {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .btn-enter-course {
-        margin: 5px 0 0 75px;
-        transform: translateY(45px);
+    .course-desk {
+        padding-right: 11px;
+        line-height: 1.5;
+        font-size: 15px;
+        margin-left: -25px;
     }
     .price {
-        margin: 10px 10px 0 60px;
+        margin: 20px 10px 0 0;
         color: #639f55;
         font-size: 36px;
         font-weight: bold;
-        display: flex;
+        display: grid;
+        grid-row: 5/7;
+    }
+    .places-text {
+        padding: 0;
+        line-height: 1;
+        font-weight: 600;
+        color: #333333;
+        font-size: 16px;
+    }
+    .btn-enter-course {
+        margin: -8px 0 0 40px;
+        padding: 5px;
+        border: 2px solid #c1d5e1;
+        border-radius: 10px;
+        width: fit-content;
+        height: max-content;
+        background: #4CAF50;
+        transform: translateY(48px);
+    }
+    .footnote {
+        margin: 0;
+        grid-column: 1;
+        font-size: 13px;
+    }
+
+    .btn-enter-course {
+        margin: -8px 0 0 45px;
     }
     .btn-course {
         font-size: 14px;
     }
-    .footnote {
-        font-size: 14px;
-        text-align: center;
-        margin: 0;
+    .border-ul {
+        border: 2px solid #c1d5e1;
+        border-radius: 5px;
+        padding: 0 20px 25px;
+        margin-bottom: 15px;
     }
-    .programm h3 {
-        font-size: 16px;
+    .whom-ul {
+        text-align: center;
+        font-size: 15px;
+        border-radius: 7px;
+        padding: 25px 20px;
+        grid-row: 4;
+        grid-column: 1/5;
+        box-shadow: 4px 4px 40px #9e9e9e66;
+        margin: 50px 40px;
+    }
+    .whom-ul p {
+        border: 2px solid #c1d5e1;
+        border-radius: 5px;
+        padding: 25px 20px 25px;
+        margin-bottom: 15px;
+    }
+    .req-ul {
+        padding: 25px 20px;
+    }
+    .req-border {
+        padding: 25px 20px 25px;
+    }
+    .form-input-control {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
     .text-control {
         height: 150px;
+        width: 220px;
     }
 }
 @media screen and (max-width: 320px){
