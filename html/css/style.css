@@ -7,7 +7,7 @@
 }
 
 :root {
-    --nav-color: #222437;
+    --nav-color: #2a2a2a;
     --count: #3E4551;
 }
 
@@ -42,6 +42,7 @@ body {
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
+    margin-top: 60px;
 }
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
@@ -113,6 +114,11 @@ input, button, textarea, select {
 header {
     grid-area: nav;
     background-color: var(--nav-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
 }
 
 .btn-open-menu {
@@ -121,22 +127,23 @@ header {
 
 .btn-open-menu:hover {
     cursor: pointer;
-    box-shadow: 0 1px 15px 1px #3c3f5fbf;
-    background-color: #3c3f5f59;
+    color: rgba(168, 164, 160, 0.79);
+    transition: 0.3s;
 }
 .close{
     display: none;
 }
 .close:hover {
-    box-shadow: 0 1px 15px 1px #3c3f5fbf;
-    background-color: #3c3f5f59;
+    color: #a6a6a6;
+    transition: 0.3s;
 }
 
 .block-nav {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 4fr 100px;
     grid-auto-rows: auto;
     align-items: center;
+    height: 60px;
 }
 
 ul {
@@ -161,11 +168,6 @@ ul li a {
     color: #fff;
     position: relative;
 }
-ul li a:hover {
-    color: #3588bf;
-    box-shadow: 0 1px 15px 1px #3c3f5fbf;
-    background-color: #3c3f5f59;
-}
 
 .last {
     display: grid;
@@ -176,13 +178,29 @@ ul li a:hover {
 
 }
 
+/*nav ul li a:active::before {*/
+/*    content: '';*/
+/*    top: -20px;*/
+/*    left: 0;*/
+/*    position: absolute;*/
+/*    width: 100%;*/
+/*    height: 0;*/
+/*    background-color: #ff7c00;*/
+/*    transition: 0.3s;*/
+/*    transform: scaleX(0);*/
+/*}*/
+/*nav ul li a:hover:before {*/
+/*    transform: scaleX(1);*/
+/*    height: 2px;*/
+/*    color: #a6a6a6;*/
+/*}*/
 nav ul li a:hover {
-    color: #3588bf;
-    box-shadow: 0 1px 15px 1px #3c3f5fbf;
-    background-color: #3c3f5f59;
+    color: #a6a6a6;
+    transition: 0.3s;
 }
-nav ul li a:active {
-    color: #00416e;
+ul li a:hover {
+    color: #a6a6a6;
+    transition: 0.3s;
 }
 
 /*nav ul li a:after {*/
@@ -272,19 +290,19 @@ footer {
     height: 21px;
     margin: 0 25px 0 25px;
 }
-
 @media screen and (max-width: 900px) {
     header {
         grid-area: nav;
         padding: 0 0 0 15px;
-        height: 49px;
+        height: 60px;
+        position: absolute;
     }
     .block-nav{
         display: grid;
         grid-template-columns: 1fr;
-        grid-auto-rows: auto;
+        grid-auto-rows: 100px minmax(200px, max-content)50px;
         position: fixed;
-        background-color: #222437;
+        background-color: #2a2a2a;
         z-index: 5;
         top: 0;
         width: 320px;
@@ -292,25 +310,32 @@ footer {
         padding: 25px;
         grid-row-gap: 20px;
         transform: translateX(868px);
-        transition: 1s;
+        transition: 0.7s;
+    }
+    .block-nav ul{
+        padding-left: 20px;
     }
     .block-nav-logo{
         display: grid;
-        align-self: center;
+        align-self: start;
         border-bottom: 1px solid #626262;
         padding-bottom: 15px;
-        margin-top: -40px;
+        margin-top: 20px;
     }
     .block-nav-open{
         transform: translateX(548px);
         position: fixed;
         z-index: 4;
+        background: #2a2a2a;
+    }
+    .block-nav-open ul{
+        padding-left: 20px;
     }
     .btn-open-menu {
         display: block;
         color: #fff;
         position: absolute;
-        top: 10px;
+        top: 17px;
         right: 15px;
         padding: 0 5px;
         z-index: 4;
@@ -326,11 +351,19 @@ footer {
         font-size: 40px;
         transform: rotateX(40deg);
     }
+    nav{
+        display: flex;
+        align-self: flex-start;
+    }
     nav ul {
         display: grid;
         grid-auto-flow: row;
         grid-column-gap: 20px;
         justify-content: start;
+        padding-left: 20px;
+    }
+    nav ul li{
+        padding-bottom: 15px;
     }
     .last {
         display: grid;
@@ -372,9 +405,7 @@ footer {
         padding: 0 0 0 10px;
     }
     .block-nav-open {
-        transform: translateX(-12px);
-    }
-    .block-nav {
-        width: 300px;
+        transform: translateX(-16px);
+        width: 304px;
     }
 }
