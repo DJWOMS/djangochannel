@@ -46,7 +46,7 @@ body {
 
 /* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
 ul[class], ol[class] {
-    list-style: none;
+        list-style: none;
 }
 
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
@@ -124,6 +124,13 @@ header {
     box-shadow: 0 1px 15px 1px #3c3f5fbf;
     background-color: #3c3f5f59;
 }
+.close{
+    display: none;
+}
+.close:hover {
+    box-shadow: 0 1px 15px 1px #3c3f5fbf;
+    background-color: #3c3f5f59;
+}
 
 .block-nav {
     display: grid;
@@ -152,9 +159,12 @@ nav ul {
 ul li a {
     text-decoration: none;
     color: #fff;
-    padding: 18px 0;
     position: relative;
-    transition: 500ms cubic-bezier(.165, .84, .44, 1);
+}
+ul li a:hover {
+    color: #3588bf;
+    box-shadow: 0 1px 15px 1px #3c3f5fbf;
+    background-color: #3c3f5f59;
 }
 
 .last {
@@ -167,7 +177,12 @@ ul li a {
 }
 
 nav ul li a:hover {
-    border-bottom: 2px solid;
+    color: #3588bf;
+    box-shadow: 0 1px 15px 1px #3c3f5fbf;
+    background-color: #3c3f5f59;
+}
+nav ul li a:active {
+    color: #00416e;
 }
 
 /*nav ul li a:after {*/
@@ -182,7 +197,9 @@ nav ul li a:hover {
 /*    left: 0;*/
 /*}*/
 .a-logo {
+    display: flex;
     justify-self: center;
+    align-self: flex-start;
 }
 
 .logo {
@@ -262,7 +279,33 @@ footer {
         padding: 0 0 0 15px;
         height: 49px;
     }
-
+    .block-nav{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        position: fixed;
+        background-color: #222437;
+        z-index: 5;
+        top: 0;
+        width: 320px;
+        height: 100vh;
+        padding: 25px;
+        grid-row-gap: 20px;
+        transform: translateX(868px);
+        transition: 1s;
+    }
+    .block-nav-logo{
+        display: grid;
+        align-self: center;
+        border-bottom: 1px solid #626262;
+        padding-bottom: 15px;
+        margin-top: -40px;
+    }
+    .block-nav-open{
+        transform: translateX(548px);
+        position: fixed;
+        z-index: 4;
+    }
     .btn-open-menu {
         display: block;
         color: #fff;
@@ -270,29 +313,25 @@ footer {
         top: 10px;
         right: 15px;
         padding: 0 5px;
+        z-index: 4;
     }
-
-    .block-nav {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-auto-rows: auto;
-        position: fixed;
-        top: 0;
-        right: -930px;
-        background-color: #222437;
-        z-index: 5;
-        width: 100%;
-        padding: 25px;
-        grid-row-gap: 20px;
+    .close{
+        display: block;
+        color: #fff;
+        cursor: pointer;
+        width: 30px;
+        position: absolute;
+        top: -5px;
+        left: 20px;
+        font-size: 40px;
+        transform: rotateX(40deg);
     }
-
     nav ul {
         display: grid;
         grid-auto-flow: row;
         grid-column-gap: 20px;
         justify-content: start;
     }
-
     .last {
         display: grid;
         grid-auto-flow: row;
@@ -308,13 +347,34 @@ footer {
         grid-row-gap: 15px;
         padding: 15px 0 0 0;
     }
+    .block-nav-open{
+        transform: translateX(416px);
+    }
 }
-
+@media screen and (max-width: 600px) {
+    .block-nav-open {
+        transform: translateX(248px);
+    }
+}
+@media screen and (max-width: 480px) {
+    .block-nav-open {
+        transform: translateX(128px);
+    }
+}
+@media screen and (max-width: 414px) {
+    .block-nav-open {
+        transform: translateX(62px);
+    }
+}
 @media screen and (max-width: 320px) {
     .footer-logo {
         width: 90%;
         padding: 0 0 0 10px;
     }
+    .block-nav-open {
+        transform: translateX(-12px);
+    }
+    .block-nav {
+        width: 300px;
+    }
 }
-
-

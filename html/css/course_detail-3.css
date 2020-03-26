@@ -66,15 +66,19 @@ hr {
 }
 
 .fl-links .clicker {
+    margin-left: 10px;
 	padding: 0 13px;
 	line-height: 55px;
 	height: 55px;
 	display: block;
 }
-
+.img-small-menu{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
 .fl-links .clicker:before {
-    content: '\f0c9';
-    font-family: FontAwesome;
+    content: '';
     font-size: 26px;
     padding-left: 4px;
     padding-top: 2px;
@@ -811,6 +815,14 @@ hr {
         left: 75px;
     }
 }
+@media screen and (max-width: 550px){
+    .text-control {
+        width: 350px;
+    }
+    .form-control {
+        width: 170px;
+    }
+}
 @media screen and (max-width: 490px) {
     .block-enter-course {
         padding: 20px 10px 20px 10px;
@@ -903,6 +915,11 @@ hr {
     }
     .text-control {
         height: 150px;
+        width: 300px;
+        margin-left: -4px;
+    }
+    .form-control {
+        width: 145px;
     }
 }
 @media screen and (max-width: 468px) {
