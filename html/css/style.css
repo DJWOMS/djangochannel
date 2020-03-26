@@ -406,6 +406,6 @@ footer {
     }
     .block-nav-open {
         transform: translateX(-16px);
-        width: 304px;
+        width: 305px;
     }
 }
