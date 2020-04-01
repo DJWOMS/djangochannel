@@ -76,8 +76,93 @@
 }
 .profile-content{
     grid-area: prof-content;
-    background-color: #f3f2f2;
-    height: 90vh;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 390px));
+    grid-auto-flow: dense;
+    height: max-content;
+    margin: 20px;
+    text-align: center;
+}
+
+/*Занимает одну колонку. Не фиксированно*/
+.block-one-column{
+    grid-column: span 1;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает две колонки. Не фиксированно*/
+.block-two-column{
+    grid-column: span 2;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает три колонки. Не фиксированно*/
+.block-three-column{
+    grid-column: span 3;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает фиксированно 1-ю колонку*/
+.block-left-column{
+    grid-column: 1/2;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает фиксированно 2-ю колонку*/
+.block-center-column{
+    grid-column: 2/3;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает фиксированно 3-ю колонку*/
+.block-right-column{
+    grid-column: 3/4;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает фиксированно 1 и 2 колонку*/
+.block-left-center{
+    grid-column: 1/3;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
+}
+/*Занимает фиксированно 2 и 3 колонку*/
+.block-center-right{
+    grid-column: 2/4;
+    border: 1px solid rgba(0,0,0,.12);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 0 1px 0 #4e4e4e;
+    margin: 10px;
 }
 .min-menu-left{
         display: none;
@@ -85,6 +170,18 @@
 .min-menu-bottom{
     display: none;
 }
+/*@media screen and (max-width: 1080px){*/
+/*    .profile-content {*/
+/*        grid-area: prof-content;*/
+/*        display: grid;*/
+/*        grid-template-columns: repeat(3, minmax(250px, 390px));*/
+/*        grid-gap: 20px;*/
+/*        grid-auto-flow: dense;*/
+/*        height: max-content;*/
+/*        margin: 20px;*/
+/*        text-align: center;*/
+/*    }*/
+/*}*/
 @media screen and (max-width: 1024px){
     .profile-section{
         display: grid;
@@ -138,6 +235,11 @@
         background-color: #1759bc42;
     }
 }
+@media screen and (max-width: 878px){
+    .profile-content {
+        grid-template-columns: repeat(3, minmax(235px, 390px));
+    }
+}
 @media screen and (max-width: 768px){
     .profile-section{
         display: grid;
@@ -151,9 +253,8 @@
     }
     .profile-content{
         grid-area: prof-content;
-        background-color: #f3f2f2;
-        height: 83vh;
-}
+        grid-template-columns: repeat(3, minmax(220px, 390px));
+    }
     .min-menu-bottom{
         display: flex;
         grid-area: min-menu-bottom;
@@ -175,7 +276,21 @@
         border-radius: 50%;
     }
 }
+@media screen and (max-width: 640px) {
+    .profile-content {
+        grid-template-columns: none;
+        display: flex;
+        flex-direction: column;
+    }
+}
 @media screen and (max-width: 440px) {
+    .profile-content{
+        grid-area: prof-content;
+        display: flex;
+        flex-flow: column;
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        padding: 0;
+    }
     .min-menu-bottom{
         display: flex;
         grid-area: min-menu-bottom;

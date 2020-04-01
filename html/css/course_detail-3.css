@@ -51,7 +51,7 @@ hr {
     content: "";
     position: absolute;
     bottom: -12px;
-    left: 0;
+    right: 0;
     width: 0;
     height: 4px;
     background: #465d81;
@@ -60,6 +60,7 @@ hr {
 
 .category-menu a:hover:before {
     width: 100%;
+    left: 0;
 }
 .fl-links{
     display: none;
